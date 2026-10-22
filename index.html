@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Whisky Shine 2026 - Seapower Trading Co., Ltd. 凱權貿易有限公司</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --brand-red: #C8102E;
+            --brand-red-light: #fff0f2;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Optimization for Mobile */
+        header {
+            background-color: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--brand-red);
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            height: 40px;
+        }
+
+        .company-logo {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .company-sub {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            line-height: 1.2;
+        }
+
+        .lang-btn {
+            background: #ffffff;
+            border: 1.5px solid var(--brand-red);
+            color: var(--brand-red);
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .lang-btn:active {
+            background-color: var(--brand-red);
+            color: #ffffff;
+        }
+
+        /* Container & Titles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .page-title-section {
+            margin-bottom: 16px;
+        }
+
+        .main-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--brand-red);
+            letter-spacing: 0.5px;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 12px 16px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.2s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--brand-red);
+        }
+
+        /* Responsive Scrollable Tabs */
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.85rem;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .tab-btn.active {
+            background: var(--brand-red);
+            color: #ffffff;
+            border-color: var(--brand-red);
+            font-weight: 700;
+        }
+
+        /* Grid Layout for Mobile & Desktop */
+        .whisky-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        @media (min-width: 600px) {
+            .whisky-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+        }
+
+        .card-img-container {
+            width: 100%;
+            height: 140px;
+            background-color: #fafafa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            overflow: hidden;
+            border: 1px solid #f0f0f0;
+        }
+
+        .card-img {
+            max-height: 90%;
+            max-width: 90%;
+            object-fit: contain;
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin: 0 0 2px 0;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .card-subtitle {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .price-badge-container {
+            background: var(--brand-red-light);
+            border: 1px solid rgba(200, 16, 46, 0.2);
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-label {
+            font-size: 0.68rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .price-value {
+            font-size: 0.88rem;
+            color: var(--brand-red);
+            font-weight: 800;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .tag {
+            background: #f3f4f6;
+            color: #4b5563;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Mobile Bottom Sheet Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(2px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        @media (min-width: 600px) {
+            .modal {
+                align-items: center;
+                padding: 20px;
+            }
+        }
+
+        .modal-content {
+            background: #ffffff;
+            border-top: 4px solid var(--brand-red);
+            border-radius: 16px 16px 0 0;
+            max-width: 520px;
+            width: 100%;
+            padding: 20px;
+            position: relative;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 -10px 25px rgba(0,0,0,0.15);
+            animation: slideUp 0.25s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        @media (min-width: 600px) {
+            .modal-content {
+                border-radius: 16px;
+                animation: none;
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #f3f4f6;
+            border: none;
+            color: var(--text-secondary);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .modal-product-shot {
+            width: 100%;
+            height: 180px;
+            background-color: #fafafa;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            border: 1px solid #f0f0f0;
+        }
+
+        .modal-product-shot img {
+            max-height: 90%;
+            max-width: 90%;
+            object-fit: contain;
+        }
+
+        .tasting-note-item {
+            margin-bottom: 10px;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .tasting-note-item strong {
+            color: var(--brand-red);
+            display: inline-block;
+            min-width: 60px;
+        }
+
+        /* Footer Responsive */
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+            padding: 20px 16px;
+            text-align: center;
+            font-size: 0.72rem;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+
+        /* Hide full company text on very small screens to avoid header break */
+        @media (max-width: 480px) {
+            .company-sub {
+                display: none;
+            }
+            .main-title {
+                font-size: 1.35rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="logo/logo.png" alt="Seapower Logo" class="company-logo" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 160 48\'><rect width=\'160\' height=\'48\' rx=\'6\' fill=\'%23C8102E\'/><text x=\'80\' y=\'30\' fill=\'%23ffffff\' font-family=\'Arial\' font-size=\'16\' font-weight=\'bold\' text-anchor=\'middle\'>SEAPOWER</text></svg>';">
+            <span class="company-sub">Seapower Trading Co., Ltd. 凱權貿易有限公司</span>
+        </div>
+        <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">繁體中文</button>
+    </header>
+
+    <div class="container">
+        <div class="page-title-section">
+            <h1 class="main-title">Whisky Shine 2026</h1>
+        </div>
+
+        <div class="controls">
+            <input type="text" id="searchInput" class="search-bar" placeholder="Search whisky name, code, flavor tags..." oninput="filterData()">
+            <div class="category-tabs" id="categoryTabs"></div>
+        </div>
+
+        <div class="whisky-grid" id="whiskyGrid"></div>
+    </div>
+
+    <!-- Modal Details -->
+    <div class="modal" id="detailModal" onclick="closeModalOnOverlay(event)">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            
+            <div class="modal-product-shot" id="modalImgContainer">
+                <img id="modalImg" src="" alt="Product Shot" loading="lazy">
+            </div>
+
+            <h2 id="modalTitle" style="color: var(--brand-red); margin: 0 0 4px 0; font-size: 1.15rem;"></h2>
+            <p id="modalSubtitle" style="color: var(--text-secondary); margin: 0 0 10px 0; font-size: 0.82rem;"></p>
+            
+            <div id="modalPrices" class="price-badge-container"></div>
+
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 12px 0;">
+            <div id="modalNotes"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-warning">
+            過量飲酒危害健康<br>
+            CONSUMIR BEBIDAS ALCOÓLICAS EM EXCESSO PREJUDICA A SAÚDE<br>
+            EXCESSIVE DRINKING OF ALCOHOLIC BEVERAGES IS HARMFUL TO HEALTH<br><br>
+            禁止向未滿十八歲人士銷售或提供酒精飲料<br>
+            A VENDA OU DISPONIBILIZAÇÃO DE BEBIDAS ALCOÓLICAS A MENORES DE 18 ANOS É PROIBIDA<br>
+            THE SALE OR SUPPLY OF ALCOHOLIC BEVERAGES TO ANYONE UNDER THE AGE OF 18 IS PROHIBITED
+        </div>
+        <div class="footer-disclaimer">
+            圖片只供參考 / IMAGE FOR REFERENCE ONLY.
+        </div>
+    </footer>
+
+    <script>
+        const defaultBottleSVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 200' width='100' height='200'><path d='M40 10 h20 v20 h10 l10 30 v120 h-60 v-120 l10 -30 v-20 z' fill='%23e5e7eb' stroke='%239ca3af' stroke-width='2'/><rect x='35' y='80' width='30' height='50' fill='%23C8102E' rx='3'/><text x='50' y='110' fill='%23ffffff' font-size='8' font-weight='bold' text-anchor='middle'>WHISKY</text></svg>";
+
+// Full 28 Whisky Database matched with exact filenames from screenshot
+        const whiskies = [
+            {
+                code: "SMTHEABER12QT",
+                region: "Scotch",
+                img: "images/SMTHEABER12QT.JPG",
+                name_en: "The Aberlour 12 Year Old Single Malt Scotch Whisky",
+                name_zh: "亞伯樂12年單一麥芽蘇格蘭威士忌",
+                glass: "MOP25",
+                bottle: "MOP390",
+                style_en: "Double Cask Matured (Oak & Sherry), balanced and fruity.",
+                style_zh: "雙桶熟成（美國白橡木桶與雪莉桶），平衡、圓潤且果香濃郁。",
+                tags_en: ["Red Apple", "Honey", "Black Fig", "Vanilla"],
+                tags_zh: ["紅蘋果", "蜂蜜", "黑無花果", "香草"],
+                notes_en: { nose: "Red apples, golden honey, black figs, blueberries.", palate: "Sweet blackberries, rich honey, raisins, vanilla, cashew.", finish: "Warm and long with nutmeg, cinnamon, and tropical fruit." },
+                notes_zh: { nose: "紅蘋果、蜂蜜、黑無花果、藍莓與微量橡木香。", palate: "甜黑莓、濃郁蜂蜜、葡萄乾、香草與腰果微香。", finish: "溫和而悠長，帶有肉豆蔻、肉桂與熱帶水果甜味。" }
+            },
+            {
+                code: "SMGLENLIE12QT",
+                region: "Scotch",
+                img: "images/SMGLENLIE12QT.JPG",
+                name_en: "The Glenlivet 'Excellence' 12 Year Old Single Malt Whisky",
+                name_zh: "格蘭威特12年醇萃單一麥芽威士忌",
+                glass: "免費試飲 Free",
+                bottle: "MOP290",
+                style_en: "Double Cask Matured (European & American Oak), smooth & floral.",
+                style_zh: "雙桶熟成（歐洲橡木桶與美國橡木桶），輕柔優雅、果香明亮。",
+                tags_en: ["Banana", "Pineapple", "Floral", "Vanilla"],
+                tags_zh: ["香蕉", "鳳梨", "夏日花香", "香草"],
+                notes_en: { nose: "Banana, pineapple, summer meadow floral, tropical fruits.", palate: "Sweet peach, pear, vanilla, toffee, and creamy texture.", finish: "Smooth, delicate, and lingering." },
+                notes_zh: { nose: "香蕉、鳳梨、夏日草地花香與熱帶水果。", palate: "蜜桃、西洋梨的甜果香，伴隨香草、太妃糖與奶油感。", finish: "滑順、細緻且持久。" }
+            },
+            {
+                code: "SMGLENLI15QT",
+                region: "Scotch",
+                img: "images/SMGLENLI15QT.JPG",
+                name_en: "The Glenlivet 15 Year Old Single Malt Whisky",
+                name_zh: "格蘭威特15年單一麥芽威士忌",
+                glass: "MOP25",
+                bottle: "MOP420",
+                style_en: "French Limousin Oak Finish with rich spices.",
+                style_zh: "法國利穆森橡木桶過桶，帶有獨特辛香料與深邃木質結構。",
+                tags_en: ["Butter Toffee", "Spiced Pear", "Citrus", "Almond"],
+                tags_zh: ["奶油太妃糖", "香料洋梨", "柑橘果醬", "杏仁"],
+                notes_en: { nose: "Creamy toffee, spiced pear, citrus marmalade.", palate: "Rich ripe fruits, winter spices, oak spice.", finish: "Warm with almonds and malty sweetness." },
+                notes_zh: { nose: "奶油太妃糖、香料洋梨與柑橘果醬。", palate: "濃郁的熟果、冬日香料與橡木辛香。", finish: "溫暖帶有杏仁與麥芽甜香。" }
+            },
+            {
+                code: "SWCPDN18QT",
+                region: "Scotch",
+                img: "images/SWCPDN18QT.JPG",
+                name_en: "Caperdonich 18 Y.O. Scotch Whisky",
+                name_zh: "凱普多尼18年單一麥芽蘇格蘭威士忌",
+                glass: "MOP75",
+                bottle: "MOP1,100",
+                style_en: "Peated Speyside Single Malt, rare silent distillery.",
+                style_zh: "泥煤型斯貝賽單一麥芽，關廠失傳酒廠，強勁且層次豐富。",
+                tags_en: ["Peat Smoke", "Green Apple", "Brown Sugar", "Orange Peel"],
+                tags_zh: ["泥煤煙燻", "青蘋果", "黑糖", "橙皮"],
+                notes_en: { nose: "Peat smoke, orchard green apples, brown sugar, orange peel.", palate: "Rich oiliness, apple, ginger, orange peel, sweet brown sugar.", finish: "Long finish with warm black pepper spice." },
+                notes_zh: { nose: "泥煤煙燻、果園青蘋果、黑糖與橙皮香。", palate: "油脂感重，濃郁蘋果、生薑、橙皮與黑糖甜味。", finish: "長尾韻，微辛辣的黑胡椒與胡椒溫熱感。" }
+            },
+            {
+                code: "SWCPDN21QT",
+                region: "Scotch",
+                img: "images/SWCPDN21QT.JPG",
+                name_en: "Caperdonich 21 Y.O. Scotch Whisky",
+                name_zh: "凱普多尼21年單一麥芽蘇格蘭威士忌",
+                glass: "MOP150",
+                bottle: "MOP2,250",
+                style_en: "Unpeated high-age Speyside, smooth & delicate.",
+                style_zh: "無泥煤高年份經典斯貝賽風格，極其稀有且細緻。",
+                tags_en: ["Citrus", "Liquorice", "Vanilla", "Floral"],
+                tags_zh: ["柑橘", "甘草", "香草", "花香"],
+                notes_en: { nose: "Citrus, liquorice, vanilla intertwined with floral notes.", palate: "Gentle herbal, vanilla, ripe fruits, soft sweet oak.", finish: "Smooth and elegant with mild sweet oak and spice." },
+                notes_zh: { nose: "柑橘、甘草、香草與花香交織。", palate: "溫和的草本、香草、熟果與微甜木質香。", finish: "滑順優雅，帶著微甜橡木與香料尾韻。" }
+            },
+            {
+                code: "SWGK21QT",
+                region: "Scotch",
+                img: "images/SWGK21QT.JPG",
+                name_en: "Glen Keith 21 Y.O. Scotch Whisky",
+                name_zh: "格蘭凱斯 21年單一麥芽蘇格蘭威士忌",
+                glass: "MOP100",
+                bottle: "MOP1,380",
+                style_en: "Selected oak cask aged, summer fruit & nutty notes.",
+                style_zh: "嚴選橡木桶熟成，呈現極富代表性的夏日果香與堅果調性。",
+                tags_en: ["Peach", "Pineapple", "Toasted Almond", "Malt"],
+                tags_zh: ["水蜜桃", "熱帶鳳梨", "烤杏仁", "奶油麥芽"],
+                notes_en: { nose: "Ripe peach, tropical pineapple, toasted almond aromas.", palate: "Juicy summer fruits, sweet peach, creamy malt.", finish: "Elegant finish with toasted nuts and fruity sweetness." },
+                notes_zh: { nose: "成熟水蜜桃、熱帶鳳梨與烤杏仁香氣。", palate: "多汁夏日水果、香甜水蜜桃與奶油麥芽。", finish: "優雅烤堅果與水果甜味結尾。" }
+            },
+            {
+                code: "SWGK25QT",
+                region: "Scotch",
+                img: "images/SWGK25QT.JPG",
+                name_en: "Glen Keith 25 Y.O. Scotch Whisky",
+                name_zh: "格蘭凱斯 25年單一麥芽蘇格蘭威士忌",
+                glass: "MOP200",
+                bottle: "MOP3,000",
+                style_en: "Rare high-age single malt, deep and complex.",
+                style_zh: "珍稀高年份威士忌，風味極其深邃且權威具層次。",
+                tags_en: ["Orange Peel", "Marzipan", "Fig", "Gingerbread"],
+                tags_zh: ["橙皮", "杏仁軟糖", "無花果", "薑餅"],
+                notes_en: { nose: "Orange peel, marzipan, ripe fig, soft floral notes.", palate: "Rich gingerbread, honey, dark chocolate, dried tropical fruit.", finish: "Long, gentle spice and sweet oak finish." },
+                notes_zh: { nose: "橙皮、杏仁軟糖、成熟無花果與淡花香。", palate: "濃郁薑餅、蜂蜜、黑巧克力與熱帶乾果。", finish: "悠長、溫和的香料與木質甜香。" }
+            },
+            {
+                code: "SWLM18QT",
+                region: "Scotch",
+                img: "images/SWLM18QT.JPG",
+                name_en: "Longmorn 18 Y.O. Scotch Whisky",
+                name_zh: "朗摩18年單一麥芽蘇格蘭威士忌",
+                glass: "MOP75",
+                bottle: "MOP980",
+                style_en: "American oak & first-fill Sherry cask matured.",
+                style_zh: "美式橡木桶與初次充填雪莉桶，經典斯貝賽靈魂款。",
+                tags_en: ["Mango", "Peach", "Butter Toffee", "Chocolate"],
+                tags_zh: ["芒果", "水蜜桃", "奶油太妃糖", "巧克力"],
+                notes_en: { nose: "Mango, peach, butter toffee, bitter orange peel.", palate: "Smooth toffee, chocolate, vanilla, mature tropical fruits.", finish: "Smooth, long with subtle oak spice." },
+                notes_zh: { nose: "芒果、水蜜桃、奶油太妃糖與苦橙皮。", palate: "滑順的太妃糖、巧克力、香草與成熟熱帶水果。", finish: "滑順、悠長且帶有些許橡木辛香。" }
+            },
+            {
+                code: "SWLM23QT",
+                region: "Scotch",
+                img: "images/SWLM23QT.JPG",
+                name_en: "Longmorn 23 Y.O. Scotch Whisky",
+                name_zh: "朗摩23年單一麥芽蘇格蘭威士忌",
+                glass: "MOP200",
+                bottle: "MOP2,800",
+                style_en: "Ultra-luxurious single malt, rich & silky.",
+                style_zh: "極致奢華單一麥芽，厚實且絲滑。",
+                tags_en: ["Soft Peach", "Coconut", "Citrus Jam", "Dark Chocolate"],
+                tags_zh: ["成熟軟桃", "椰子", "柑橘醬", "黑巧克力"],
+                notes_en: { nose: "Aged butterscotch, ripe soft peach, coconut, gingerbread.", palate: "Rich mouthfeel, citrus marmalade, dark chocolate.", finish: "Persistently long with refined wood and herbal aromas." },
+                notes_zh: { nose: "熟成牛奶糖、成熟軟桃、椰子與薑餅。", palate: "濃厚油脂感，帶有柑橘甜醬、熟成橙皮與苦甜巧克力。", finish: "持久綿長，帶有細緻的木質與草本香氣。" }
+            },
+            {
+                code: "SMGLENGR18QT",
+                region: "Scotch",
+                img: "images/SMGLENGR18QT.JPG",
+                name_en: "Glen Grant 18 Year Old Single Malt Whisky Qt.",
+                name_zh: "格蘭冠18年單一麥芽威士忌(大號)",
+                glass: "MOP50",
+                bottle: "MOP620",
+                style_en: "Award-winning elegant and mature fruity profile.",
+                style_zh: "曾獲《威士忌聖經》最佳威士忌殊榮，優雅成熟果香。",
+                tags_en: ["Floral", "Malty Caramel", "Raisin", "Nuts"],
+                tags_zh: ["花香", "麥芽焦糖", "葡萄乾", "堅果"],
+                notes_en: { nose: "Delicate floral, malty toffee, raisin aromas.", palate: "Vanilla, caramel, spiced pear, butter biscuit.", finish: "Long lasting, sweet with nutty spices." },
+                notes_zh: { nose: "細緻花香、麥芽太妃糖與葡萄乾香氣。", palate: "香草、焦糖、香料洋梨與奶油餅乾。", finish: "長效香甜，帶有堅果香。" }
+            },
+            {
+                code: "SMGLENGR21QT",
+                region: "Scotch",
+                img: "images/SMGLENGR21QT.PNG",
+                name_en: "Glen Grant 21 Year Old Single Malt Whisky Qt.",
+                name_zh: "格蘭冠21年單一麥芽威士忌(大號)",
+                glass: "MOP100",
+                bottle: "MOP1,600",
+                style_en: "Luxurious tropical fruit & creamy profile.",
+                style_zh: "極致奢華，充分展示熟成熱帶水果與奶油風格。",
+                tags_en: ["Peach", "Toffee", "Mango", "Crème Brûlée"],
+                tags_zh: ["水蜜桃", "太妃糖", "芒果", "焦糖布蕾"],
+                notes_en: { nose: "Ripe peach, toffee, raisins.", palate: "Explosive tropical fruits (mango, passion fruit) and rich cream.", finish: "Crème brûlée-like sweet lingering finish." },
+                notes_zh: { nose: "成熟水蜜桃、太妃糖與葡萄乾。", palate: "爆發性的熱帶水果風味（如芒果、百香果）與濃郁奶油香氣。", finish: "焦糖布蕾般的持久甜美尾韻。" }
+            },
+            {
+                code: "SMGLENGR801602QT-06",
+                region: "Scotch",
+                img: "images/SMGLENGR801602QT-06.JPG",
+                name_en: "Glen Grant Private Cask (Macau 24 Limited Edition) Qt.",
+                name_zh: "格蘭冠2006年原桶單一麥芽威士忌80160-澳門2024特別版 (大號)",
+                glass: "MOP100",
+                bottle: "MOP1,500",
+                style_en: "Single Cask Strength, customized Macau exclusive edition.",
+                style_zh: "單桶原酒（Single Cask Strength），專為澳門地區定制的限定版。",
+                tags_en: ["Dried Fruits", "Dark Sugar", "Nuts", "Dark Chocolate"],
+                tags_zh: ["乾果", "黑糖", "堅果", "黑巧克力"],
+                notes_en: { nose: "Rich dried fruit, floral honey, dark sugar, old oak.", palate: "Heavy texture, nuts, candied citrus, dark chocolate, spices.", finish: "Strong and long, full of wood tannins and dried fruit sweetness." },
+                notes_zh: { nose: "濃郁乾果、花蜜、濃縮黑糖與老橡木香。", palate: "油脂厚重，帶有堅果、糖漬柑橘、黑巧克力與辛香料。", finish: "強烈且持久，充滿木質單寧與果乾甜感。" }
+            },
+            {
+                code: "SMGLE25QTXX",
+                region: "Scotch",
+                img: "images/SMGLE25QTXX.JPG",
+                name_en: "Glenfarclas 25 Year Old Single Malt Whisky",
+                name_zh: "格蘭花格25年單一麥芽威士忌",
+                glass: "MOP100",
+                bottle: "MOP1,400",
+                style_en: "100% Oloroso Sherry Casks matured, deep & powerful.",
+                style_zh: "經典直火蒸餾與 100% Oloroso 雪莉桶熟成，極具深度。",
+                tags_en: ["Marmalade", "Coffee Bean", "Sherry", "Dark Chocolate"],
+                tags_zh: ["橘子醬", "現磨咖啡", "雪莉酒", "黑巧克力"],
+                notes_en: { nose: "Marmalade, honey, freshly ground coffee beans, sherry wine, nuts.", palate: "Full-bodied, sherry and oak tannins perfectly combined.", finish: "Extremely long and dry with Belgian dark chocolate aftertaste." },
+                notes_zh: { nose: "橘子醬、蜂蜜、現磨咖啡豆、雪莉酒與堅果香。", palate: "酒體飽滿，雪莉桶與橡木單寧風味完美交融，伴隨微弱煙燻感。", finish: "極度悠長且乾爽，後味帶有比利時黑巧克力風味。" }
+            },
+            {
+                code: "SWNIKFBHL",
+                region: "Japanese",
+                img: "images/SWNIKFBHL.JPG",
+                name_en: "Nikka From the Barrel Whisky",
+                name_zh: "日果Nikka From the Barrel威士忌",
+                glass: "MOP25",
+                bottle: "MOP260",
+                style_en: "Cask Strength 51.4% blended whisky, intense & rich.",
+                style_zh: "調和威士忌原酒（51.4%），高度融合麥芽與穀物威士忌強勁性格。",
+                tags_en: ["Vanilla", "Oak", "Clove", "Caramel Apple"],
+                tags_zh: ["香草", "橡木", "丁香辛香", "焦糖蘋果"],
+                notes_en: { nose: "Rich oak, vanilla, dark chocolate, orange peel, clove spice.", palate: "Heavy and intense, pepper, caramelised apple, peach, winter honey.", finish: "Long lasting with slight marine, plum and vanilla oak notes." },
+                notes_zh: { nose: "濃郁橡木香、香草、黑巧克力、橙皮與丁香辛香。", palate: "厚重濃郁，帶有胡椒辛香、焦糖蘋果、水蜜桃與冬蜜。", finish: "持久且微帶海洋風味、梅子與香草橡木感。" }
+            },
+            {
+                code: "SMTAKPMQT",
+                region: "Japanese",
+                img: "images/SMTAKPMQT.JPG",
+                name_en: "Taketsuru Pure Malt Whisky",
+                name_zh: "竹鶴純麥威士忌",
+                glass: "MOP25",
+                bottle: "MOP420",
+                style_en: "Blended Malt combining Yoichi power & Miyagikyo elegance.",
+                style_zh: "純麥威士忌（Blended Malt），兼具余市強勁與宮城峽柔美。",
+                tags_en: ["Citrus", "Pear", "Peat Smoke", "Dark Chocolate"],
+                tags_zh: ["柑橘", "西洋梨", "泥煤煙燻", "黑巧克力"],
+                notes_en: { nose: "Fresh citrus (orange, grapefruit), pear, subtle peat.", palate: "Smooth, cereal, cardamom spice, candied fruit.", finish: "Bittersweet dark chocolate with gentle peat smoke." },
+                notes_zh: { nose: "鮮明柑橘（柳橙、葡萄柚）、洋梨與微弱草本/泥煤香。", palate: "圓潤細致，帶有穀物、小荳蔻辛香與糖漬水果。", finish: "苦甜黑巧克力、橡木泥煤。" }
+            },
+            {
+                code: "SMYOISMQT",
+                region: "Japanese",
+                img: "images/SMYOISMQT.JPG",
+                name_en: "Yoichi Single Malt Whisky",
+                name_zh: "余市單一麥芽威士忌",
+                glass: "MOP25",
+                bottle: "MOP450",
+                style_en: "Direct coal-fired distillation, bold, coastal & peated.",
+                style_zh: "傳統直火煤炭蒸餾，展現強烈海風、泥煤與煙燻性格。",
+                tags_en: ["Peat Smoke", "Sea Salt", "Nut", "Melon"],
+                tags_zh: ["泥煤煙燻", "微咸海風", "堅果", "哈密瓜"],
+                notes_en: { nose: "Mellow peat smoke, sea salt, citrus jam, black liquorice.", palate: "Firm and strong, peat smoke, melon, kiwi, chocolate nuts.", finish: "Silky and long, herbal notes and coastal peat lingering." },
+                notes_zh: { nose: "醇厚煙燻泥煤、微咸海風、糖蜜柑橘、黑甘草。", palate: "結實強勁，帶有泥煤煙燻、堅果、黑巧克力與熱帶水果。", finish: "絲滑且極長，帶有草本與泥煤餘韻。" }
+            },
+            {
+                code: "SMYOI10QT",
+                region: "Japanese",
+                img: "images/SMYOI10QT.JPEG",
+                name_en: "Yoichi 10 Year Old Single Malt Whisky",
+                name_zh: "余市10年單一麥芽威士忌",
+                glass: "MOP50",
+                bottle: "MOP700",
+                style_en: "Aged Yoichi expression, peat meets refined oak.",
+                style_zh: "經典余市風格高年份版，泥煤與木質熟成香氣完美結合。",
+                tags_en: ["Honey", "Lemon Peel", "Soft Peat", "Bittersweet"],
+                tags_zh: ["奶油感", "檸檬皮", "收斂泥煤", "苦甜平衡"],
+                notes_en: { nose: "Soft creaminess, rose petals, lemon peel, clear oak.", palate: "Sweet and rounded, restrained peat, winter spices, nuts.", finish: "Long lasting with a beautiful bittersweet balance." },
+                notes_zh: { nose: "柔和奶油感、黃玫瑰花瓣、檸檬皮與清香橡木。", palate: "甜美圓潤，帶有收斂的泥煤、冬季辛香料與堅果味。", finish: "悠長且呈現美妙的苦甜平衡。" }
+            },
+            {
+                code: "SMMIYSMQT",
+                region: "Japanese",
+                img: "images/SMMIYSMQT.JPG",
+                name_en: "Miyagikyo Single Malt Whisky",
+                name_zh: "宮城峽單一麥芽威士忌",
+                glass: "MOP25",
+                bottle: "MOP420",
+                style_en: "Steam heated distillation, delicate, floral & fruity.",
+                style_zh: "蒸氣加熱蒸餾，呈現極其華麗、果香花香導向的輕柔風格。",
+                tags_en: ["Floral", "Peach", "Pear", "Honey Malt"],
+                tags_zh: ["優雅花香", "水蜜桃", "熟梨", "蜂蜜麥芽"],
+                notes_en: { nose: "Elegant floral aromas, malty notes, tropical fruit.", palate: "Lively with rounded herbal spices, peach, ripe pear, honey malt.", finish: "Refreshing and long with delicate tannins." },
+                notes_zh: { nose: "優雅花香、麥芽香氣與熱帶水果。", palate: "活潑且具圓潤草本辛香，帶有水蜜桃、熟梨與蜂蜜麥芽。", finish: "清爽悠長，伴隨細緻單寧。" }
+            },
+            {
+                code: "SWHIBABW100QT",
+                region: "Japanese",
+                img: "images/SWHIBABW100QT.JPG",
+                name_en: "Hibiki Anniversary Blend Whisky (100th Anniversary)",
+                name_zh: "響週年紀念調和威士忌(100週年)",
+                glass: "-",
+                bottle: "MOP5,300",
+                style_en: "100th Anniversary Edition featuring high Mizunara ratio.",
+                style_zh: "百年紀念限定版，以高比例水楢桶原酒調配，代表最高調和藝術。",
+                tags_en: ["Mizunara Oak", "Orchid", "Pineapple", "White Chocolate"],
+                tags_zh: ["水楢木", "蘭花", "菠蘿", "白巧克力"],
+                notes_en: { nose: "Extremely elegant Mizunara oak, orchid, ripe pineapple.", palate: "Honey-like sweetness, peach, white chocolate, candied orange.", finish: "Elegantly long with Mizunara incense and faint spices." },
+                notes_zh: { nose: "透著極優雅的水楢木沈香、蘭花、熟成菠蘿與鳳梨。", palate: "蜂蜜般甜美、水蜜桃、白巧克力與糖漬橙皮。", finish: "優雅且無比綿長，帶有水楢木特殊的香氣與微微辛香。" }
+            },
+            {
+                code: "SWHIBIJHQT",
+                region: "Japanese",
+                img: "images/SWHIBIJHQT.JPG",
+                name_en: "Hibiki Japanese Harmony Whisky",
+                name_zh: "響日本和諧威士忌",
+                glass: "MOP50",
+                bottle: "MOP680",
+                style_en: "Classic Japanese Blended Whisky, harmonious & refined.",
+                style_zh: "經典日本調和威士忌，極度的和諧、透亮與精緻。",
+                tags_en: ["Rose", "Lychee", "Candied Orange", "Mizunara"],
+                tags_zh: ["玫瑰", "荔枝", "糖漬橙皮", "水楢木"],
+                notes_en: { nose: "Rose, lychee, rosemary, mature woodiness, sandalwood.", palate: "Honey sweetness, candied orange peel, white chocolate.", finish: "Subtle long finish with hints of Mizunara oak." },
+                notes_zh: { nose: "玫瑰、荔枝、迷迭香、熟成木香、檀香。", palate: "蜂蜜甜味、糖漬橙皮、白巧克力。", finish: "微弱日本水楢桶木質香。" }
+            },
+            {
+                code: "SWHAKDRQT",
+                region: "Japanese",
+                img: "images/SWHAKDRQT.JPG",
+                name_en: "The Hakushu Distiller's Reserve Single Malt Whisky",
+                name_zh: "白州單一麥芽威士忌",
+                glass: "MOP50",
+                bottle: "MOP680",
+                style_en: "Forest distillery whisky, fresh, green & subtly smoked.",
+                style_zh: "「森林系威士忌」，以綠意盎然的清新感與微煙燻著稱。",
+                tags_en: ["Peppermint", "Green Apple", "Yuzu", "Light Smoke"],
+                tags_zh: ["薄荷", "青蘋果", "柚子", "微煙燻"],
+                notes_en: { nose: "Peppermint, melon, cucumber, green foliage.", palate: "Yuzu, grapefruit, lemon thyme, crisp green fruits.", finish: "Clean with subtle gentle smoke." },
+                notes_zh: { nose: "薄荷、哈密瓜、小黃瓜。", palate: "柚子、葡萄柚、檸檬百里香。", finish: "隱約清煙燻感。" }
+            },
+            {
+                code: "SWTENPMQTGB",
+                region: "Japanese",
+                img: "images/SWTENPMQTGB.JPG",
+                name_en: "Tenjaku Japanese Pure Malt Whisky with Gift Box",
+                name_zh: "天雀日本純麥威士忌連盒",
+                glass: "MOP25",
+                bottle: "MOP350",
+                style_en: "Made with Mt. Fuji natural spring water, smooth & approachable.",
+                style_zh: "採用富士山系天然湧水釀造，平易近人、淡雅流暢。",
+                tags_en: ["Fresh Apple", "Fig", "Oatmeal", "Caramel"],
+                tags_zh: ["新鮮蘋果", "無花果", "燕麥餅乾", "焦糖"],
+                notes_en: { nose: "Fresh apple, fig, prune, clean cereal aroma.", palate: "Soft and smooth, oatmeal biscuit, cornflakes, butter caramel.", finish: "Medium length with pleasant oak and subtle spice." },
+                notes_zh: { nose: "新鮮蘋果、無花果、西梅與清新穀物香。", palate: "柔和順口，帶有燕麥餅乾、玉米片與奶油焦糖甜味。", finish: "中等長度，帶有香醇橡木與淡淡辛香。" }
+            },
+            {
+                code: "SMKAVSOSCSQT",
+                region: "Taiwanese",
+                img: "images/SMKAVSOSCSQT.JPG",
+                name_en: "Kavalan Solist Oloroso Sherry Single Cask Strength Single Malt Whisky",
+                name_zh: "噶瑪蘭經典獨奏Oloroso雪莉桶原酒單一麥芽威士忌",
+                glass: "MOP75",
+                bottle: "MOP1,080",
+                style_en: "Subtropical maturation, intense & rich Sherry cask strength.",
+                style_zh: "單桶原酒，亞熱帶熟成帶來極其濃郁爆發的雪莉桶風味。",
+                tags_en: ["Dried Fruit", "Marzipan", "Coffee", "Cherry"],
+                tags_zh: ["乾果", "杏仁糖", "黑咖啡", "黑櫻桃"],
+                notes_en: { nose: "Dried fruit, nuttiness, spices, marzipan.", palate: "Rich oiliness, candied fruits, dark chocolate, fine coffee.", finish: "Long lasting with black cherry, raisins and leather." },
+                notes_zh: { nose: "乾果、堅果、辛香料、杏仁糖蛋白糕。", palate: "豐厚油脂感，帶有蜜餞、黑巧克力與黑咖啡的豐富層次。", finish: "長久綿延，充斥黑櫻桃、葡萄乾與皮革香。" }
+            },
+            {
+                code: "SMKAVSBCSQT",
+                region: "Taiwanese",
+                img: "images/SMKAVSBCSQT.JPG",
+                name_en: "Kavalan Solist Vinho Barrique Cask Strength Single Malt Whisky",
+                name_zh: "噶瑪蘭經典獨奏VINHO酒桶威士忌原酒單一麥芽威士忌",
+                glass: "MOP75",
+                bottle: "MOP1,170",
+                style_en: "STR wine cask treated, World's Best Single Malt winner.",
+                style_zh: "採用重烘烤葡萄酒桶（STR），獲得多項世界威士忌冠軍。",
+                tags_en: ["Toasted Nuts", "Vanilla", "Blackberry", "Toasted Oak"],
+                tags_zh: ["烤堅果", "香草", "黑莓", "焦香橡木"],
+                notes_en: { nose: "Toasted nuts, vanilla, banana, citrus, rich blackberry.", palate: "Heavy body, dark chocolate, smoked cherry, cinnamon, toasted oak.", finish: "Warm and long with fruity tannins." },
+                notes_zh: { nose: "烤堅果、香草、香蕉、柑橘與豐富黑莓香。", palate: "酒體厚重，帶有黑巧克力、煙燻櫻桃、肉桂與焦香橡木。", finish: "長久溫暖，充滿水果單寧與木質甜香。" }
+            },
+            {
+                code: "SMKAV15YOQT",
+                region: "Taiwanese",
+                img: "images/SMKAV15YOQT.PNG",
+                name_en: "Kavalan 15YO Single Malt Whisky (2025 Edition)",
+                name_zh: "噶瑪蘭15年單一麥芽威士忌(2025版)",
+                glass: "MOP75",
+                bottle: "MOP1,180",
+                style_en: "High age subtropical single malt, ultimate rounded complexity.",
+                style_zh: "高年份亞熱帶熟成作品，展現高年份威士忌極致圓潤成熟度。",
+                tags_en: ["Caramel Apple", "Cinnamon Roll", "Longan", "Dark Chocolate"],
+                tags_zh: ["焦糖蘋果", "肉桂捲", "龍眼", "黑巧克力"],
+                notes_en: { nose: "Caramel apple mousse, chocolate, cinnamon roll, popcorn.", palate: "Bergamot, dried cranberry, longan, dark chocolate gelato.", finish: "Extremely long with tropical dried fruits and coffee." },
+                notes_zh: { nose: "焦糖蘋果慕斯、巧克力、肉桂捲、奶油爆米花。", palate: "佛手柑、蔓越莓乾、龍眼、黑巧克力冰淇淋。", finish: "極其長久，伴隨豐富的熱帶乾果與咖啡餘韻。" }
+            },
+            {
+                code: "SWSTARWATFDQT",
+                region: "Australian",
+                img: "images/SWSTARWATFDQT.JPG",
+                name_en: "Starward Two Fold Double Grain Whisky Qt.",
+                name_zh: "星世Two Fold雙穀物威士忌 (大號)",
+                glass: "MOP25",
+                bottle: "MOP390",
+                style_en: "Wheat & malt double grain aged in Australian red wine casks.",
+                style_zh: "小麥與麥芽雙穀物，全數於澳洲在地紅酒桶熟成，極具果香。",
+                tags_en: ["Red Berries", "Vanilla", "Banana Bread", "Red Wine"],
+                tags_zh: ["紅莓果", "香草", "香蕉麵包", "紅酒單寧"],
+                notes_en: { nose: "Bright tropical fruits, mixed red berries, vanilla, cereal.", palate: "Balanced red fruit and vanilla with a nice cereal backbone.", finish: "Delicate and long with mild wine tannins." },
+                notes_zh: { nose: "鮮豔紅莓、香草、香蕉麵包與烘烤橡木。", palate: "紅果實與香草平衡，帶有烤穀物骨架。", finish: "乾爽平衡，帶有柔和紅酒單寧感與辛香。" }
+            },
+            {
+                code: "SWALFREDHERQT",
+                region: "French",
+                img: "images/SWALFREDHERQT.PNG",
+                name_en: "Alfred Giraud Heritage Whisky Qt.",
+                name_zh: "阿爾弗雷得吉羅傳承系列威士忌 (大號)",
+                glass: "MOP100",
+                bottle: "MOP1,350",
+                style_en: "Triple Malt finished in rare extra old Cognac casks.",
+                style_zh: "法國三重麥芽調和，全程於干邑桶過桶熟成，頂級干邑工藝。",
+                tags_en: ["Brioche", "Toasted Malt", "Nutmeg", "French Pastry"],
+                tags_zh: ["奶油麵包", "烤麥芽", "肉豆蔻", "法式糕點"],
+                notes_en: { nose: "Buttery pastries, brioche, toasted malts.", palate: "Brioche, grassy notes, vanilla, nutmeg.", finish: "Slightly sweet finish from extra old cognac casks." },
+                notes_zh: { nose: "奶油糕點、法式奶油麵包、烤麥芽。", palate: "青草香、橡木、香草、肉豆蔻。", finish: "高齡干邑桶帶來的微甜香氣與優雅木質。" }
+            },
+            {
+                code: "SWALFREDVOYQT",
+                region: "French",
+                img: "images/SWALFREDVOYQT.JPG",
+                name_en: "Alfred Giraud Voyage Whisky Qt.",
+                name_zh: "阿爾弗雷得吉羅遠航系列威士忌 (大號)",
+                glass: "MOP100",
+                bottle: "MOP1,650",
+                style_en: "Exploration Range matured in Cognac & rare French wine casks.",
+                style_zh: "探索系列，結合干邑桶與法國珍稀葡萄酒桶熟成，極具法式浪漫。",
+                tags_en: ["White Flowers", "Crème Anglaise", "Honey", "Ripe Grape"],
+                tags_zh: ["白花花香", "蛋黃醬", "刺槐蜂蜜", "熟葡萄"],
+                notes_en: { nose: "White flowers, crème anglaise, acacia honey.", palate: "Ripe grapes, fresh flowers, peach, honey sweetness.", finish: "Complex and charming, harmonious flower and wood notes." },
+                notes_zh: { nose: "白花花香、英式蛋黃醬、刺槐蜂蜜。", palate: "熟葡萄、鮮花、水蜜桃與刺槐蜂蜜的精致甜美。", finish: "複雜而迷人，花甜與細致木質的和諧共鳴。" }
+            }
+        ];
+
+        const regions = {
+            en: { All: "All Regions", Scotch: "Scotch", Japanese: "Japanese", Taiwanese: "Taiwanese", Australian: "Australian", French: "French" },
+            zh: { All: "全部產區", Scotch: "蘇格蘭", Japanese: "日本", Taiwanese: "台灣", Australian: "澳洲", French: "法國" }
+        };
+
+        let currentLang = "en";
+        let currentRegion = "All";
+
+        window.onload = () => {
+            renderTabs();
+            renderGrid();
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === "en" ? "zh" : "en";
+            document.documentElement.lang = currentLang === "en" ? "en" : "zh-Hant";
+            document.getElementById("langToggle").innerText = currentLang === "en" ? "繁體中文" : "English";
+            document.getElementById("searchInput").placeholder = currentLang === "en" ? "Search whisky name, code, flavor tags..." : "搜尋威士忌名稱、編號、風味標籤...";
+            renderTabs();
+            renderGrid();
+        }
+
+        function renderTabs() {
+            const tabsContainer = document.getElementById("categoryTabs");
+            tabsContainer.innerHTML = "";
+            Object.keys(regions[currentLang]).forEach(key => {
+                const btn = document.createElement("button");
+                btn.className = `tab-btn ${currentRegion === key ? 'active' : ''}`;
+                btn.innerText = regions[currentLang][key];
+                btn.onclick = () => {
+                    currentRegion = key;
+                    renderTabs();
+                    renderGrid();
+                };
+                tabsContainer.appendChild(btn);
+            });
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById("whiskyGrid");
+            const searchKeyword = document.getElementById("searchInput").value.toLowerCase();
+            grid.innerHTML = "";
+
+            const filtered = whiskies.filter(item => {
+                const matchRegion = currentRegion === "All" || item.region === currentRegion;
+                const name = (currentLang === "en" ? item.name_en : item.name_zh).toLowerCase();
+                const code = item.code.toLowerCase();
+                const tags = (currentLang === "en" ? item.tags_en : item.tags_zh).join(" ").toLowerCase();
+                return matchRegion && (name.includes(searchKeyword) || code.includes(searchKeyword) || tags.includes(searchKeyword));
+            });
+
+            filtered.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.onclick = () => openModal(item);
+
+                const tagsHTML = (currentLang === "en" ? item.tags_en : item.tags_zh)
+                    .map(tag => `<span class="tag">${tag}</span>`).join("");
+
+                card.innerHTML = `
+                    <div class="card-img-container">
+                        <img src="${item.img}" class="card-img" alt="${item.name_en}" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='${defaultBottleSVG}';">
+                    </div>
+                    <div>
+                        <div class="card-header">
+                            <h3 class="card-title">${currentLang === "en" ? item.name_en : item.name_zh}</h3>
+                            <p class="card-subtitle">${currentLang === "en" ? item.name_zh : item.name_en}</p>
+                        </div>
+                        <div class="price-badge-container">
+                            <div class="price-item">
+                                <span class="price-label">${currentLang === "en" ? "Glass (15ml)" : "單杯 (15ml)"}</span>
+                                <span class="price-value">${item.glass}</span>
+                            </div>
+                            <div class="price-item" style="text-align: right;">
+                                <span class="price-label">${currentLang === "en" ? "Bottle Value" : "整支價值"}</span>
+                                <span class="price-value">${item.bottle}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tags">${tagsHTML}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterData() {
+            renderGrid();
+        }
+
+        function openModal(item) {
+            const modalImg = document.getElementById("modalImg");
+            modalImg.src = item.img;
+            modalImg.onerror = function() {
+                this.src = defaultBottleSVG;
+            };
+            
+            document.getElementById("modalTitle").innerText = currentLang === "en" ? item.name_en : item.name_zh;
+            document.getElementById("modalSubtitle").innerText = currentLang === "en" ? item.name_zh : item.name_en;
+
+            document.getElementById("modalPrices").innerHTML = `
+                <div class="price-item">
+                    <span class="price-label">${currentLang === "en" ? "Glass Tasting (15ml)" : "單杯提供容量 (15ml)"}</span>
+                    <span class="price-value">${item.glass}</span>
+                </div>
+                <div class="price-item" style="text-align: right;">
+                    <span class="price-label">${currentLang === "en" ? "Bottle Value Amount" : "整支價值金額"}</span>
+                    <span class="price-value">${item.bottle}</span>
+                </div>
+            `;
+
+            const notes = currentLang === "en" ? item.notes_en : item.notes_zh;
+            const style = currentLang === "en" ? item.style_en : item.style_zh;
+            
+            let notesHTML = `<div class="tasting-note-item"><strong>${currentLang === "en" ? "Style:" : "風格:"}</strong> ${style}</div>`;
+            if(notes.nose) notesHTML += `<div class="tasting-note-item"><strong>${currentLang === "en" ? "Nose:" : "香氣:"}</strong> ${notes.nose}</div>`;
+            if(notes.palate) notesHTML += `<div class="tasting-note-item"><strong>${currentLang === "en" ? "Palate:" : "口感:"}</strong> ${notes.palate}</div>`;
+            if(notes.finish) notesHTML += `<div class="tasting-note-item"><strong>${currentLang === "en" ? "Finish:" : "尾韻:"}</strong> ${notes.finish}</div>`;
+
+            document.getElementById("modalNotes").innerHTML = notesHTML;
+            document.getElementById("detailModal").style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            document.getElementById("detailModal").style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        function closeModalOnOverlay(e) {
+            if (e.target.id === "detailModal") {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
