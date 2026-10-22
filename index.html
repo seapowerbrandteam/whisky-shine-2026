@@ -166,7 +166,7 @@
             font-weight: 700;
         }
 
-        /* Grid Layout for Mobile & Desktop (Text-only cards without image space) */
+        /* Grid Layout for Mobile & Desktop */
         .whisky-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -215,31 +215,34 @@
             margin: 0;
         }
 
+        /* 改為上下疊加的價格排版 */
         .price-badge-container {
             background: var(--brand-red-light);
             border: 1px solid rgba(200, 16, 46, 0.2);
             border-radius: 8px;
-            padding: 8px 10px;
-            margin: 8px 0;
+            padding: 8px 12px;
+            margin: 10px 0;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column; /* 上下垂直排列 */
+            gap: 6px; /* 上下價格之間的間距 */
         }
 
         .price-item {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
         }
 
         .price-label {
-            font-size: 0.68rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
             text-transform: uppercase;
             font-weight: 600;
         }
 
         .price-value {
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             color: var(--brand-red);
             font-weight: 800;
         }
@@ -400,7 +403,7 @@
         <div class="whisky-grid" id="whiskyGrid"></div>
     </div>
 
-    <!-- Modal Details (Product Shot loaded only here) -->
+    <!-- Modal Details -->
     <div class="modal" id="detailModal" onclick="closeModalOnOverlay(event)">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">&times;</button>
@@ -918,7 +921,7 @@
                 const tagsHTML = (currentLang === "en" ? item.tags_en : item.tags_zh)
                     .map(tag => `<span class="tag">${tag}</span>`).join("");
 
-                // 首頁列表僅保留文字、價格與風味標籤，不載入任何圖片，達到極致加載速度
+                // 價格結構改為上下垂直排列
                 card.innerHTML = `
                     <div>
                         <div class="card-header">
@@ -930,7 +933,7 @@
                                 <span class="price-label">${currentLang === "en" ? "Glass (15ml)" : "單杯 (15ml)"}</span>
                                 <span class="price-value">${item.glass}</span>
                             </div>
-                            <div class="price-item" style="text-align: right;">
+                            <div class="price-item">
                                 <span class="price-label">${currentLang === "en" ? "Bottle Value" : "整支價值"}</span>
                                 <span class="price-value">${item.bottle}</span>
                             </div>
@@ -948,7 +951,7 @@
 
         function openModal(item) {
             const modalImg = document.getElementById("modalImg");
-            modalImg.src = item.img; // 點擊卡片彈出視窗時才開始載入對應圖片
+            modalImg.src = item.img;
             modalImg.onerror = function() {
                 this.src = defaultBottleSVG;
             };
@@ -956,12 +959,13 @@
             document.getElementById("modalTitle").innerText = currentLang === "en" ? item.name_en : item.name_zh;
             document.getElementById("modalSubtitle").innerText = currentLang === "en" ? item.name_zh : item.name_en;
 
+            // 彈窗內的價格也同步改為上下排列
             document.getElementById("modalPrices").innerHTML = `
                 <div class="price-item">
                     <span class="price-label">${currentLang === "en" ? "Glass Tasting (15ml)" : "單杯提供容量 (15ml)"}</span>
                     <span class="price-value">${item.glass}</span>
                 </div>
-                <div class="price-item" style="text-align: right;">
+                <div class="price-item">
                     <span class="price-label">${currentLang === "en" ? "Bottle Value Amount" : "整支價值金額"}</span>
                     <span class="price-value">${item.bottle}</span>
                 </div>
