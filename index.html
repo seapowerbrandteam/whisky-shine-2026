@@ -69,6 +69,12 @@
             line-height: 1.2;
         }
 
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .lang-btn {
             background: #ffffff;
             border: 1.5px solid var(--brand-red);
@@ -85,6 +91,36 @@
         .lang-btn:active {
             background-color: var(--brand-red);
             color: #ffffff;
+        }
+
+        /* Main View Navigation (Products / Brands Toggle) */
+        .view-nav {
+            display: flex;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 62px;
+            z-index: 90;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .view-nav-btn {
+            flex: 1;
+            padding: 12px 0;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .view-nav-btn.active {
+            color: var(--brand-red);
+            border-bottom-color: var(--brand-red);
         }
 
         /* Container & Titles */
@@ -215,7 +251,6 @@
             margin: 0;
         }
 
-        /* 改為上下疊加的價格排版 */
         .price-badge-container {
             background: var(--brand-red-light);
             border: 1px solid rgba(200, 16, 46, 0.2);
@@ -223,8 +258,8 @@
             padding: 8px 12px;
             margin: 10px 0;
             display: flex;
-            flex-direction: column; /* 上下垂直排列 */
-            gap: 6px; /* 上下價格之間的間距 */
+            flex-direction: column;
+            gap: 6px;
         }
 
         .price-item {
@@ -261,6 +296,102 @@
             border-radius: 4px;
             font-size: 0.7rem;
             font-weight: 600;
+        }
+
+        /* Brand Introductions Styling */
+        .brand-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .brand-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
+        .brand-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .brand-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-card-logo-wrap {
+            height: 48px;
+            width: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-shrink: 0;
+        }
+
+        .brand-card-logo {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .brand-card-title-group {
+            flex: 1;
+        }
+
+        .brand-card-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .brand-card-region {
+            font-size: 0.75rem;
+            color: var(--brand-red);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .brand-card-desc {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .filter-products-btn {
+            background: var(--brand-red-light);
+            color: var(--brand-red);
+            border: 1px solid rgba(200, 16, 46, 0.3);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .filter-products-btn:active {
+            background: var(--brand-red);
+            color: #ffffff;
         }
 
         /* Mobile Bottom Sheet Modal */
@@ -368,6 +499,7 @@
             font-size: 0.72rem;
             color: #4b5563;
             line-height: 1.5;
+            margin-top: auto;
         }
 
         @media (max-width: 480px) {
@@ -387,20 +519,42 @@
             <img src="logo/logo.png" alt="Seapower Logo" class="company-logo" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 160 48\'><rect width=\'160\' height=\'48\' rx=\'6\' fill=\'%23C8102E\'/><text x=\'80\' y=\'30\' fill=\'%23ffffff\' font-family=\'Arial\' font-size=\'16\' font-weight=\'bold\' text-anchor=\'middle\'>SEAPOWER</text></svg>';">
             <span class="company-sub">Seapower Trading Co., Ltd. 凱權貿易有限公司</span>
         </div>
-        <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">繁體中文</button>
+        <div class="header-actions">
+            <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">繁體中文</button>
+        </div>
     </header>
 
-    <div class="container">
+    <!-- Main Navigation Tabs -->
+    <div class="view-nav">
+        <button class="view-nav-btn active" id="btnViewProducts" onclick="switchView('products')">產品列表 / Whiskies</button>
+        <button class="view-nav-btn" id="btnViewBrands" onclick="switchView('brands')">品牌介紹 / Brands</button>
+    </div>
+
+    <!-- Products View Container -->
+    <div class="container" id="productsView">
         <div class="page-title-section">
             <h1 class="main-title">Whisky Shine 2026</h1>
         </div>
 
         <div class="controls">
-            <input type="text" id="searchInput" class="search-bar" placeholder="Search whisky name, code, flavor tags..." oninput="filterData()">
+            <input type="text" id="searchInput" class="search-bar" placeholder="Search whisky name, code, flavor tags..." oninput="handleSearchInput('product')">
             <div class="category-tabs" id="categoryTabs"></div>
         </div>
 
         <div class="whisky-grid" id="whiskyGrid"></div>
+    </div>
+
+    <!-- Brands View Container -->
+    <div class="container" id="brandsView" style="display: none;">
+        <div class="page-title-section">
+            <h1 class="main-title" id="brandsTitle">Brand Introductions</h1>
+        </div>
+
+        <div class="controls">
+            <input type="text" id="brandSearchInput" class="search-bar" placeholder="Search brand name..." oninput="handleSearchInput('brand')">
+        </div>
+
+        <div class="brand-grid" id="brandGrid"></div>
     </div>
 
     <!-- Modal Details -->
@@ -438,6 +592,151 @@
 
     <script>
         const defaultBottleSVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 200' width='100' height='200'><path d='M40 10 h20 v20 h10 l10 30 v120 h-60 v-120 l10 -30 v-20 z' fill='%23e5e7eb' stroke='%239ca3af' stroke-width='2'/><rect x='35' y='80' width='30' height='50' fill='%23C8102E' rx='3'/><text x='50' y='110' fill='%23ffffff' font-size='8' font-weight='bold' text-anchor='middle'>WHISKY</text></svg>";
+        const defaultLogoSVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 48'><rect width='120' height='48' rx='6' fill='%23f3f4f6'/><text x='60' y='28' fill='%239ca3af' font-family='Arial' font-size='12' font-weight='bold' text-anchor='middle'>LOGO</text></svg>";
+
+        // Brand Introductions Data Source
+        const brandsData = [
+            {
+                id: "Auchentoshan",
+                logo: "logo/auchentoshan.png",
+                name_en: "Auchentoshan",
+                name_zh: "歐肯特軒 (Auchentoshan)",
+                region_en: "Lowlands, Scotland",
+                region_zh: "蘇格蘭低地",
+                desc_zh: "來自蘇格蘭低地的 Auchentoshan，以三次蒸餾工藝展現鮮明個性。品牌堅持每一滴威士忌均經三次蒸餾，塑造細緻柔順、易於親近的單一麥芽風格。從不同酒齡到多元桶型，其系列展現蒸餾工藝與橡木桶熟成之間的豐富變化。",
+                desc_en: "Hailing from Scotland’s Lowlands, Auchentoshan is distinguished by its commitment to triple distillation. Every drop is distilled three times, creating a refined, exceptionally smooth and approachable single malt. Across different ages and cask styles, its range explores the interplay between distillation and oak maturation."
+            },
+            {
+                id: "Benriach",
+                logo: "logo/benriach.jpg",
+                name_en: "Benriach",
+                name_zh: "班瑞克 (Benriach)",
+                region_en: "Speyside, Scotland",
+                region_zh: "蘇格蘭斯佩賽",
+                desc_zh: "Benriach 於 1898 年創立於蘇格蘭斯佩賽，以勇於探索風味的精神見稱。酒廠結合多元原酒風格與來自世界各地的橡木桶，創作層次豐富的單一麥芽威士忌。從無泥煤到煙燻風格，其系列呈現斯佩賽威士忌富於變化的一面。",
+                desc_en: "Founded in Speyside in 1898, Benriach is known for its adventurous approach to flavour. The distillery combines diverse spirit styles with an eclectic selection of casks sourced from around the world. From unpeated expressions to smoky styles, its single malts reveal a richly layered and imaginative side of Speyside whisky."
+            },
+            {
+                id: "Glen Grant",
+                logo: "logo/glen grant.png",
+                name_en: "Glen Grant",
+                name_zh: "格蘭冠 (Glen Grant)",
+                region_en: "Speyside, Scotland",
+                region_zh: "蘇格蘭斯佩賽",
+                desc_zh: "Glen Grant 於蘇格蘭斯佩賽釀造單一麥芽威士忌，將自然資源與蒸餾巧思融為一體。酒廠以高挑纖細的蒸餾器與淨化裝置塑造細緻酒液，再透過精心挑選的橡木桶熟成，展現對原料、工藝與時間的講究。",
+                desc_en: "Glen Grant brings together natural resources and ingenuity in distillation to craft single malt Scotch whisky in Speyside. Tall, slender stills fitted with purifiers help shape a delicate spirit, while maturation in carefully selected casks reflects the distillery’s attention to ingredients, craftsmanship and time."
+            },
+            {
+                id: "Glenfarclas",
+                logo: "logo/glenfarclas.png",
+                name_en: "Glenfarclas",
+                name_zh: "格蘭花格 (Glenfarclas)",
+                region_en: "Speyside, Scotland",
+                region_zh: "蘇格蘭斯佩賽",
+                desc_zh: "Glenfarclas 自 1865 年起由 Grant 家族擁有及經營，將家族傳承融入蘇格蘭單一麥芽威士忌的釀造之中。酒廠延續歷代相傳的製酒工藝，透過豐富的陳年系列，呈現耐心熟成賦予威士忌的深度與變化。",
+                desc_en: "Owned and managed by the Grant family since 1865, Glenfarclas places family heritage at the heart of its single malt Scotch whisky. Continuing a tradition of whisky-making passed down through generations, its extensive range of aged expressions reveals the depth and character that develop through patient maturation."
+            },
+            {
+                id: "Nikka",
+                logo: "logo/nikka.jpg",
+                name_en: "Nikka",
+                name_zh: "日果 (Nikka)",
+                region_en: "Japan",
+                region_zh: "日本",
+                desc_zh: "Nikka 由竹鶴政孝於 1934 年創立，源於他赴蘇格蘭學習威士忌釀造後，在日本實現理想的決心。品牌結合不同個性的麥芽與穀物威士忌，透過細膩調和及再入桶融合工藝，探索濃郁口感與和諧層次之間的平衡。",
+                desc_en: "Founded by Masataka Taketsuru in 1934, Nikka grew from his determination to bring the art of whisky-making he studied in Scotland to Japan. Combining malt and grain whiskies of contrasting character, the brand explores the balance between richness and harmony through meticulous blending and the art of marrying whiskies in cask."
+            },
+            {
+                id: "Taketsuru",
+                logo: "logo/taketsuru.png",
+                name_en: "Taketsuru",
+                name_zh: "竹鶴 (Taketsuru)",
+                region_en: "Japan",
+                region_zh: "日本",
+                desc_zh: "Taketsuru 以 Nikka 創辦人竹鶴政孝之名命名，承載他對理想威士忌的追求。系列融合余市麥芽的厚實力量與宮城峽麥芽的細緻優雅，透過精準調和，讓兩種鮮明個性達致和諧，呈現調和麥芽威士忌的平衡與層次。",
+                desc_en: "Named in honour of Nikka’s founder, Masataka Taketsuru, this blended malt whisky carries forward his pursuit of the ideal whisky. It brings together the robust character of Yoichi malt and the delicate elegance of Miyagikyo malt, balancing two distinctive personalities through precise blending to express harmony and complexity."
+            },
+            {
+                id: "Yoichi",
+                logo: "logo/yoichi.png",
+                name_en: "Yoichi",
+                name_zh: "余市 (Yoichi)",
+                region_en: "Hokkaido, Japan",
+                region_zh: "日本北海道",
+                desc_zh: "余市酒廠於 1934 年在北海道創立，是 Nikka 威士忌的發源地。創辦人竹鶴政孝選址於此，看中其與蘇格蘭相近的自然環境。酒廠延續傳統煤火直熱蒸餾，塑造酒體厚實、個性強勁的單一麥芽威士忌，展現鮮明泥煤與煙燻氣息。",
+                desc_en: "Established in Hokkaido in 1934, Yoichi is the birthplace of Nikka Whisky. Founder Masataka Taketsuru chose the location for natural conditions that reminded him of Scotland. Traditional direct coal-fired distillation continues to shape its bold, full-bodied single malts, known for their distinctive peaty and smoky character."
+            },
+            {
+                id: "Miyagikyo",
+                logo: "logo/miyagikyo.png",
+                name_en: "Miyagikyo",
+                name_zh: "宮城峽 (Miyagikyo)",
+                region_en: "Sendai, Japan",
+                region_zh: "日本仙台",
+                desc_zh: "宮城峽酒廠於 1969 年創立，坐落於仙台以西、森林與清流環抱的山谷之中。為釀造有別於余市的優雅風格，酒廠採用蒸汽間接加熱，配合特殊形制的蒸餾器，塑造柔和細緻的酒液，展現花香與果香交織的單一麥芽風格。",
+                desc_en: "Established in 1969, Miyagikyo sits in a forested valley west of Sendai, surrounded by clear streams. Designed to create an elegant contrast to Yoichi, the distillery uses indirect steam heating and distinctively shaped stills to produce a softer, more delicate spirit, revealing a graceful single malt style with floral and fruity notes."
+            },
+            {
+                id: "Hibiki",
+                logo: "logo/hibiki.png",
+                name_en: "Hibiki",
+                name_zh: "響 (Hibiki)",
+                region_en: "Japan",
+                region_zh: "日本",
+                desc_zh: "響於 1989 年面世，以精緻調和藝術詮釋日本自然與人文之間的和諧。品牌匯聚山崎、白州及知多三座酒廠的原酒，透過細膩選配，呈現優雅而富層次的風格。瓶身的二十四個切面呼應日本二十四節氣，將四季流轉與日本美學融入品飲體驗。",
+                desc_en: "Launched in 1989, Hibiki celebrates harmony between Japanese nature and craftsmanship through the art of blending. Bringing together whiskies from the Yamazaki, Hakushu and Chita distilleries, it expresses an elegant and richly layered character. Its distinctive 24-faceted bottle reflects Japan’s 24 seasonal divisions, connecting the changing seasons with Japanese design."
+            },
+            {
+                id: "Hakushu",
+                logo: "logo/hakushu.png",
+                name_en: "The Hakushu",
+                name_zh: "白州 (The Hakushu)",
+                region_en: "Yamanashi, Japan",
+                region_zh: "日本山梨縣",
+                desc_zh: "白州誕生於日本南阿爾卑斯山麓的森林酒廠，酒廠於 1973 年建立，以豐富自然環境與清澈軟水為釀造根本。多樣化蒸餾器與橡木桶孕育清新而富層次的單一麥芽威士忌，草本氣息與柔和煙燻相映，展現鮮明的森林風格。",
+                desc_en: "Hakushu originates from a forest distillery established in 1973 at the foothills of Japan’s Southern Alps. Its natural surroundings and clear, soft water lie at the heart of its whisky-making. A diverse range of stills and casks helps create fresh, layered single malts whose herbal notes and gentle smokiness evoke their forest home."
+            },
+            {
+                id: "Tenjaku",
+                logo: "logo/tenjaku.jpg",
+                name_en: "Tenjaku",
+                name_zh: "天雀 (Tenjaku)",
+                region_en: "Yamanashi, Japan",
+                region_zh: "日本山梨縣",
+                desc_zh: "Tenjaku 天雀以象徵春日的雲雀為名，追求純淨、柔和而親切的威士忌風格。其 Pure Malt 系列融合不同熟成年期的麥芽原酒，呈現細緻而豐富的層次，帶有堅果、淡淡青蘋果與清新草本氣息，並以柔和香草及木質餘韻延續品飲體驗。",
+                desc_en: "Named after the skylark, a herald of spring, Tenjaku seeks to create whisky with a pure, mellow and approachable character. Its Pure Malt expression brings together malt whiskies of different ages, offering delicate complexity with notes of nuts, green apple and fresh herbs, followed by a lingering finish of vanilla and subtle wood."
+            },
+            {
+                id: "Kavalan",
+                logo: "logo/kavalan.png",
+                name_en: "Kavalan",
+                name_zh: "噶瑪蘭 (Kavalan)",
+                region_en: "Yilan, Taiwan",
+                region_zh: "台灣宜蘭",
+                desc_zh: "來自台灣宜蘭的噶瑪蘭，自 2005 年起開拓台灣單一麥芽威士忌的釀造之路。品牌善用亞熱帶溫暖潮濕的氣候，讓酒液與橡木桶充分互動，孕育鮮明的熱帶水果風格。結合宜蘭水源與多元桶型，噶瑪蘭將台灣風土轉化為層次豐富的威士忌。",
+                desc_en: "Based in Yilan, Taiwan, Kavalan has been pioneering Taiwanese single malt whisky since 2005. The distillery embraces the island’s warm, humid subtropical climate, encouraging an expressive interaction between spirit and cask that helps shape its tropical fruit character. Combining Yilan’s water with diverse cask styles, Kavalan transforms its local environment into richly layered whisky."
+            },
+            {
+                id: "Starward",
+                logo: "logo/starward.jpg",
+                name_en: "Starward",
+                name_zh: "星世 (Starward)",
+                region_en: "Melbourne, Australia",
+                region_zh: "澳洲墨爾本",
+                desc_zh: "Starward 源自澳洲墨爾本，將當地飲食文化與澳洲葡萄酒傳統帶入威士忌世界。品牌以澳洲紅酒桶熟成建立鮮明特色，並探索不同穀物的風味可能。Two-Fold 結合小麥威士忌與單一麥芽威士忌，展現果香、香草與穀物氣息交織的親切風格。",
+                desc_en: "Born in Melbourne, Starward brings together the city’s food culture and Australia’s winemaking traditions. Known for maturation in Australian red wine barrels, the brand also explores the possibilities of different grains. Two-Fold combines wheat whisky and single malt whisky, creating an approachable expression with fruit, vanilla and cereal character."
+            },
+            {
+                id: "Alfred Giraud",
+                logo: "logo/alfred giraud.jpg",
+                name_en: "Alfred Giraud",
+                name_zh: "阿爾弗雷得吉羅 (Alfred Giraud)",
+                region_en: "France",
+                region_zh: "法國",
+                desc_zh: "Alfred Giraud 將 Giraud 家族逾百年的製桶、干邑調和與熟成經驗，延伸至法國麥芽威士忌。品牌以細膩調和及多元桶型塑造精緻層次，從老干邑桶到蘇玳甜酒桶與法國刺槐木桶，展現對傳統工藝的尊重，以及探索風味的創新精神。",
+                desc_en: "Alfred Giraud brings more than a century of the Giraud family’s expertise in cooperage, Cognac blending and maturation to French malt whisky. Meticulous blending and diverse cask styles—from old Cognac casks to Sauternes wine and French robinia casks—create refined layers of flavour, expressing both respect for traditional craftsmanship and a spirit of exploration."
+            }
+        ];
 
         const whiskies = [
            {
@@ -828,15 +1127,46 @@
         window.onload = () => {
             renderTabs();
             renderGrid();
+            renderBrands();
         };
+
+        function switchView(viewName) {
+            const productsView = document.getElementById("productsView");
+            const brandsView = document.getElementById("brandsView");
+            const btnProducts = document.getElementById("btnViewProducts");
+            const btnBrands = document.getElementById("btnViewBrands");
+
+            if (viewName === 'products') {
+                productsView.style.display = "block";
+                brandsView.style.display = "none";
+                btnProducts.classList.add("active");
+                btnBrands.classList.remove("active");
+            } else {
+                productsView.style.display = "none";
+                brandsView.style.display = "block";
+                btnProducts.classList.remove("active");
+                btnBrands.classList.add("active");
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         function toggleLanguage() {
             currentLang = currentLang === "en" ? "zh" : "en";
             document.documentElement.lang = currentLang === "en" ? "en" : "zh-Hant";
             document.getElementById("langToggle").innerText = currentLang === "en" ? "繁體中文" : "English";
+            
+            // Search placeholders
             document.getElementById("searchInput").placeholder = currentLang === "en" ? "Search whisky name, code, flavor tags..." : "搜尋威士忌名稱、編號、風味標籤...";
+            document.getElementById("brandSearchInput").placeholder = currentLang === "en" ? "Search brand name..." : "搜尋品牌名稱...";
+
+            // Tab Titles
+            document.getElementById("btnViewProducts").innerText = currentLang === "en" ? "Products List" : "產品列表";
+            document.getElementById("btnViewBrands").innerText = currentLang === "en" ? "Brand Introductions" : "品牌介紹";
+            document.getElementById("brandsTitle").innerText = currentLang === "en" ? "Brand Introductions" : "品牌介紹";
+
             renderTabs();
             renderGrid();
+            renderBrands();
         }
 
         function renderTabs() {
@@ -862,10 +1192,13 @@
 
             const filtered = whiskies.filter(item => {
                 const matchRegion = currentRegion === "All" || item.region === currentRegion;
-                const name = (currentLang === "en" ? item.name_en : item.name_zh).toLowerCase();
+                // [Fix 1] 同時對英文與中文名稱進行比對，確保使用英文品牌關鍵字（如 Hibiki）在中文模式下依然能查出產品
+                const nameEn = item.name_en.toLowerCase();
+                const nameZh = item.name_zh.toLowerCase();
                 const code = item.code.toLowerCase();
                 const tags = (currentLang === "en" ? item.tags_en : item.tags_zh).join(" ").toLowerCase();
-                return matchRegion && (name.includes(searchKeyword) || code.includes(searchKeyword) || tags.includes(searchKeyword));
+                
+                return matchRegion && (nameEn.includes(searchKeyword) || nameZh.includes(searchKeyword) || code.includes(searchKeyword) || tags.includes(searchKeyword));
             });
 
             filtered.forEach(item => {
@@ -876,7 +1209,6 @@
                 const tagsHTML = (currentLang === "en" ? item.tags_en : item.tags_zh)
                     .map(tag => `<span class="tag">${tag}</span>`).join("");
 
-                // 價格結構改為上下垂直排列
                 card.innerHTML = `
                     <div>
                         <div class="card-header">
@@ -900,7 +1232,81 @@
             });
         }
 
-        function filterData() {
+        function renderBrands() {
+            const brandGrid = document.getElementById("brandGrid");
+            const searchKeyword = document.getElementById("brandSearchInput").value.toLowerCase();
+            brandGrid.innerHTML = "";
+
+            const filteredBrands = brandsData.filter(b => {
+                const nameEn = b.name_en.toLowerCase();
+                const nameZh = b.name_zh.toLowerCase();
+                return nameEn.includes(searchKeyword) || nameZh.includes(searchKeyword) || b.id.toLowerCase().includes(searchKeyword);
+            });
+
+            filteredBrands.forEach(b => {
+                const brandCard = document.createElement("div");
+                brandCard.className = "brand-card";
+
+                const desc = currentLang === "en" ? b.desc_en : b.desc_zh;
+                const name = currentLang === "en" ? b.name_en : b.name_zh;
+                const region = currentLang === "en" ? b.region_en : b.region_zh;
+                const btnText = currentLang === "en" ? `View ${b.name_en} Whiskies` : `查看 ${b.name_zh.split(' ')[0]} 旗下產品`;
+
+                brandCard.innerHTML = `
+                    <div>
+                        <div class="brand-card-header">
+                            <div class="brand-card-logo-wrap">
+                                <img src="${b.logo}" alt="${b.name_en} Logo" class="brand-card-logo" onerror="this.onerror=null; this.src='${defaultLogoSVG}';">
+                            </div>
+                            <div class="brand-card-title-group">
+                                <h3 class="brand-card-name">${name}</h3>
+                                <div class="brand-card-region">${region}</div>
+                            </div>
+                        </div>
+                        <div class="brand-card-desc">${desc}</div>
+                    </div>
+                    <button class="filter-products-btn" onclick="filterByBrand('${b.id}')">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        ${btnText}
+                    </button>
+                `;
+                brandGrid.appendChild(brandCard);
+            });
+        }
+
+        // [Fix 2] 處理搜尋輸入與雙向同步清空重置邏輯
+        function handleSearchInput(source) {
+            const productInput = document.getElementById("searchInput");
+            const brandInput = document.getElementById("brandSearchInput");
+
+            if (source === 'product') {
+                // 當產品列表的搜尋欄被刪除至空值時，同時清空品牌搜尋欄並重刷品牌列表（恢復顯示全品牌）
+                if (productInput.value.trim() === "") {
+                    brandInput.value = "";
+                    renderBrands();
+                }
+                renderGrid();
+            } else if (source === 'brand') {
+                // 當品牌列表的搜尋欄被刪除至空值時，同時清空產品搜尋欄並重刷產品列表（恢復顯示全產品）
+                if (brandInput.value.trim() === "") {
+                    productInput.value = "";
+                    renderGrid();
+                }
+                renderBrands();
+            }
+        }
+
+        function filterByBrand(brandKeyword) {
+            // [Fix 1] 移除語言強制切換，保持原語言介面
+            switchView('products');
+            
+            currentRegion = "All";
+            renderTabs();
+
+            const searchInput = document.getElementById("searchInput");
+            
+            // 帶入該品牌 ID 作為關鍵字進行篩選
+            searchInput.value = brandKeyword;
             renderGrid();
         }
 
@@ -914,7 +1320,6 @@
             document.getElementById("modalTitle").innerText = currentLang === "en" ? item.name_en : item.name_zh;
             document.getElementById("modalSubtitle").innerText = currentLang === "en" ? item.name_zh : item.name_en;
 
-            // 彈窗內的價格也同步改為上下排列
             document.getElementById("modalPrices").innerHTML = `
                 <div class="price-item">
                     <span class="price-label">${currentLang === "en" ? "Glass Tasting (15ml)" : "單杯提供容量 (15ml)"}</span>
