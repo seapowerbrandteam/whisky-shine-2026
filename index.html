@@ -152,9 +152,17 @@
             margin-bottom: 20px;
         }
 
+        /* Search Wrapper with Clear Button */
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
         .search-bar {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px 40px 12px 16px;
             background: #ffffff;
             border: 1px solid var(--border-color);
             border-radius: 10px;
@@ -167,6 +175,30 @@
         .search-bar:focus {
             outline: none;
             border-color: var(--brand-red);
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            background: #e5e7eb;
+            color: #6b7280;
+            border: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: bold;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .clear-btn:hover {
+            background: var(--brand-red);
+            color: #ffffff;
         }
 
         /* Responsive Scrollable Tabs */
@@ -537,7 +569,10 @@
         </div>
 
         <div class="controls">
-            <input type="text" id="searchInput" class="search-bar" placeholder="Search whisky name, code, flavor tags..." oninput="handleSearchInput('product')">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Search whisky name, code, flavor tags..." oninput="handleSearchInput('product')">
+                <button class="clear-btn" id="clearProductSearch" onclick="clearInput('product')">&times;</button>
+            </div>
             <div class="category-tabs" id="categoryTabs"></div>
         </div>
 
@@ -551,7 +586,10 @@
         </div>
 
         <div class="controls">
-            <input type="text" id="brandSearchInput" class="search-bar" placeholder="Search brand name..." oninput="handleSearchInput('brand')">
+            <div class="search-wrapper">
+                <input type="text" id="brandSearchInput" class="search-bar" placeholder="Search brand name..." oninput="handleSearchInput('brand')">
+                <button class="clear-btn" id="clearBrandSearch" onclick="clearInput('brand')">&times;</button>
+            </div>
         </div>
 
         <div class="brand-grid" id="brandGrid"></div>
@@ -1187,12 +1225,16 @@
 
         function renderGrid() {
             const grid = document.getElementById("whiskyGrid");
-            const searchKeyword = document.getElementById("searchInput").value.toLowerCase();
+            const searchInput = document.getElementById("searchInput");
+            const searchKeyword = searchInput.value.toLowerCase();
+            
+            // 控制交叉清除按鈕顯示狀態
+            document.getElementById("clearProductSearch").style.display = searchKeyword ? "flex" : "none";
+
             grid.innerHTML = "";
 
             const filtered = whiskies.filter(item => {
                 const matchRegion = currentRegion === "All" || item.region === currentRegion;
-                // [Fix 1] 同時對英文與中文名稱進行比對，確保使用英文品牌關鍵字（如 Hibiki）在中文模式下依然能查出產品
                 const nameEn = item.name_en.toLowerCase();
                 const nameZh = item.name_zh.toLowerCase();
                 const code = item.code.toLowerCase();
@@ -1234,7 +1276,12 @@
 
         function renderBrands() {
             const brandGrid = document.getElementById("brandGrid");
-            const searchKeyword = document.getElementById("brandSearchInput").value.toLowerCase();
+            const brandInput = document.getElementById("brandSearchInput");
+            const searchKeyword = brandInput.value.toLowerCase();
+
+            // 控制交叉清除按鈕顯示狀態
+            document.getElementById("clearBrandSearch").style.display = searchKeyword ? "flex" : "none";
+
             brandGrid.innerHTML = "";
 
             const filteredBrands = brandsData.filter(b => {
@@ -1274,20 +1321,18 @@
             });
         }
 
-        // [Fix 2] 處理搜尋輸入與雙向同步清空重置邏輯
+        // 處理搜尋輸入與雙向同步清空重置邏輯
         function handleSearchInput(source) {
             const productInput = document.getElementById("searchInput");
             const brandInput = document.getElementById("brandSearchInput");
 
             if (source === 'product') {
-                // 當產品列表的搜尋欄被刪除至空值時，同時清空品牌搜尋欄並重刷品牌列表（恢復顯示全品牌）
                 if (productInput.value.trim() === "") {
                     brandInput.value = "";
                     renderBrands();
                 }
                 renderGrid();
             } else if (source === 'brand') {
-                // 當品牌列表的搜尋欄被刪除至空值時，同時清空產品搜尋欄並重刷產品列表（恢復顯示全產品）
                 if (brandInput.value.trim() === "") {
                     productInput.value = "";
                     renderGrid();
@@ -1296,16 +1341,28 @@
             }
         }
 
+        // 點擊「✕」按鈕清空文字
+        function clearInput(source) {
+            if (source === 'product') {
+                document.getElementById("searchInput").value = "";
+                document.getElementById("brandSearchInput").value = "";
+                renderGrid();
+                renderBrands();
+            } else if (source === 'brand') {
+                document.getElementById("brandSearchInput").value = "";
+                document.getElementById("searchInput").value = "";
+                renderBrands();
+                renderGrid();
+            }
+        }
+
         function filterByBrand(brandKeyword) {
-            // [Fix 1] 移除語言強制切換，保持原語言介面
             switchView('products');
             
             currentRegion = "All";
             renderTabs();
 
             const searchInput = document.getElementById("searchInput");
-            
-            // 帶入該品牌 ID 作為關鍵字進行篩選
             searchInput.value = brandKeyword;
             renderGrid();
         }
