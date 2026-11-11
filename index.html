@@ -556,10 +556,10 @@
         </div>
     </header>
 
-    <!-- Main Navigation Tabs -->
+    <!-- Main Navigation Tabs (Controlled by JS for language) -->
     <div class="view-nav">
-        <button class="view-nav-btn active" id="btnViewProducts" onclick="switchView('products')">產品列表 / Whiskies</button>
-        <button class="view-nav-btn" id="btnViewBrands" onclick="switchView('brands')">品牌介紹 / Brands</button>
+        <button class="view-nav-btn active" id="btnViewProducts" onclick="switchView('products')">Products List</button>
+        <button class="view-nav-btn" id="btnViewBrands" onclick="switchView('brands')">Brand Introductions</button>
     </div>
 
     <!-- Products View Container -->
@@ -579,7 +579,7 @@
         <div class="whisky-grid" id="whiskyGrid"></div>
     </div>
 
-    <!-- Brands View Container (Added Region Filter Tabs) -->
+    <!-- Brands View Container -->
     <div class="container" id="brandsView" style="display: none;">
         <div class="page-title-section">
             <h1 class="main-title" id="brandsTitle">Brand Introductions</h1>
@@ -713,8 +713,10 @@
             document.documentElement.lang = currentLang === "en" ? "en" : "zh-Hant";
             document.getElementById("langToggle").innerText = currentLang === "en" ? "繁體中文" : "English";
             
+            // Search placeholders
             document.getElementById("searchInput").placeholder = currentLang === "en" ? "Search whisky name, code, flavor tags..." : "搜尋威士忌名稱、編號、風味標籤...";
 
+            // Top View Nav Titles based on language
             document.getElementById("btnViewProducts").innerText = currentLang === "en" ? "Products List" : "產品列表";
             document.getElementById("btnViewBrands").innerText = currentLang === "en" ? "Brand Introductions" : "品牌介紹";
             document.getElementById("brandsTitle").innerText = currentLang === "en" ? "Brand Introductions" : "品牌介紹";
@@ -725,16 +727,13 @@
         }
 
         function renderTabs() {
-            // 渲染產品頁的產區 Tabs
             const tabsContainer = document.getElementById("categoryTabs");
             tabsContainer.innerHTML = "";
             
-            // 渲染品牌頁的產區 Tabs
             const brandTabsContainer = document.getElementById("brandCategoryTabs");
             brandTabsContainer.innerHTML = "";
 
             Object.keys(regions[currentLang]).forEach(key => {
-                // 產品分頁按鈕
                 const btn = document.createElement("button");
                 btn.className = `tab-btn ${currentRegion === key ? 'active' : ''}`;
                 btn.innerText = regions[currentLang][key];
@@ -746,7 +745,6 @@
                 };
                 tabsContainer.appendChild(btn);
 
-                // 品牌分頁按鈕
                 const brandBtn = document.createElement("button");
                 brandBtn.className = `tab-btn ${currentRegion === key ? 'active' : ''}`;
                 brandBtn.innerText = regions[currentLang][key];
