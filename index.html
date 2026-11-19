@@ -10,6 +10,9 @@
             --card-bg: #ffffff;
             --brand-red: #C8102E;
             --brand-red-light: #fff0f2;
+            --promo-gold: #b45309;
+            --promo-bg: #fffbeb;
+            --promo-border: rgba(217, 119, 6, 0.35);
             --text-primary: #1f2937;
             --text-secondary: #6b7280;
             --border-color: #e5e7eb;
@@ -31,6 +34,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            touch-action: manipulation;
         }
 
         /* Header Optimization for Mobile */
@@ -93,7 +97,7 @@
             color: #ffffff;
         }
 
-        /* Main View Navigation (Products / Brands Toggle) */
+        /* Main View Navigation (3 Tabs: Products / Special Offers / Brands) */
         .view-nav {
             display: flex;
             background: #ffffff;
@@ -106,9 +110,9 @@
 
         .view-nav-btn {
             flex: 1;
-            padding: 12px 0;
+            padding: 12px 4px;
             text-align: center;
-            font-size: 0.95rem;
+            font-size: 0.88rem;
             font-weight: 700;
             color: var(--text-secondary);
             background: none;
@@ -116,11 +120,18 @@
             border-bottom: 3px solid transparent;
             cursor: pointer;
             transition: all 0.2s ease;
+            white-space: nowrap;
         }
 
         .view-nav-btn.active {
             color: var(--brand-red);
             border-bottom-color: var(--brand-red);
+        }
+
+        .view-nav-btn.promo-nav-btn.active {
+            color: #b45309;
+            border-bottom-color: #d97706;
+            background-color: #fffdf5;
         }
 
         /* Container & Titles */
@@ -133,16 +144,36 @@
         }
 
         .page-title-section {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
         }
 
         .main-title {
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             font-weight: 800;
             color: var(--brand-red);
             letter-spacing: 0.5px;
             margin: 0;
             line-height: 1.2;
+        }
+
+        .promo-banner-note {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 1px solid #f59e0b;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 16px;
+            font-size: 0.84rem;
+            color: #92400e;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            line-height: 1.4;
         }
 
         .controls {
@@ -237,13 +268,13 @@
         /* Grid Layout for Mobile & Desktop */
         .whisky-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
             gap: 12px;
         }
 
         @media (min-width: 600px) {
             .whisky-grid {
-                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
                 gap: 20px;
             }
         }
@@ -259,10 +290,28 @@
             box-shadow: var(--shadow-sm);
             cursor: pointer;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
+            position: relative;
+        }
+
+        .card.promo-card {
+            border: 1.5px solid #f59e0b;
+            background: linear-gradient(180deg, #fffdf7 0%, #ffffff 35%);
         }
 
         .card:active {
             transform: scale(0.98);
+        }
+
+        .promo-ribbon {
+            display: inline-block;
+            background: #d97706;
+            color: #ffffff;
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
         }
 
         .card-header {
@@ -270,9 +319,9 @@
         }
 
         .card-title {
-            font-size: 0.95rem;
+            font-size: 0.94rem;
             font-weight: 700;
-            margin: 0 0 2px 0;
+            margin: 0 0 3px 0;
             color: var(--text-primary);
             line-height: 1.3;
         }
@@ -281,17 +330,65 @@
             font-size: 0.78rem;
             color: var(--text-secondary);
             margin: 0;
+            line-height: 1.3;
         }
 
         .price-badge-container {
             background: var(--brand-red-light);
             border: 1px solid rgba(200, 16, 46, 0.2);
             border-radius: 8px;
-            padding: 8px 12px;
+            padding: 8px 10px;
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .promo-pricing-group {
             margin: 10px 0;
             display: flex;
             flex-direction: column;
             gap: 6px;
+        }
+
+        .glass-tasting-strip {
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 7px;
+            padding: 6px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .glass-tasting-strip .price-label {
+            font-size: 0.72rem;
+            color: #4b5563;
+            font-weight: 700;
+        }
+
+        .glass-tasting-strip .price-value {
+            font-size: 0.86rem;
+            color: var(--text-primary);
+            font-weight: 800;
+        }
+
+        .bottle-offer-box {
+            background: var(--promo-bg);
+            border: 1px solid var(--promo-border);
+            border-radius: 8px;
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .bottle-offer-header {
+            font-size: 0.68rem;
+            font-weight: 800;
+            color: #b45309;
+            letter-spacing: 0.2px;
+            margin-bottom: 1px;
         }
 
         .price-item {
@@ -299,19 +396,32 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
+            gap: 4px;
         }
 
         .price-label {
             font-size: 0.7rem;
             color: var(--text-secondary);
-            text-transform: uppercase;
             font-weight: 600;
         }
 
         .price-value {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--brand-red);
             font-weight: 800;
+        }
+
+        .price-value.original-strike {
+            font-size: 0.78rem;
+            color: #9ca3af;
+            font-weight: 600;
+            text-decoration: line-through;
+        }
+
+        .price-value.promo-highlight {
+            font-size: 0.98rem;
+            color: #b45309;
+            font-weight: 900;
         }
 
         .tags {
@@ -541,6 +651,9 @@
             .main-title {
                 font-size: 1.35rem;
             }
+            .view-nav-btn {
+                font-size: 0.82rem;
+            }
         }
     </style>
 </head>
@@ -558,7 +671,8 @@
 
     <!-- Main Navigation Tabs (Controlled by JS for language) -->
     <div class="view-nav">
-        <button class="view-nav-btn active" id="btnViewProducts" onclick="switchView('products')">Products List</button>
+        <button class="view-nav-btn active" id="btnViewProducts" onclick="switchView('products')">Tasting Selection</button>
+        <button class="view-nav-btn promo-nav-btn" id="btnViewPromo" onclick="switchView('promo')">Special Offers</button>
         <button class="view-nav-btn" id="btnViewBrands" onclick="switchView('brands')">Brand Introductions</button>
     </div>
 
@@ -577,6 +691,28 @@
         </div>
 
         <div class="whisky-grid" id="whiskyGrid"></div>
+    </div>
+
+    <!-- Special Offers (活動優惠推介區) View Container -->
+    <div class="container" id="promoView" style="display: none;">
+        <div class="page-title-section">
+            <h1 class="main-title" id="promoTitle" style="color: #b45309;">Special Offers</h1>
+        </div>
+
+        <div class="promo-banner-note" id="promoBannerNote">
+            <span>★</span>
+            <span>Event Exclusive Bottle Offers — Enjoy special by-the-bottle prices alongside MOP10 tasting pours!</span>
+        </div>
+
+        <div class="controls">
+            <div class="search-wrapper">
+                <input type="text" id="promoSearchInput" class="search-bar" placeholder="Search special offer whiskies..." oninput="handlePromoSearchInput()">
+                <button class="clear-btn" id="clearPromoSearch" onclick="clearPromoInput()">&times;</button>
+            </div>
+            <div class="category-tabs" id="promoCategoryTabs"></div>
+        </div>
+
+        <div class="whisky-grid" id="promoGrid"></div>
     </div>
 
     <!-- Brands View Container -->
@@ -601,6 +737,7 @@
                 <img id="modalImg" src="" alt="Product Shot">
             </div>
 
+            <div id="modalPromoBadge"></div>
             <h2 id="modalTitle" style="color: var(--brand-red); margin: 0 0 4px 0; font-size: 1.15rem;"></h2>
             <p id="modalSubtitle" style="color: var(--text-secondary); margin: 0 0 10px 0; font-size: 0.82rem;"></p>
             
@@ -630,87 +767,301 @@
         const defaultLogoSVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 48'><rect width='120' height='48' rx='6' fill='%23f3f4f6'/><text x='60' y='28' fill='%239ca3af' font-family='Arial' font-size='12' font-weight='bold' text-anchor='middle'>LOGO</text></svg>";
 
         const brandsData = [
-            { id: "Aberlour", region: "Scotch", logo: "logo/aberlour.jpg", name_en: "The Aberlour", name_zh: "亞伯樂 (The Aberlour)", region_en: "Speyside, Scotland", region_zh: "蘇格蘭斯佩賽", desc_zh: "Aberlour 源自蘇格蘭斯佩賽，以世代傳承的釀造工藝與對橡木桶的細膩運用見稱。從雙桶熟成系列，到以原桶強度裝瓶的 A’bunadh，品牌探索美國橡木與雪莉桶賦予酒液的不同層次，展現濃郁果香、香料與細緻口感交織的單一麥芽風格。", desc_en: "Rooted in Scotland’s Speyside region, Aberlour is known for generations of whisky-making expertise and a meticulous approach to cask maturation. From its double-cask matured range to the cask-strength A’bunadh, the distillery explores the distinctive layers imparted by American oak and sherry casks, creating single malts that bring together rich fruit, spice and a refined texture." },
-            { id: "Auchentoshan", region: "Scotch", logo: "logo/auchentoshan.png", name_en: "Auchentoshan", name_zh: "歐肯特軒 (Auchentoshan)", region_en: "Lowlands, Scotland", region_zh: "蘇格蘭低地", desc_zh: "來自蘇格蘭低地的 Auchentoshan，以三次蒸餾工藝展現鮮明個性。品牌堅持每一滴威士忌均經三次蒸餾，塑造細緻柔順、易於親近的單一麥芽風格。從不同酒齡到多元桶型，其系列展現蒸餾工藝與橡木桶熟成之間的豐富變化。", desc_en: "Hailing from Scotland’s Lowlands, Auchentoshan is distinguished by its commitment to triple distillation. Every drop is distilled three times, creating a refined, exceptionally smooth and approachable single malt. Across different ages and cask styles, its range explores the interplay between distillation and oak maturation." },
-            { id: "Benriach", region: "Scotch", logo: "logo/benriach.jpg", name_en: "Benriach", name_zh: "班瑞克 (Benriach)", region_en: "Speyside, Scotland", region_zh: "蘇格蘭斯佩賽", desc_zh: "Benriach 於 1898 年創立於蘇格蘭斯佩賽，以勇於探索風味的精神見稱。酒廠結合多元原酒風格與來自世界各地的橡木桶，創作層次豐富的單一麥芽威士忌。從無泥煤到煙燻風格，其系列呈現斯佩賽威士忌富於變化的一面。", desc_en: "Founded in Speyside in 1898, Benriach is known for its adventurous approach to flavour. The distillery combines diverse spirit styles with an eclectic selection of casks sourced from around the world. From unpeated expressions to smoky styles, its single malts reveal a richly layered and imaginative side of Speyside whisky." },
-            { id: "Caperdonich", region: "Scotch", logo: "logo/caperdonich.png", name_en: "Caperdonich", name_zh: "凱普多尼 (Caperdonich)", region_en: "Speyside, Scotland", region_zh: "蘇格蘭斯佩賽", desc_zh: "Caperdonich 是蘇格蘭斯佩賽一座已消逝的酒廠，於 2002 年停止蒸餾，並於 2011 年拆卸。如今，其風格透過珍藏原酒及 Secret Speyside 系列延續。系列同時呈現泥煤與無泥煤兩種面貌，讓品飲者探索同一酒廠的不同個性，品味這段無法重現的釀造歷史。", desc_en: "Caperdonich is a vanished Speyside distillery that distilled its final single malt in 2002 and was dismantled in 2011. Its legacy lives on through remaining stocks, including releases in the Secret Speyside collection. With both peated and unpeated expressions, the range offers an opportunity to explore contrasting sides of the same distillery and experience a chapter of Scotch whisky history that can no longer be recreated." },
-            { id: "Glen Grant", region: "Scotch", logo: "logo/glen grant.png", name_en: "Glen Grant", name_zh: "格蘭冠 (Glen Grant)", region_en: "Speyside, Scotland", region_zh: "蘇格蘭斯佩賽", desc_zh: "Glen Grant 於蘇格蘭斯佩賽釀造單一麥芽威士忌，將自然資源與蒸餾巧思融為一體。酒廠以高挑纖細的蒸餾器與淨化裝置塑造細緻酒液，再透過精心挑選的橡木桶熟成，展現對原料、工藝與時間的講究。", desc_en: "Glen Grant brings together natural resources and ingenuity in distillation to craft single malt Scotch whisky in Speyside. Tall, slender stills fitted with purifiers help shape a delicate spirit, while maturation in carefully selected casks reflects the distillery’s attention to ingredients, craftsmanship and time." },
-            { id: "Glenfarclas", region: "Scotch", logo: "logo/glenfarclas.png", name_en: "Glenfarclas", name_zh: "格蘭花格 (Glenfarclas)", region_en: "Speyside, Scotland", region_zh: "蘇格蘭斯佩賽", desc_zh: "Glenfarclas 自 1865 年起由 Grant 家族擁有及經營，將家族傳承融入蘇格蘭單一麥芽威士忌的釀造之中。酒廠延續歷代相傳的製酒工藝，透過豐富的陳年系列，呈現耐心熟成賦予威士忌的深度與變化。", desc_en: "Owned and managed by the Grant family since 1865, Glenfarclas places family heritage at the heart of its single malt Scotch whisky. Continuing a tradition of whisky-making passed down through generations, its extensive range of aged expressions reveals the depth and character that develop through patient maturation." },
-            { id: "Nikka", region: "Japanese", logo: "logo/nikka.jpg", name_en: "Nikka", name_zh: "日果 (Nikka)", region_en: "Japan", region_zh: "日本", desc_zh: "Nikka 由竹鶴政孝於 1934 年創立，源於他赴蘇格蘭學習威士忌釀造後，在日本實現理想的決心。品牌結合不同個性的麥芽與穀物威士忌，透過細膩調和及再入桶融合工藝，探索濃郁口感與和諧層次之間的平衡。", desc_en: "Founded by Masataka Taketsuru in 1934, Nikka grew from his determination to bring the art of whisky-making he studied in Scotland to Japan. Combining malt and grain whiskies of contrasting character, the brand explores the balance between richness and harmony through meticulous blending and the art of marrying whiskies in cask." },
-            { id: "Taketsuru", region: "Japanese", logo: "logo/taketsuru.png", name_en: "Taketsuru", name_zh: "竹鶴 (Taketsuru)", region_en: "Japan", region_zh: "日本", desc_zh: "Taketsuru 以 Nikka 創辦人竹鶴政孝之名命名，承載他對理想威士忌的追求。系列融合余市麥芽的厚實力量與宮城峽麥芽的細緻優雅，透過精準調和，讓兩種鮮明個性達致和諧，呈現調和麥芽威士忌的平衡與層次。", desc_en: "Named in honour of Nikka’s founder, Masataka Taketsuru, this blended malt whisky carries forward his pursuit of the ideal whisky. It brings together the robust character of Yoichi malt and the delicate elegance of Miyagikyo malt, balancing two distinctive personalities through precise blending to express harmony and complexity." },
-            { id: "Yoichi", region: "Japanese", logo: "logo/yoichi.png", name_en: "Yoichi", name_zh: "余市 (Yoichi)", region_en: "Hokkaido, Japan", region_zh: "日本北海道", desc_zh: "余市酒廠於 1934 年在北海道創立，是 Nikka 威士忌的發源地。創辦人竹鶴政孝選址於此，看中其與蘇格蘭相近的自然環境。酒廠延續傳統煤火直熱蒸餾，塑造酒體厚實、個性強勁的單一麥芽威士忌，展現鮮明泥煤與煙燻氣息。", desc_en: "Established in Hokkaido in 1934, Yoichi is the birthplace of Nikka Whisky. Founder Masataka Taketsuru chose the location for natural conditions that reminded him of Scotland. Traditional direct coal-fired distillation continues to shape its bold, full-bodied single malts, known for their distinctive peaty and smoky character." },
-            { id: "Miyagikyo", region: "Japanese", logo: "logo/miyagikyo.png", name_en: "Miyagikyo", name_zh: "宮城峽 (Miyagikyo)", region_en: "Sendai, Japan", region_zh: "日本仙台", desc_zh: "宮城峽酒廠於 1969 年創立，坐落於仙台以西、森林與清流環抱的山谷之中。為釀造有別於余市的優雅風格，酒廠採用蒸汽間接加熱，配合特殊形制的蒸餾器，塑造柔和細緻的酒液，展現花香與果香交織的單一麥芽風格。", desc_en: "Established in 1969, Miyagikyo sits in a forested valley west of Sendai, surrounded by clear streams. Designed to create an elegant contrast to Yoichi, the distillery uses indirect steam heating and distinctively shaped stills to produce a softer, more delicate spirit, revealing a graceful single malt style with floral and fruity notes." },
-            { id: "Hibiki", region: "Japanese", logo: "logo/hibiki.png", name_en: "Hibiki", name_zh: "響 (Hibiki)", region_en: "Japan", region_zh: "日本", desc_zh: "響於 1989 年面世，以精緻調和藝術詮釋日本自然與人文之間的和諧。品牌匯聚山崎、白州及知多三座酒廠的原酒，透過細膩選配，呈現優雅而富層次的風格。瓶身的二十四個切面呼應日本二十四節氣，將四季流轉與日本美學融入品飲體驗。", desc_en: "Launched in 1989, Hibiki celebrates harmony between Japanese nature and craftsmanship through the art of blending. Bringing together whiskies from the Yamazaki, Hakushu and Chita distilleries, it expresses an elegant and richly layered character. Its distinctive 24-faceted bottle reflects Japan’s 24 seasonal divisions, connecting the changing seasons with Japanese design." },
-            { id: "Hakushu", region: "Japanese", logo: "logo/hakushu.png", name_en: "The Hakushu", name_zh: "白州 (The Hakushu)", region_en: "Yamanashi, Japan", region_zh: "日本山梨縣", desc_zh: "白州誕生於日本南阿爾卑斯山麓的森林酒廠，酒廠於 1973 年建立，以豐富自然環境與清澈軟水為釀造根本。多樣化蒸餾器與橡木桶孕育清新而富層次的單一麥芽威士忌，草本氣息與柔和煙燻相映，展現鮮明的森林風格。", desc_en: "Hakushu originates from a forest distillery established in 1973 at the foothills of Japan’s Southern Alps. Its natural surroundings and clear, soft water lie at the heart of its whisky-making. A diverse range of stills and casks helps create fresh, layered single malts whose herbal notes and gentle smokiness evoke their forest home." },
-            { id: "Tenjaku", region: "Japanese", logo: "logo/tenjaku.jpg", name_en: "Tenjaku", name_zh: "天雀 (Tenjaku)", region_en: "Yamanashi, Japan", region_zh: "日本山梨縣", desc_zh: "Tenjaku 天雀以象徵春日的雲雀為名，追求純淨、柔和而親切的威士忌風格。其 Pure Malt 系列融合不同熟成年期的麥芽原酒，呈現細緻而豐富的層次，帶有堅果、淡淡青蘋果與清新草本氣息，並以柔和香草及木質餘韻延續品飲體驗。", desc_en: "Named after the skylark, a herald of spring, Tenjaku seeks to create whisky with a pure, mellow and approachable character. Its Pure Malt expression brings together malt whiskies of different ages, offering delicate complexity with notes of nuts, green apple and fresh herbs, followed by a lingering finish of vanilla and subtle wood." },
-            { id: "Kavalan", region: "Taiwanese", logo: "logo/kavalan.png", name_en: "Kavalan", name_zh: "噶瑪蘭 (Kavalan)", region_en: "Yilan, Taiwan", region_zh: "台灣宜蘭", desc_zh: "來自台灣宜蘭的噶瑪蘭，自 2005 年起開拓台灣單一麥芽威士忌的釀造之路。品牌善用亞熱帶溫暖潮濕的氣候，讓酒液與橡木桶充分互動，孕育鮮明的熱帶水果風格。結合宜蘭水源與多元桶型，噶瑪蘭將台灣風土轉化為層次豐富的威士忌。", desc_en: "Based in Yilan, Taiwan, Kavalan has been pioneering Taiwanese single malt whisky since 2005. The distillery embraces the island’s warm, humid subtropical climate, encouraging an expressive interaction between spirit and cask that helps shape its tropical fruit character. Combining Yilan’s water with diverse cask styles, Kavalan transforms its local environment into richly layered whisky." },
-            { id: "Starward", region: "Australian", logo: "logo/starward.jpg", name_en: "Starward", name_zh: "星世 (Starward)", region_en: "Melbourne, Australia", region_zh: "澳洲墨爾本", desc_zh: "Starward 源自澳洲墨爾本，將當地飲食文化與澳洲葡萄酒傳統帶入威士忌世界。品牌以澳洲紅酒桶熟成建立鮮明特色，並探索不同穀物的風味可能。Two-Fold 結合小麥威士忌與單一麥芽威士忌，展現果香、香草與穀物氣息交織的親切風格。", desc_en: "Born in Melbourne, Starward brings together the city’s food culture and Australia’s winemaking traditions. Known for maturation in Australian red wine barrels, the brand also explores the possibilities of different grains. Two-Fold combines wheat whisky and single malt whisky, creating an approachable expression with fruit, vanilla and cereal character." },
-            { id: "Alfred Giraud", region: "French", logo: "logo/alfred giraud.jpg", name_en: "Alfred Giraud", name_zh: "阿爾弗雷得吉羅 (Alfred Giraud)", region_en: "France", region_zh: "法國", desc_zh: "Alfred Giraud 將 Giraud 家族逾百年的製桶、干邑調和與熟成經驗，延伸至法國麥芽威士忌。品牌以細膩調和及多元桶型塑造精緻層次，從老干邑桶到蘇玳甜酒桶與法國刺槐木桶，展現對傳統工藝的尊重，以及探索風味的創新精神。", desc_en: "Alfred Giraud brings more than a century of the Giraud family’s expertise in cooperage, Cognac blending and maturation to French malt whisky. Meticulous blending and diverse cask styles—from old Cognac casks to Sauternes wine and French robinia casks—create refined layers of flavour, expressing both respect for traditional craftsmanship and a spirit of exploration." }
+            {
+                id: "Aberlour",
+                region: "Scotch",
+                logo: "logo/aberlour.jpg",
+                name_en: "Aberlour",
+                name_zh: "亞伯樂 (Aberlour)",
+                region_en: "Speyside, Scotland",
+                region_zh: "蘇格蘭斯佩賽",
+                desc_zh: "Aberlour 源自蘇格蘭斯佩賽，以世代傳承的釀造工藝與對橡木桶的細膩運用見稱。從雙桶熟成系列，到以原桶強度裝瓶的 A’bunadh，品牌探索美國橡木與雪莉桶賦予酒液的不同層次，展現濃郁果香、香料與細緻口感交織的單一麥芽風格。",
+                desc_en: "Rooted in Scotland’s Speyside region, Aberlour is known for generations of whisky-making expertise and a meticulous approach to cask maturation. From its double-cask matured range to the cask-strength A’bunadh, the distillery explores the layers imparted by American oak and sherry casks, creating single malts that bring together rich fruit, spice and a refined texture."
+            },
+            {
+                id: "Caperdonich",
+                region: "Scotch",
+                logo: "logo/caperdonich.png",
+                name_en: "Caperdonich",
+                name_zh: "凱普多尼 (Caperdonich)",
+                region_en: "Speyside, Scotland",
+                region_zh: "蘇格蘭斯佩賽",
+                desc_zh: "Caperdonich 是蘇格蘭斯佩賽一座已消逝的酒廠，於 2002 年停止蒸餾，並於 2011 年拆卸。如今，其風格透過珍藏原酒及 Secret Speyside 系列延續。系列同時呈現泥煤與無泥煤兩種面貌，讓品飲者探索同一酒廠的不同個性，品味這段無法重現的釀造歷史。",
+                desc_en: "Caperdonich is a vanished Speyside distillery that distilled its final single malt in 2002 and was dismantled in 2011. Its legacy lives on through remaining stocks, including releases in the Secret Speyside collection. With both peated and unpeated expressions, the range offers an opportunity to explore contrasting sides of the same distillery and a chapter of Scotch whisky history."
+            },
+            {
+                id: "Glen Grant",
+                region: "Scotch",
+                logo: "logo/glen grant.png",
+                name_en: "Glen Grant",
+                name_zh: "格蘭冠 (Glen Grant)",
+                region_en: "Speyside, Scotland",
+                region_zh: "蘇格蘭斯佩賽",
+                desc_zh: "來自蘇格蘭斯佩賽的 Glen Grant，將自然資源與蒸餾巧思融為一體。酒廠以高挑纖細的蒸餾器與淨化裝置塑造細緻酒液，再透過精心挑選的橡木桶熟成，展現對原料、工藝與時間的講究，呈現優雅而富層次的單一麥芽威士忌風格。",
+                desc_en: "Glen Grant brings together natural resources and ingenuity in distillation to craft single malt Scotch whisky in Speyside. Tall, slender stills fitted with purifiers help shape a delicate spirit. Maturation in carefully selected casks reflects the distillery’s attention to ingredients, craftsmanship and time, revealing an elegant, layered style."
+            },
+            {
+                id: "Nikka",
+                region: "Japanese",
+                logo: "logo/nikka.jpg",
+                name_en: "Nikka",
+                name_zh: "日果 (Nikka)",
+                region_en: "Japan",
+                region_zh: "日本",
+                desc_zh: "Nikka 由竹鶴政孝於 1934 年創立，源於他赴蘇格蘭學習威士忌釀造後，在日本實現理想的決心。品牌結合不同個性的麥芽與穀物威士忌，透過細膩調和及再入桶融合工藝，探索濃郁口感與和諧層次之間的平衡。",
+                desc_en: "Founded by Masataka Taketsuru in 1934, Nikka grew from his determination to bring the art of whisky-making he studied in Scotland to Japan. Combining malt and grain whiskies of contrasting character, the brand explores the balance between richness and harmony through meticulous blending and the art of marrying whiskies in cask."
+            },
+            {
+                id: "Taketsuru",
+                region: "Japanese",
+                logo: "logo/taketsuru.png",
+                name_en: "Taketsuru",
+                name_zh: "竹鶴 (Taketsuru)",
+                region_en: "Japan",
+                region_zh: "日本",
+                desc_zh: "Taketsuru 以 Nikka 創辦人竹鶴政孝之名命名，承載他對理想威士忌的追求。系列融合余市麥芽的厚實力量與宮城峽麥芽的細緻優雅，透過精準調和，讓兩種鮮明個性達致和諧，呈現調和麥芽威士忌的平衡與層次。",
+                desc_en: "Named in honour of Nikka’s founder, Masataka Taketsuru, this blended malt whisky carries forward his pursuit of the ideal whisky. It brings together the robust character of Yoichi malt and the delicate elegance of Miyagikyo malt, balancing two distinctive personalities through precise blending to express harmony and complexity."
+            },
+            {
+                id: "Yoichi",
+                region: "Japanese",
+                logo: "logo/yoichi.png",
+                name_en: "Yoichi",
+                name_zh: "余市 (Yoichi)",
+                region_en: "Hokkaido, Japan",
+                region_zh: "日本北海道",
+                desc_zh: "余市酒廠於 1934 年在北海道創立，是 Nikka 威士忌的發源地。創辦人竹鶴政孝選址於此，看中其與蘇格蘭相近的自然環境。酒廠延續傳統煤火直熱蒸餾，塑造酒體厚實、個性強勁的單一麥芽威士忌，展現鮮明泥煤與煙燻氣息。",
+                desc_en: "Established in Hokkaido in 1934, Yoichi is the birthplace of Nikka Whisky. Founder Masataka Taketsuru chose the location for natural conditions that reminded him of Scotland. Traditional direct coal-fired distillation continues to shape its bold, full-bodied single malts, known for their distinctive peaty and smoky character."
+            },
+            {
+                id: "Miyagikyo",
+                region: "Japanese",
+                logo: "logo/miyagikyo.png",
+                name_en: "Miyagikyo",
+                name_zh: "宮城峽 (Miyagikyo)",
+                region_en: "Sendai, Japan",
+                region_zh: "日本仙台",
+                desc_zh: "宮城峽酒廠於 1969 年創立，坐落於仙台以西、森林與清流環抱的山谷之中。為釀造有別於余市的優雅風格，酒廠採用蒸汽間接加熱，配合特殊形制的蒸餾器，塑造柔和細緻的酒液，展現花香與果香交織的單一麥芽風格。",
+                desc_en: "Established in 1969, Miyagikyo sits in a forested valley west of Sendai, surrounded by clear streams. Designed to create an elegant contrast to Yoichi, the distillery uses indirect steam heating and distinctively shaped stills to produce a softer, more delicate spirit, revealing a graceful single malt style with floral and fruity notes."
+            },
+            {
+                id: "Hibiki",
+                region: "Japanese",
+                logo: "logo/hibiki.png",
+                name_en: "Hibiki",
+                name_zh: "響 (Hibiki)",
+                region_en: "Japan",
+                region_zh: "日本",
+                desc_zh: "響於 1989 年面世，以精緻調和藝術詮釋日本自然與人文之間的和諧。品牌匯聚山崎、白州及知多三座酒廠的原酒，透過細膩選配，呈現優雅而富層次的風格。瓶身的二十四個切面呼應日本二十四節氣，將四季流轉與日本美學融入品飲體驗。",
+                desc_en: "Launched in 1989, Hibiki celebrates harmony between Japanese nature and craftsmanship through the art of blending. Bringing together whiskies from the Yamazaki, Hakushu and Chita distilleries, it expresses an elegant and richly layered character. Its distinctive 24-faceted bottle reflects Japan’s 24 seasonal divisions, connecting the changing seasons with Japanese design."
+            },
+            {
+                id: "Hakushu",
+                region: "Japanese",
+                logo: "logo/hakushu.png",
+                name_en: "The Hakushu",
+                name_zh: "白州 (The Hakushu)",
+                region_en: "Yamanashi, Japan",
+                region_zh: "日本山梨縣",
+                desc_zh: "白州誕生於日本南阿爾卑斯山麓的森林酒廠，酒廠於 1973 年建立，以豐富自然環境與清澈軟水為釀造根本。多樣化蒸餾器與橡木桶孕育清新而富層次的單一麥芽威士忌，草本氣息與柔和煙燻相映，展現鮮明的森林風格。",
+                desc_en: "Hakushu originates from a forest distillery established in 1973 at the foothills of Japan’s Southern Alps. Its natural surroundings and clear, soft water lie at the heart of its whisky-making. A diverse range of stills and casks helps create fresh, layered single malts whose herbal notes and gentle smokiness evoke their forest home."
+            },
+            {
+                id: "Kavalan",
+                region: "Taiwanese",
+                logo: "logo/kavalan.png",
+                name_en: "Kavalan",
+                name_zh: "噶瑪蘭 (Kavalan)",
+                region_en: "Yilan, Taiwan",
+                region_zh: "台灣宜蘭",
+                desc_zh: "來自台灣宜蘭的噶瑪蘭，自 2005 年起開拓台灣單一麥芽威士忌的釀造之路。品牌善用亞熱帶溫暖潮濕的氣候，讓酒液與橡木桶充分互動，孕育鮮明的熱帶水果風格。結合宜蘭水源與多元桶型，噶瑪蘭將台灣風土轉化為層次豐富的威士忌。",
+                desc_en: "Based in Yilan, Taiwan, Kavalan has been pioneering Taiwanese single malt whisky since 2005. The distillery embraces the island’s warm, humid subtropical climate, encouraging an expressive interaction between spirit and cask that helps shape its tropical fruit character. Combining Yilan’s water with diverse cask styles, Kavalan transforms its local environment into richly layered whisky."
+            },
+            {
+                id: "Ballantine",
+                region: "Scotch",
+                logo: "logo/ballantines.png",
+                name_en: "Ballantine’s",
+                name_zh: "百齡罈 (Ballantine’s)",
+                region_en: "Scotland",
+                region_zh: "蘇格蘭",
+                desc_zh: "Ballantine’s 以蘇格蘭調和威士忌工藝為核心，透過精選原酒與細膩調配，展現和諧而富層次的風格。從 12 年的蜂蜜、花香與柔和橡木氣息，到 17 年更豐富的香草、蜂蜜及淡淡煙燻，系列呈現時間與調和藝術交織的細緻變化。",
+                desc_en: "Ballantine’s celebrates the craft of blended Scotch whisky, bringing carefully selected whiskies together to create harmony and depth. From the honey, floral notes and creamy oak of its 12 Year Old to the richer vanilla, honey and subtle smoke of its 17 Year Old, the range explores the interplay between maturation and the art of blending."
+            },
+            {
+                id: "Benriach",
+                region: "Scotch",
+                logo: "logo/benriach.jpg",
+                name_en: "Benriach",
+                name_zh: "班瑞克 (Benriach)",
+                region_en: "Speyside, Scotland",
+                region_zh: "蘇格蘭斯佩賽",
+                desc_zh: "Benriach 於 1898 年創立於蘇格蘭斯佩賽，以勇於探索風味的精神見稱。酒廠結合多元原酒風格與來自世界各地的橡木桶，創作層次豐富的單一麥芽威士忌。從無泥煤到煙燻系列，品牌展現果香、甜美與煙燻風味之間的多樣變化。",
+                desc_en: "Founded in Speyside in 1898, Benriach is known for its adventurous approach to flavour. The distillery combines diverse spirit styles with an eclectic selection of casks sourced from around the world. From unpeated expressions to smoky styles, its single malts explore a richly layered spectrum of fruit, sweetness and smoke."
+            },
+            {
+                id: "Chivas",
+                region: "Scotch",
+                logo: "logo/chivas.jpg",
+                name_en: "Chivas Regal",
+                name_zh: "芝華士 (Chivas Regal)",
+                region_en: "Scotland",
+                region_zh: "蘇格蘭",
+                desc_zh: "Chivas Regal 以細膩調和工藝塑造蘇格蘭威士忌的豐富層次。品牌以斯佩賽 Strathisla 單一麥芽為核心，融合精選麥芽與穀物威士忌，將果園水果、石楠與蜂蜜氣息融為一體。歷代調酒師延續對平衡與柔順口感的追求，呈現和諧而富深度的品牌風格。",
+                desc_en: "Chivas Regal brings depth and complexity to Scotch whisky through the art of blending. With Speyside’s Strathisla single malt at its heart, the brand combines selected malt and grain whiskies to create layers of orchard fruit, heather and honey. Generations of blenders have continued its pursuit of balance, smoothness and harmony."
+            },
+            {
+                id: "Crabbie",
+                region: "Scotch",
+                logo: "logo/crabbies.png",
+                name_en: "Crabbie’s",
+                name_zh: "克拉比 (Crabbie’s)",
+                region_en: "Highlands, Scotland",
+                region_zh: "蘇格蘭高地",
+                desc_zh: "Crabbie’s 將探索精神融入蘇格蘭威士忌，以靈活多元的品飲方式展現單一麥芽的另一面。其 Yardhead 於蘇格蘭高地蒸餾，並完全以波本桶熟成，帶來餅乾、香草、柑橘、甜蘋果與焦糖氣息，呈現親切而富個性的風格，亦為長飲及雞尾酒帶來更多可能。",
+                desc_en: "Crabbie’s brings an adventurous approach to Scotch whisky, exploring a versatile side of single malt. Distilled in the Scottish Highlands and matured exclusively in ex-bourbon casks, Yardhead offers notes of biscuit, vanilla, citrus, sweet apple and caramel. Approachable and full of character, it also opens up possibilities for long drinks and whisky cocktails."
+            },
+            {
+                id: "Glenglassaugh",
+                region: "Scotch",
+                logo: "logo/glenglassaugh.jpg",
+                name_en: "Glenglassaugh",
+                name_zh: "格蘭格拉索 (Glenglassaugh)",
+                region_en: "Highlands, Scotland",
+                region_zh: "蘇格蘭高地",
+                desc_zh: "Glenglassaugh 坐落於蘇格蘭 Sandend 海灣沿岸，將土地與海洋的風貌融入單一麥芽威士忌。品牌以豐潤果香與海岸氣息展現鮮明個性，並透過不同桶型探索風味層次。從 12 年到泥煤風格的 Portsoy，呈現清新海風、甜美果韻與煙燻交織的多樣面貌。",
+                desc_en: "Set beside Scotland’s Sandend Bay, Glenglassaugh captures the character of land and sea in its coastal single malts. Lush fruit and maritime influences define its identity, while diverse cask styles bring additional depth. From the 12 Years Old to the richly peated Portsoy, the range explores contrasting expressions of coastal freshness, fruit and smoke."
+            },
+            {
+                id: "Glenallachie",
+                region: "Scotch",
+                logo: "logo/glenallachie.jpg",
+                name_en: "GlenAllachie",
+                name_zh: "艾樂奇 (GlenAllachie)",
+                region_en: "Speyside, Scotland",
+                region_zh: "蘇格蘭斯佩賽",
+                desc_zh: "GlenAllachie 來自蘇格蘭斯佩賽，以耐心、精準與對橡木桶管理的重視塑造單一麥芽威士忌。品牌由 Billy Walker 及其團隊細心監察酒液熟成，透過來自不同產地與類型的橡木桶探索風味，讓原酒與木材互相成就，呈現豐富而富層次的個性。",
+                desc_en: "Based in Speyside, GlenAllachie shapes its single malts through patience, precision and a meticulous approach to wood management. Billy Walker and his team carefully monitor maturation, exploring casks of different origins and styles. This hands-on relationship between spirit and wood creates whiskies with richness, depth and distinctive character."
+            },
+            {
+                id: "Bushmills",
+                region: "Irish",
+                logo: "logo/bushmills.jpg",
+                name_en: "Bushmills",
+                name_zh: "布什米爾 (Bushmills)",
+                region_en: "Northern Ireland",
+                region_zh: "北愛爾蘭",
+                desc_zh: "Bushmills 源自愛爾蘭北岸，以世代傳承的麥芽威士忌工藝及三次蒸餾傳統見稱。品牌以銅製壺式蒸餾器釀造單一麥芽原酒，並將這份工藝融入調和系列。Original 結合單一麥芽與較輕盈的穀物威士忌，展現柔順、溫潤而易於親近的愛爾蘭威士忌風格。",
+                desc_en: "From Ireland’s north coast, Bushmills is known for generations of malt whiskey craftsmanship and a tradition of triple distillation. Its single malt spirit is crafted in copper pot stills, with that expertise also shaping its blends. Original combines single malt with lighter grain whiskey to create a smooth, warming and approachable expression of Irish whiskey."
+            },
+            {
+                id: "The Pogues",
+                region: "Irish",
+                logo: "logo/thepogues.jpg",
+                name_en: "The Pogues",
+                name_zh: "桶客樂團 (The Pogues)",
+                region_en: "Ireland",
+                region_zh: "愛爾蘭",
+                desc_zh: "The Pogues 將同名樂隊的熱情與鮮明個性帶入愛爾蘭威士忌世界。品牌以充滿個性的風格探索單一麥芽與調和威士忌，兼顧層次與親切口感。其調和系列結合麥芽與穀物威士忌，展現麥芽、堅果、香料與深色水果氣息，延續樂隊不拘一格的精神。",
+                desc_en: "The Pogues brings the passion and distinctive personality of its namesake band to Irish whiskey. The brand explores both single malt and blended expressions with character and approachability. Its blended whiskey combines malt and grain spirits, offering notes of malt, nuts, spice and dark fruit that reflect the band’s spirited, unconventional identity."
+            },
+            {
+                id: "Starward",
+                region: "Australian",
+                logo: "logo/starward.jpg",
+                name_en: "Starward",
+                name_zh: "星世 (Starward)",
+                region_en: "Melbourne, Australia",
+                region_zh: "澳洲墨爾本",
+                desc_zh: "Starward 源自澳洲墨爾本，將當地飲食文化與澳洲葡萄酒傳統帶入威士忌世界。品牌以澳洲紅酒桶熟成建立鮮明特色，並探索不同穀物的風味可能。Two-Fold 結合小麥威士忌與單一麥芽威士忌，展現果香、香草與穀物氣息交織的親切風格。",
+                desc_en: "Born in Melbourne, Starward brings together the city’s food culture and Australia’s winemaking traditions. Known for maturation in Australian red wine barrels, the brand also explores the possibilities of different grains. Two-Fold combines wheat whisky and single malt whisky, creating an approachable expression with fruit, vanilla and cereal character."
+            }
         ];
 
         const whiskies = [
-           { code: "SMTHEABER12QT", region: "Scotch", img: "images/SMTHEABER12QT.jpg", name_en: "The Aberlour 12 Year Old Single Malt Scotch Whisky", name_zh: "亞伯樂12年單一麥芽蘇格蘭威士忌", glass: "MOP20", bottle: "MOP430", style_en: "Double cask matured in traditional oak and sherry butts, subtly balanced & fruity.", style_zh: "傳統橡木桶與雪莉桶雙桶熟成，展現細膩平衡的柑橘與紅蘋果果香。", tags_en: ["Golden Honey", "Pear", "Red Apple", "Vanilla Toffee"], tags_zh: ["金黃蜂蜜", "西洋梨", "紅蘋果", "香草太妃糖"], notes_en: { nose: "Rich notes of golden honey, fruity pears and vanilla toffee.", palate: "Smooth with tangy orange, red apple, liquorice and almond notes.", finish: "Smooth and sweet with a hint of spice." }, notes_zh: { nose: "濃郁的金黃蜂蜜、果香西洋梨與香草太妃糖氣息。", palate: "口感滑順，帶有微酸香橙、紅蘋果、甘草與杏仁風味。", finish: "滑順甘甜，伴隨一絲辛香料尾韻。" } },
-           { code: "SMTHEABER16QT", region: "Scotch", img: "images/SMTHEABER16QT.jpg", name_en: "The Aberlour 16 Year Old Single Malt Scotch Whisky", name_zh: "亞伯樂16年單一麥芽蘇格蘭威士忌", glass: "MOP40", bottle: "MOP750", style_en: "Double cask matured with strong influence from Spanish oak Oloroso sherry butts.", style_zh: "16年雙桶熟成，深受西班牙Oloroso雪莉桶影響，果香深邃且帶有李子與葡萄乾韻味。", tags_en: ["Floral", "Raisin", "Plum", "Spicy Nuttiness"], tags_zh: ["馥郁花香", "葡萄乾", "李子", "香料堅果"], notes_en: { nose: "Rich, scented floral and sweet raisin aromas with spicy nuttiness.", palate: "Smooth full, sweet floral and spicy flavours with notes of soft plum fruitiness and gentle oakiness.", finish: "Long, warm and fruity with a little spice." }, notes_zh: { nose: "濃郁馥郁的花香與甜美葡萄乾香氣，伴隨香料堅果氣息。", palate: "飽滿滑順，交織甜美花香與辛香料，帶有柔和李子果香與溫潤橡木感。", finish: "悠長溫暖，充滿果香與些許辛香尾韻。" } },
-           { code: "SMTHEABER18QT", region: "Scotch", img: "images/SMTHEABER18QT.jpg", name_en: "The Aberlour 18 Year Old Single Malt Scotch Whisky", name_zh: "亞伯樂18年單一麥芽蘇格蘭威士忌", glass: "MOP60", bottle: "MOP1,080", style_en: "Double sherry cask finish in Oloroso and Pedro Ximénez sherry butts, rich & intense.", style_zh: "Oloroso與PX雙雪莉桶過桶熟成，風格濃郁深邃、飽滿迷人。", tags_en: ["Orange Zest", "Plum Jam", "Apricot", "Nutmeg"], tags_zh: ["橙皮", "李子果醬", "杏桃", "肉豆蔻"], notes_en: { nose: "Rich notes of ripe fruit, orange zest, toffee buns, and plum jam.", palate: "Rich and fruity with notes of apricot, chocolate coated raisins, liquorice root, and freshly grated nutmeg.", finish: "Long and complex, with lasting sweetness." }, notes_zh: { nose: "濃郁熟果香氣，伴隨橙皮、太妃糖麵包與李子果醬氣息。", palate: "醇厚果香，帶有杏桃、巧克力葡萄乾、甘草根與現磨肉豆蔻風味。", finish: "悠長且層次繁複，甜美餘韻持久不散。" } },
-           { code: "SMTHEABERABQT", region: "Scotch", img: "images/SMTHEABERABQT.jpg", name_en: "The Aberlour A'Bunadh Single Malt Scotch Whisky", name_zh: "亞伯樂首選原桶單一麥芽蘇格蘭威士忌", glass: "MOP50", bottle: "MOP935", style_en: "Hand-made from start to finish and bottled at cask strength, robust & sherried.", style_zh: "全程手工打造並以原桶強度裝瓶，酒體強勁濃厚，盡顯純粹雪莉風範。", tags_en: ["Praline", "Spiced Orange", "Black Cherry", "Dark Chocolate"], tags_zh: ["果仁糖", "香料香橙", "黑櫻桃", "黑巧克力"], notes_en: { nose: "Deep with spice, praline and spiced orange notes.", palate: "Full with notes of black cherries, ginger and dark chocolate.", finish: "Long and balanced with a touch of oak." }, notes_zh: { nose: "深邃辛香料、果仁糖與香料香橙氣息。", palate: "酒體飽滿，充滿黑櫻桃、生薑與黑巧克力風味。", finish: "悠長平衡，帶有一抹優雅橡木韻味。" } },
-           { code: "SWAUCTWQT", region: "Scotch", img: "images/SWAUCTWQT.png", name_en: "Auchentoshan Three Wood Single Malt Whisky", name_zh: "歐肯特軒三桶單一麥芽威士忌", glass: "MOP25", bottle: "MOP470", style_en: "Matured in Bourbon, Oloroso & Pedro Ximénez Sherry casks, rich & fruity.", style_zh: "先後於波本桶、Oloroso及PX雪莉桶熟成，果香濃郁、層次深邃。", tags_en: ["Blackcurrant", "Hazelnut", "Cinnamon", "Butterscotch"], tags_zh: ["黑加侖", "榛果", "肉桂", "奶油太妃糖"], notes_en: { nose: "Blackcurrant, brown sugar, orange, plum, and raisin notes.", palate: "Hazelnut with hints of cinnamon, lemon, and butterscotch sweetness.", finish: "Vibrant, fruity, and smooth with long-lasting oaky sweetness." }, notes_zh: { nose: "黑加侖、黑糖、香橙、李子與葡萄乾香氣。", palate: "榛果、肉桂、檸檬微酸與濃郁奶油太妃糖甘甜。", finish: "充滿活力且果香滑順，帶有持久的橡木甘甜尾韻。" } },
-           { code: "SWAUC12QT", region: "Scotch", img: "images/SWAUC12QT.png", name_en: "Auchentoshan 12 Year Old Single Malt Whisky", name_zh: "歐肯特軒12年單一麥芽威士忌", glass: "MOP20", bottle: "MOP370", style_en: "Triple distilled, Bourbon & Sherry cask matured, smooth & citrusy.", style_zh: "低地三次蒸餾特色，波本與雪莉雙桶熟成，極致滑順柔和。", tags_en: ["Sweet Pastry", "Tangerine", "Vanilla", "Hazelnut"], tags_zh: ["甜糕點", "柑橘", "香草", "榛果"], notes_en: { nose: "Aromas of sweet pastry, citrus burst, nuttiness, and green leafiness.", palate: "Smooth taste with sweet vanilla, hazelnut, tangerine, and lime.", finish: "Gingery and slightly dry finish with a pleasant lingering nuttiness." }, notes_zh: { nose: "甜美糕點香氣、爆發的柑橘果香、招牌堅果與嫩葉清新氣息。", palate: "口感極其滑順，帶有香草甜味、榛果、柑橘與青檸。", finish: "微帶生薑辛香與乾爽感，伴隨令人愉悅的堅果餘韻。" } },
-           { code: "SMAUC18QT", region: "Scotch", img: "images/SMAUC18QT.png", name_en: "Auchentoshan 18 Year Old Single Malt Whisky", name_zh: "歐肯特軒18年單一麥芽威士忌", glass: "MOP50", bottle: "MOP970", style_en: "Triple distilled & American oak aged, refined, silky & complex.", style_zh: "三次蒸餾配合18年美國橡木桶熟成，呈現高雅絲滑與精緻結構。", tags_en: ["Tobacco Leaf", "Green Tea", "Barley", "Almond"], tags_zh: ["煙草葉", "綠茶", "大麥甜香", "杏仁"], notes_en: { nose: "Tobacco leaf, caramelised sugar, green tea, and flaked almonds.", palate: "Silky smooth with vibrant freshness, sweet barley, and tangy zest.", finish: "Long, lingering, clean and exceptionally well-balanced." }, notes_zh: { nose: "煙草葉香氣、焦糖甜香、綠茶清香與片狀杏仁味。", palate: "絲滑口感，充滿鮮明清新感，伴隨甜大麥與微酸橙皮風味。", finish: "悠長綿延，優雅且極其平衡。" } },
-           { code: "SWBTOTS10YOQT", region: "Scotch", img: "images/SWBTOTS10YOQT.png", name_en: "Benriach The Original Ten 10YO Speyside Single Malt Whisky", name_zh: "班瑞克10年單一麥芽威士忌", glass: "MOP25", bottle: "MOP450", style_en: "Three cask matured (Bourbon, Sherry & Virgin Oak), fruity & honeyed.", style_zh: "波本桶、雪莉桶與全新橡木桶三桶熟成，經典果香與蜂蜜風味。", tags_en: ["Orchard Fruit", "Honey", "Ripe Pear", "Vanilla"], tags_zh: ["果園水果", "蜂蜜", "熟梨", "香草奶油"], notes_en: { nose: "Rich orchard fruit, sumptuous honey, and toasted oak spice.", palate: "Ripe pear, nectarine, and malt sweetness with toasted oak.", finish: "Smooth with lingering notes of almond, spiced vanilla, and trace smoke." }, notes_zh: { nose: "豐沛果園水果、濃郁蜂蜜與烘烤橡木辛香。", palate: "成熟蜜梨、油桃與麥芽甜香，層次豐富。", finish: "帶有杏仁、香料香草與極微弱煙燻感的柔軟尾韻。" } },
-           { code: "SWBTSTSQT", region: "Scotch", img: "images/SWBTSTSQT.png", name_en: "Benriach The Smoky Ten Speyside 10YO Single Malt Scotch Whisky", name_zh: "班瑞克10年泥煤單一麥芽威士忌", glass: "MOP25", bottle: "MOP450", style_en: "Bourbon, Jamaican Rum & Virgin Oak matured, peated & sweet.", style_zh: "使用泥煤麥芽，於波本桶、牙買加朗姆酒桶及全新橡木桶熟成，煙燻甜美。", tags_en: ["Aromatic Smoke", "Smoked Applewood", "Maple Syrup", "Spiced Pear"], tags_zh: ["芳香煙燻", "煙燻蘋果木", "楓糖漿", "香料洋梨"], notes_en: { nose: "Ripe orchard fruit syrup, smoked honey glaze, and oak spice.", palate: "Smoked applewood, honey maple, spiced pear, and barbecue smoke.", finish: "Lingering fruitiness, toasted oak, and sweet aromatic smoke." }, notes_zh: { nose: "熟成果園水果糖漿、煙燻蜂蜜糖霜與橡木辛香。", palate: "煙燻蘋果木、蜂蜜楓糖、香料洋梨與豐富的煙燻風味。", finish: "果香綿延，伴隨烘烤橡木與甜美芳香煙燻尾韻。" } },
-           { code: "SWBTST12YOQT", region: "Scotch", img: "images/SWBTST12YOQT.png", name_en: "Benriach The Smoky Twelve 12YO Speyside Single Malt Whisky", name_zh: "班瑞克12年泥煤單一麥芽威士忌", glass: "MOP30", bottle: "MOP520", style_en: "Bourbon, Sherry & Marsala Wine cask matured peated Speyside.", style_zh: "波本桶、雪莉桶與瑪莎拉葡萄酒桶熟成，深邃煙燻、果香與可可豐富風味。", tags_en: ["Smoked Vanilla", "Dark Chocolate", "Charred Orange", "Toasted Almond"], tags_zh: ["煙燻香草", "黑巧克力", "烤香橙", "烤杏仁"], notes_en: { nose: "Smoked vanilla, charred orange peel, and toasted almond.", palate: "Dark chocolate, fruit peel, brown sugar, and rich smoked oak.", finish: "Luxurious finish with lingering cocoa, spiced orange, and subtle smoke." }, notes_zh: { nose: "煙燻香草、炙烤橙皮與烤杏仁香氣。", palate: "濃郁黑巧克力、水果皮、黑糖與煙燻橡木質感。", finish: "奢華悠長，帶有可可、香料香橙與持續溫暖的煙燻韻味。" } },
-           { code: "SWCPDN18QT", region: "Scotch", img: "images/SWCPDN18QT.jpg", name_en: "Caperdonich 18 Y.O. Peated Scotch Whisky", name_zh: "凱普多尼18年泥煤單一麥芽蘇格蘭威士忌", glass: "MOP65", bottle: "MOP1,210", style_en: "Peated Speyside single malt from a vanished distillery, matured in American oak.", style_zh: "來自已消逝斯佩賽酒廠的珍稀泥煤單一麥芽威士忌，於美國橡木桶熟成。", tags_en: ["Peat Smoke", "Pear", "Apricot", "Cinnamon"], tags_zh: ["泥煤煙燻", "西洋梨", "杏桃", "肉桂"], notes_en: { nose: "Rich and fruity, with aromas of pear, apricot and sweet peat smoke.", palate: "Sweet and smooth, with flavours of toasted oak, cinnamon, ginger and rich peat smoke.", finish: "Long and warm, with lingering peat smoke." }, notes_zh: { nose: "馥郁果香，散發西洋梨、杏桃與甜美泥煤煙燻氣息。", palate: "香甜滑順，交織烘烤橡木、肉桂、生薑與濃郁泥煤煙燻風味。", finish: "悠長溫暖，泥煤煙燻餘韻綿延不散。" } },
-           { code: "SWCPDN21QT", region: "Scotch", img: "images/SWCPDN21QT.jpg", name_en: "Caperdonich 21 Y.O. Peated Scotch Whisky", name_zh: "凱普多尼21年泥煤單一麥芽蘇格蘭威士忌", glass: "MOP135", bottle: "MOP2,480", style_en: "Rare 21-year-old peated single malt from the Secret Speyside collection.", style_zh: "Secret Speyside 典藏系列21年高年份泥煤單一麥芽佳釀。", tags_en: ["Campfire Smoke", "Charred Orange", "Honey", "Roasted Nuts"], tags_zh: ["營火煙燻", "炙烤橙皮", "蜂蜜", "烤堅果"], notes_en: { nose: "Rich and smoky, with notes of sweet campfire embers, charred orange peel and ripe orchard fruits.", palate: "Velvety and complex, combining sweet honey, roasted nuts, subtle spice and rich aromatic peat smoke.", finish: "Exceptionally long, warming and balanced with lingering sweet smoke." }, notes_zh: { nose: "濃郁煙燻氣息，帶有甜美營火餘燼、炙烤橙皮與熟成果園水果香氣。", palate: "如天鵝絨般絲滑繁複，融合蜂蜜、烤堅果、細膩辛香料與芳香泥煤煙燻。", finish: "極致悠長溫暖且平衡，伴隨持久的甘甜煙燻尾韻。" } },
-           { code: "SMGLENGR18QT", region: "Scotch", img: "images/SMGLENGR18QT.jpg", name_en: "Glen Grant 18 Year Old Single Malt Whisky", name_zh: "格蘭冠18年單一麥芽威士忌", glass: "MOP40", bottle: "MOP710", style_en: "Award-winning elegant and mature fruity profile.", style_zh: "曾獲《威士忌聖經》最佳威士忌殊榮，優雅成熟果香。", tags_en: ["Floral", "Malty Caramel", "Raisin", "Nuts"], tags_zh: ["花香", "麥芽焦糖", "葡萄乾", "堅果"], notes_en: { nose: "Delicate floral, malty toffee, raisin aromas.", palate: "Vanilla, caramel, spiced pear, butter biscuit.", finish: "Long lasting, sweet with nutty spices." }, notes_zh: { nose: "細緻花香、麥芽太妃糖與葡萄乾香氣。", palate: "香草、焦糖、香料洋梨與奶油餅乾。", finish: "長效香甜，帶有堅果香。" } },
-           { code: "SMGLENGR21QT", region: "Scotch", img: "images/SMGLENGR21QT.png", name_en: "Glen Grant 21 Year Old Single Malt Whisky", name_zh: "格蘭冠21年單一麥芽威士忌", glass: "MOP95", bottle: "MOP1,760", style_en: "Luxurious tropical fruit & creamy profile.", style_zh: "極致奢華，充分展示熟成熱帶水果與奶油風格。", tags_en: ["Peach", "Toffee", "Mango", "Crème Brûlée"], tags_zh: ["水蜜桃", "太妃糖", "芒果", "焦糖布蕾"], notes_en: { nose: "Ripe peach, toffee, raisins.", palate: "Explosive tropical fruits (mango, passion fruit) and rich cream.", finish: "Crème brûlée-like sweet lingering finish." }, notes_zh: { nose: "成熟水蜜桃、太妃糖與葡萄乾。", palate: "爆發性的熱帶水果風味（如芒果、百香果）與濃郁奶油香氣。", finish: "焦糖布蕾般的持久甜美尾韻。" } },
-           { code: "SMGLENGR801602QT-06", region: "Scotch", img: "images/SMGLENGR801602QT-06.jpg", name_en: "Glen Grant Private Cask (Macau 24 Limited Edition)", name_zh: "格蘭冠2006年原桶單一麥芽威士忌80160-澳門2024特別版", glass: "MOP90", bottle: "MOP1,650", style_en: "Single Cask Strength, customized Macau exclusive edition.", style_zh: "單桶原酒（Single Cask Strength），專為澳門地區定制的限定版。", tags_en: ["Dried Fruits", "Dark Sugar", "Nuts", "Dark Chocolate"], tags_zh: ["乾果", "黑糖", "堅果", "黑巧克力"], notes_en: { nose: "Rich dried fruit, floral honey, dark sugar, old oak.", palate: "Heavy texture, nuts, candied citrus, dark chocolate, spices.", finish: "Strong and long, full of wood tannins and dried fruit sweetness." }, notes_zh: { nose: "濃郁乾果、花蜜、濃縮黑糖與老橡木香。", palate: "油脂厚重，帶有堅果、糖漬柑橘、黑巧克力與辛香料。", finish: "強烈且持久，充滿木質單寧與果乾甜感。" } },
-           { code: "SMGLE25QTXX", region: "Scotch", img: "images/SMGLE25QTXX.jpg", name_en: "Glenfarclas 25 Year Old Single Malt Whisky", name_zh: "格蘭花格25年單一麥芽威士忌", glass: "MOP85", bottle: "MOP1,540", style_en: "100% Oloroso Sherry Casks matured, deep & powerful.", style_zh: "經典直火蒸餾與 100% Oloroso 雪莉桶熟成，極具深度。", tags_en: ["Marmalade", "Coffee Bean", "Sherry", "Dark Chocolate"], tags_zh: ["橘子醬", "現磨咖啡", "雪莉酒", "黑巧克力"], notes_en: { nose: "Marmalade, honey, freshly ground coffee beans, sherry wine, nuts.", palate: "Full-bodied, sherry and oak tannins perfectly combined.", finish: "Extremely long and dry with Belgian dark chocolate aftertaste." }, notes_zh: { nose: "橘子醬、蜂蜜、現磨咖啡豆、雪莉酒與堅果香。", palate: "酒體飽滿，雪莉桶與橡木單寧風味完美交融，伴隨微弱煙燻感。", finish: "極度悠長且乾爽，後味帶有比利時黑巧克力風味。" } },
-           { code: "SWNIKFBHL", region: "Japanese", img: "images/SWNIKFBHL.jpg", name_en: "Nikka From the Barrel Whisky", name_zh: "日果Nikka From the Barrel威士忌", glass: "MOP15", bottle: "MOP300", style_en: "Cask Strength 51.4% blended whisky, intense & rich.", style_zh: "調和威士忌原酒（51.4%），高度融合麥芽與穀物威士忌強勁性格。", tags_en: ["Vanilla", "Oak", "Clove", "Caramel Apple"], tags_zh: ["香草", "橡木", "丁香辛香", "焦糖蘋果"], notes_en: { nose: "Rich oak, vanilla, dark chocolate, orange peel, clove spice.", palate: "Heavy and intense, pepper, caramelised apple, peach, winter honey.", finish: "Long lasting with slight marine, plum and vanilla oak notes." }, notes_zh: { nose: "濃郁橡木香、香草、黑巧克力、橙皮與丁香辛香。", palate: "厚重濃郁，帶有胡椒辛香、焦糖蘋果、水蜜桃與冬蜜。", finish: "持久且微帶海洋風味、梅子與香草橡木感。" } },
-           { code: "SMTAKPMQT", region: "Japanese", img: "images/SMTAKPMQT.jpg", name_en: "Taketsuru Pure Malt Whisky", name_zh: "竹鶴純麥威士忌", glass: "MOP25", bottle: "MOP480", style_en: "Blended Malt combining Yoichi power & Miyagikyo elegance.", style_zh: "純麥威士忌（Blended Malt），兼具余市強勁與宮城峽柔美。", tags_en: ["Citrus", "Pear", "Peat Smoke", "Dark Chocolate"], tags_zh: ["柑橘", "西洋梨", "泥煤煙燻", "黑巧克力"], notes_en: { nose: "Fresh citrus (orange, grapefruit), pear, subtle peat.", palate: "Smooth, cereal, cardamom spice, candied fruit.", finish: "Bittersweet dark chocolate with gentle peat smoke." }, notes_zh: { nose: "鮮明柑橘（柳橙、葡萄柚）、洋梨與微弱草本/泥煤香。", palate: "圓潤細致，帶有穀物、小荳蔻辛香與糖漬水果。", finish: "苦甜黑巧克力、橡木泥煤。" } },
-           { code: "SMYOISMQT", region: "Japanese", img: "images/SMYOISMQT.jpg", name_en: "Yoichi Single Malt Whisky", name_zh: "余市單一麥芽威士忌", glass: "MOP30", bottle: "MOP520", style_en: "Direct coal-fired distillation, bold, coastal & peated.", style_zh: "傳統直火煤炭蒸餾，展現強烈海風、泥煤與煙燻性格。", tags_en: ["Peat Smoke", "Sea Salt", "Nut", "Melon"], tags_zh: ["泥煤煙燻", "微咸海風", "堅果", "哈密瓜"], notes_en: { nose: "Mellow peat smoke, sea salt, citrus jam, black liquorice.", palate: "Firm and strong, peat smoke, melon, kiwi, chocolate nuts.", finish: "Silky and long, herbal notes and coastal peat lingering." }, notes_zh: { nose: "醇厚煙燻泥煤、微咸海風、糖蜜柑橘、黑甘草。", palate: "結實強勁，帶有泥煤煙燻、堅果、黑巧克力與熱帶水果。", finish: "絲滑且極長，帶有草本與泥煤餘韻。" } },
-           { code: "SMYOI10QT", region: "Japanese", img: "images/SMYOI10QT.jpeg", name_en: "Yoichi 10 Year Old Single Malt Whisky", name_zh: "余市10年單一麥芽威士忌", glass: "MOP45", bottle: "MOP810", style_en: "Aged Yoichi expression, peat meets refined oak.", style_zh: "經典余市風格高年份版，泥煤與木質熟成香氣完美結合。", tags_en: ["Honey", "Lemon Peel", "Soft Peat", "Bittersweet"], tags_zh: ["奶油感", "檸檬皮", "收斂泥煤", "苦甜平衡"], notes_en: { nose: "Soft creaminess, rose petals, lemon peel, clear oak.", palate: "Sweet and rounded, restrained peat, winter spices, nuts.", finish: "Long lasting with a beautiful bittersweet balance." }, notes_zh: { nose: "柔和奶油感、黃玫瑰花瓣、檸檬皮與清香橡木。", palate: "甜美圓潤，帶有收斂的泥煤、冬季辛香料與堅果味。", finish: "悠長且呈現美妙的苦甜平衡。" } },
-           { code: "SMMIYSMQT", region: "Japanese", img: "images/SMMIYSMQT.jpg", name_en: "Miyagikyo Single Malt Whisky", name_zh: "宮城峽單一麥芽威士忌", glass: "MOP25", bottle: "MOP480", style_en: "Steam heated distillation, delicate, floral & fruity.", style_zh: "蒸氣加熱蒸餾，呈現極其華麗、果香花香導向的輕柔風格。", tags_en: ["Floral", "Peach", "Pear", "Honey Malt"], tags_zh: ["優雅花香", "水蜜桃", "熟梨", "蜂蜜麥芽"], notes_en: { nose: "Elegant floral aromas, malty notes, tropical fruit.", palate: "Lively with rounded herbal spices, peach, ripe pear, honey malt.", finish: "Refreshing and long with delicate tannins." }, notes_zh: { nose: "優雅花香、麥芽香氣與熱帶水果。", palate: "活潑且具圓潤草本辛香，帶有水蜜桃、熟梨與蜂蜜麥芽。", finish: "清爽悠長，伴隨細緻單寧。" } },
-           { code: "SWHIBABW100QT", region: "Japanese", img: "images/SWHIBABW100QT.jpg", name_en: "Hibiki Anniversary Blend Whisky (100th Anniversary)", name_zh: "響週年紀念調和威士忌(100週年)", glass: "-", bottle: "MOP5,830", style_en: "100th Anniversary Edition featuring high Mizunara ratio.", style_zh: "百年紀念限定版，以高比例水楢桶原酒調配，代表最高調和藝術。", tags_en: ["Mizunara Oak", "Orchid", "Pineapple", "White Chocolate"], tags_zh: ["水楢木", "蘭花", "菠蘿", "白巧克力"], notes_en: { nose: "Extremely elegant Mizunara oak, orchid, ripe pineapple.", palate: "Honey-like sweetness, peach, white chocolate, candied orange.", finish: "Elegantly long with Mizunara incense and faint spices." }, notes_zh: { nose: "透著極優雅的水楢木沈香、蘭花、熟成菠蘿與鳳梨。", palate: "蜂蜜般甜美、水蜜桃、白巧克力與糖漬橙皮。", finish: "優雅且無比綿長，帶有水楢木特殊的香氣與微微辛香。" } },
-           { code: "SWHIBIJHQT", region: "Japanese", img: "images/SWHIBIJHQT.jpg", name_en: "Hibiki Japanese Harmony Whisky", name_zh: "響日本和諧威士忌", glass: "MOP40", bottle: "MOP780", style_en: "Classic Japanese Blended Whisky, harmonious & refined.", style_zh: "經典日本調和威士忌，極度的和諧、透亮與精緻。", tags_en: ["Rose", "Lychee", "Candied Orange", "Mizunara"], tags_zh: ["玫瑰", "荔枝", "糖漬橙皮", "水楢木"], notes_en: { nose: "Rose, lychee, rosemary, mature woodiness, sandalwood.", palate: "Honey sweetness, candied orange peel, white chocolate.", finish: "Subtle long finish with hints of Mizunara oak." }, notes_zh: { nose: "玫瑰、荔枝、迷迭香、熟成木香、檀香。", palate: "蜂蜜甜味、糖漬橙皮、白巧克力。", finish: "微弱日本水楢桶木質香。" } },
-           { code: "SWHAKDRQT", region: "Japanese", img: "images/SWHAKDRQT.jpg", name_en: "The Hakushu Distiller's Reserve Single Malt Whisky", name_zh: "白州單一麥芽威士忌", glass: "MOP40", bottle: "MOP780", style_en: "Forest distillery whisky, fresh, green & subtly smoked.", style_zh: "「森林系威士忌」，以綠意盎然的清新感與微煙燻著稱。", tags_en: ["Peppermint", "Green Apple", "Yuzu", "Light Smoke"], tags_zh: ["薄荷", "青蘋果", "柚子", "微煙燻"], notes_en: { nose: "Peppermint, melon, cucumber, green foliage.", palate: "Yuzu, grapefruit, lemon thyme, crisp green fruits.", finish: "Clean with subtle gentle smoke." }, notes_zh: { nose: "薄荷、哈密瓜、小黃瓜。", palate: "柚子、葡萄柚、檸檬百里香。", finish: "隱約清煙燻感。" } },
-           { code: "SWTENPMQTGB", region: "Japanese", img: "images/SWTENPMQTGB.jpg", name_en: "Tenjaku Japanese Pure Malt Whisky", name_zh: "天雀日本純麥威士忌", glass: "MOP20", bottle: "MOP400", style_en: "Made with Mt. Fuji natural spring water, smooth & approachable.", style_zh: "採用富士山系天然湧水釀造，平易近人、淡雅流暢。", tags_en: ["Fresh Apple", "Fig", "Oatmeal", "Caramel"], tags_zh: ["新鮮蘋果", "無花果", "燕麥餅乾", "焦糖"], notes_en: { nose: "Fresh apple, fig, prune, clean cereal aroma.", palate: "Soft and smooth, oatmeal biscuit, cornflakes, butter caramel.", finish: "Medium length with pleasant oak and subtle spice." }, notes_zh: { nose: "新鮮蘋果、無花果、西梅與清新穀物香。", palate: "柔和順口，帶有燕麥餅乾、玉米片與奶油焦糖甜味。", finish: "中等長度，帶有香醇橡木與淡淡辛香。" } },
-           { code: "SMKAVSOSCSQT", region: "Taiwanese", img: "images/SMKAVSOSCSQT.jpg", name_en: "Kavalan Solist Oloroso Sherry Single Cask Strength Single Malt Whisky", name_zh: "噶瑪蘭經典獨奏Oloroso雪莉桶原酒單一麥芽威士忌", glass: "MOP65", bottle: "MOP1,190", style_en: "Subtropical maturation, intense & rich Sherry cask strength.", style_zh: "單桶原酒，亞熱帶熟成帶來極其濃郁爆發的雪莉桶風味。", tags_en: ["Dried Fruit", "Marzipan", "Coffee", "Cherry"], tags_zh: ["乾果", "杏仁糖", "黑咖啡", "黑櫻桃"], notes_en: { nose: "Dried fruit, nuttiness, spices, marzipan.", palate: "Rich oiliness, candied fruits, dark chocolate, fine coffee.", finish: "Long lasting with black cherry, raisins and leather." }, notes_zh: { nose: "乾果、堅果、辛香料、杏仁糖蛋白糕。", palate: "豐厚油脂感，帶有蜜餞、黑巧克力與黑咖啡的豐富層次。", finish: "長久綿延，充斥黑櫻桃、葡萄乾與皮革香。" } },
-           { code: "SMKAVSVBSCSQT", region: "Taiwanese", img: "images/SMKAVSVBSCSQT.jpg", name_en: "Kavalan Solist Vinho Barrique Cask Strength Single Malt Whisky", name_zh: "噶瑪蘭經典獨奏VINHO酒桶威士忌原酒單一麥芽威士忌", glass: "MOP70", bottle: "MOP1,290", style_en: "STR wine cask treated, World's Best Single Malt winner.", style_zh: "採用重烘烤葡萄酒桶（STR），獲得多項世界威士忌冠軍。", tags_en: ["Toasted Nuts", "Vanilla", "Blackberry", "Toasted Oak"], tags_zh: ["烤堅果", "香草", "黑莓", "焦香橡木"], notes_en: { nose: "Toasted nuts, vanilla, banana, citrus, rich blackberry.", palate: "Heavy body, dark chocolate, smoked cherry, cinnamon, toasted oak.", finish: "Warm and long with fruity tannins." }, notes_zh: { nose: "烤堅果、香草、香蕉、柑橘與豐富黑莓香。", palate: "酒體厚重，帶有黑巧克力、煙燻櫻桃、肉桂與焦香橡木。", finish: "長久溫暖，充滿水果單寧與木質甜香。" } },
-           { code: "SMKAV15YOQT", region: "Taiwanese", img: "images/SMKAV15YOQT.png", name_en: "Kavalan 15YO Single Malt Whisky (2025 Edition)", name_zh: "噶瑪蘭15年單一麥芽威士忌(2025版)", glass: "MOP70", bottle: "MOP1,300", style_en: "High age subtropical single malt, ultimate rounded complexity.", style_zh: "高年份亞熱帶熟成作品，展現高年份威士忌極致圓潤成熟度。", tags_en: ["Caramel Apple", "Cinnamon Roll", "Longan", "Dark Chocolate"], tags_zh: ["焦糖蘋果", "肉桂捲", "龍眼", "黑巧克力"], notes_en: { nose: "Caramel apple mousse, chocolate, cinnamon roll, popcorn.", palate: "Bergamot, dried cranberry, longan, dark chocolate gelato.", finish: "Extremely long with tropical dried fruits and coffee." }, notes_zh: { nose: "焦糖蘋果慕斯、巧克力、肉桂捲、奶油爆米花。", palate: "佛手柑、蔓越莓乾、龍眼、黑巧克力冰淇淋。", finish: "極其長久，伴隨豐富的熱帶乾果與咖啡餘韻。" } },
-           { code: "SWSTARWATFDQT", region: "Australian", img: "images/SWSTARWATFDQT.jpg", name_en: "Starward Two Fold Double Grain Whisky", name_zh: "星世Two Fold雙穀物威士忌", glass: "MOP25", bottle: "MOP450", style_en: "Wheat & malt double grain aged in Australian red wine casks.", style_zh: "小麥與麥芽雙穀物，全數於澳洲在地紅酒桶熟成，極具果香。", tags_en: ["Red Berries", "Vanilla", "Banana Bread", "Red Wine"], tags_zh: ["紅莓果", "香草", "香蕉麵包", "紅酒單寧"], notes_en: { nose: "Bright tropical fruits, mixed red berries, vanilla, cereal.", palate: "Balanced red fruit and vanilla with a nice cereal backbone.", finish: "Delicate and long with mild wine tannins." }, notes_zh: { nose: "鮮豔紅莓、香草、香蕉麵包與烘烤橡木。", palate: "紅果實與香草平衡，帶有烤穀物骨架。", finish: "乾爽平衡，帶有柔和紅酒單寧感與辛香。" } },
-           { code: "SWALFREDHERQT", region: "French", img: "images/SWALFREDHERQT.png", name_en: "Alfred Giraud Heritage Whisky", name_zh: "阿爾弗雷得吉羅傳承系列威士忌", glass: "MOP80", bottle: "MOP1,490", style_en: "Triple Malt finished in rare extra old Cognac casks.", style_zh: "法國三重麥芽調和，全程於干邑桶過桶熟成，頂級干邑工藝。", tags_en: ["Brioche", "Toasted Malt", "Nutmeg", "French Pastry"], tags_zh: ["奶油麵包", "烤麥芽", "肉豆蔻", "法式糕點"], notes_en: { nose: "Buttery pastries, brioche, toasted malts.", palate: "Brioche, grassy notes, vanilla, nutmeg.", finish: "Slightly sweet finish from extra old cognac casks." }, notes_zh: { nose: "奶油糕點、法式奶油麵包、烤麥芽。", palate: "青草香、橡木、香草、肉豆蔻。", finish: "高齡干邑桶帶來的微甜香氣與優雅木質。" } },
-           { code: "SWALFREDVOYQT", region: "French", img: "images/SWALFREDVOYQT.jpg", name_en: "Alfred Giraud Voyage Whisky", name_zh: "阿爾弗雷得吉羅遠航系列威士忌", glass: "MOP100", bottle: "MOP1,820", style_en: "Exploration Range matured in Cognac & rare French wine casks.", style_zh: "探索系列，結合干邑桶與法國珍稀葡萄酒桶熟成，極具法式浪漫。", tags_en: ["White Flowers", "Crème Anglaise", "Honey", "Ripe Grape"], tags_zh: ["白花花香", "蛋黃醬", "刺槐蜂蜜", "熟葡萄"], notes_en: { nose: "White flowers, crème anglaise, acacia honey.", palate: "Ripe grapes, fresh flowers, peach, honey sweetness.", finish: "Complex and charming, harmonious flower and wood notes." }, notes_zh: { nose: "白花花香、英式蛋黃醬、刺槐蜂蜜。", palate: "熟葡萄、鮮花、水蜜桃與刺槐蜂蜜的精致甜美。", finish: "複雜而迷人，花甜與細致木質的和諧共鳴。" } }
+           // 1-20: Regular Items
+           { code: "SMTHEABER12QT", region: "Scotch", isPromo: false, img: "images/SMTHEABER12QT.jpg", name_en: "The Aberlour 12 Year Old Single Malt Scotch Whisky", name_zh: "亞伯樂12年單一麥芽蘇格蘭威士忌", glass: "MOP20", bottle: "MOP430", promoBottle: null, style_en: "Double cask matured in traditional oak and sherry butts, subtly balanced & fruity.", style_zh: "傳統橡木桶與雪莉桶雙桶熟成，展現細膩平衡的柑橘與紅蘋果果香。", tags_en: ["Golden Honey", "Pear", "Red Apple", "Vanilla Toffee"], tags_zh: ["金黃蜂蜜", "西洋梨", "紅蘋果", "香草太妃糖"], notes_en: { nose: "Rich notes of golden honey, fruity pears and vanilla toffee.", palate: "Smooth with tangy orange, red apple, liquorice and almond notes.", finish: "Smooth and sweet with a hint of spice." }, notes_zh: { nose: "濃郁的金黃蜂蜜、果香西洋梨與香草太妃糖氣息。", palate: "口感滑順，帶有微酸香橙、紅蘋果、甘草與杏仁風味。", finish: "滑順甘甜，伴隨一絲辛香料尾韻。" } },
+           { code: "SMTHEABER16QT", region: "Scotch", isPromo: false, img: "images/SMTHEABER16QT.jpg", name_en: "The Aberlour 16 Year Old Single Malt Scotch Whisky", name_zh: "亞伯樂16年單一麥芽蘇格蘭威士忌", glass: "MOP40", bottle: "MOP750", promoBottle: null, style_en: "Double cask matured with strong influence from Spanish oak Oloroso sherry butts.", style_zh: "16年雙桶熟成，深受西班牙Oloroso雪莉桶影響，果香深邃且帶有李子與葡萄乾韻味。", tags_en: ["Floral", "Raisin", "Plum", "Spicy Nuttiness"], tags_zh: ["馥郁花香", "葡萄乾", "李子", "香料堅果"], notes_en: { nose: "Rich, scented floral and sweet raisin aromas with spicy nuttiness.", palate: "Smooth full, sweet floral and spicy flavours with notes of soft plum fruitiness and gentle oakiness.", finish: "Long, warm and fruity with a little spice." }, notes_zh: { nose: "濃郁馥郁的花香與甜美葡萄乾香氣，伴隨香料堅果氣息。", palate: "飽滿滑順，交織甜美花香與辛香料，帶有柔和李子果香與溫潤橡木感。", finish: "悠長溫暖，充滿果香與些許辛香尾韻。" } },
+           { code: "SMTHEABER18QT", region: "Scotch", isPromo: false, img: "images/SMTHEABER18QT.jpg", name_en: "The Aberlour 18 Year Old Single Malt Scotch Whisky", name_zh: "亞伯樂18年單一麥芽蘇格蘭威士忌", glass: "MOP60", bottle: "MOP1,080", promoBottle: null, style_en: "Double sherry cask finish in Oloroso and Pedro Ximénez sherry butts, rich & intense.", style_zh: "Oloroso與PX雙雪莉桶過桶熟成，風格濃郁深邃、飽滿迷人。", tags_en: ["Orange Zest", "Plum Jam", "Apricot", "Nutmeg"], tags_zh: ["橙皮", "李子果醬", "杏桃", "肉豆蔻"], notes_en: { nose: "Rich notes of ripe fruit, orange zest, toffee buns, and plum jam.", palate: "Rich and fruity with notes of apricot, chocolate coated raisins, liquorice root, and freshly grated nutmeg.", finish: "Long and complex, with lasting sweetness." }, notes_zh: { nose: "濃郁熟果香氣，伴隨橙皮、太妃糖麵包與李子果醬氣息。", palate: "醇厚果香，帶有杏桃、巧克力葡萄乾、甘草根與現磨肉豆蔻風味。", finish: "悠長且層次繁複，甜美餘韻持久不散。" } },
+           { code: "SMTHEABERABQT", region: "Scotch", isPromo: false, img: "images/SMTHEABERABQT.jpg", name_en: "The Aberlour A'Bunadh Single Malt Scotch Whisky", name_zh: "亞伯樂首選原桶單一麥芽蘇格蘭威士忌", glass: "MOP50", bottle: "MOP935", promoBottle: null, style_en: "Hand-made from start to finish and bottled at cask strength, robust & sherried.", style_zh: "全程手工打造並以原桶強度裝瓶，酒體強勁濃厚，盡顯純粹雪莉風範。", tags_en: ["Praline", "Spiced Orange", "Black Cherry", "Dark Chocolate"], tags_zh: ["果仁糖", "香料香橙", "黑櫻桃", "黑巧克力"], notes_en: { nose: "Deep with spice, praline and spiced orange notes.", palate: "Full with notes of black cherries, ginger and dark chocolate.", finish: "Long and balanced with a touch of oak." }, notes_zh: { nose: "深邃辛香料、果仁糖與香料香橙氣息。", palate: "酒體飽滿，充滿黑櫻桃、生薑與黑巧克力風味。", finish: "悠長平衡，帶有一抹優雅橡木韻味。" } },
+           { code: "SWCPDN18QT", region: "Scotch", isPromo: false, img: "images/SWCPDN18QT.jpg", name_en: "Caperdonich 18 Y.O. Peated Scotch Whisky", name_zh: "凱普多尼18年泥煤單一麥芽蘇格蘭威士忌", glass: "MOP65", bottle: "MOP1,210", promoBottle: null, style_en: "Peated Speyside single malt from a vanished distillery, matured in American oak.", style_zh: "來自已消逝斯佩賽酒廠的珍稀泥煤單一麥芽威士忌，於美國橡木桶熟成。", tags_en: ["Peat Smoke", "Pear", "Apricot", "Cinnamon"], tags_zh: ["泥煤煙燻", "西洋梨", "杏桃", "肉桂"], notes_en: { nose: "Rich and fruity, with aromas of pear, apricot and sweet peat smoke.", palate: "Sweet and smooth, with flavours of toasted oak, cinnamon, ginger and rich peat smoke.", finish: "Long and warm, with lingering peat smoke." }, notes_zh: { nose: "馥郁果香，散發西洋梨、杏桃與甜美泥煤煙燻氣息。", palate: "香甜滑順，交織烘烤橡木、肉桂、生薑與濃郁泥煤煙燻風味。", finish: "悠長溫暖，泥煤煙燻餘韻綿延不散。" } },
+           { code: "SWCPDN21QT", region: "Scotch", isPromo: false, img: "images/SWCPDN21QT.jpg", name_en: "Caperdonich 21 Y.O. Peated Scotch Whisky", name_zh: "凱普多尼21年泥煤單一麥芽蘇格蘭威士忌", glass: "MOP135", bottle: "MOP2,480", promoBottle: null, style_en: "Rare 21-year-old peated single malt from the Secret Speyside collection.", style_zh: "Secret Speyside 典藏系列21年高年份泥煤單一麥芽佳釀。", tags_en: ["Campfire Smoke", "Charred Orange", "Honey", "Roasted Nuts"], tags_zh: ["營火煙燻", "炙烤橙皮", "蜂蜜", "烤堅果"], notes_en: { nose: "Rich and smoky, with notes of sweet campfire embers, charred orange peel and ripe orchard fruits.", palate: "Velvety and complex, combining sweet honey, roasted nuts, subtle spice and rich aromatic peat smoke.", finish: "Exceptionally long, warming and balanced with lingering sweet smoke." }, notes_zh: { nose: "濃郁煙燻氣息，帶有甜美營火餘燼、炙烤橙皮與熟成果園水果香氣。", palate: "如天鵝絨般絲滑繁複，融合蜂蜜、烤堅果、細膩辛香料與芳香泥煤煙燻。", finish: "極致悠長溫暖且平衡，伴隨持久的甘甜煙燻尾韻。" } },
+           { code: "SMGLENGR18QT", region: "Scotch", isPromo: false, img: "images/SMGLENGR18QT.jpg", name_en: "Glen Grant 18 Year Old Single Malt Whisky", name_zh: "格蘭冠18年單一麥芽威士忌", glass: "MOP40", bottle: "MOP710", promoBottle: null, style_en: "Award-winning elegant and mature fruity profile.", style_zh: "曾獲《威士忌聖經》最佳威士忌殊榮，優雅成熟果香。", tags_en: ["Floral", "Malty Caramel", "Raisin", "Nuts"], tags_zh: ["花香", "麥芽焦糖", "葡萄乾", "堅果"], notes_en: { nose: "Delicate floral, malty toffee, raisin aromas.", palate: "Vanilla, caramel, spiced pear, butter biscuit.", finish: "Long lasting, sweet with nutty spices." }, notes_zh: { nose: "細緻花香、麥芽太妃糖與葡萄乾香氣。", palate: "香草、焦糖、香料洋梨與奶油餅乾。", finish: "長效香甜，帶有堅果香。" } },
+           { code: "SMGLENGR21QT", region: "Scotch", isPromo: false, img: "images/SMGLENGR21QT.png", name_en: "Glen Grant 21 Year Old Single Malt Whisky", name_zh: "格蘭冠21年單一麥芽威士忌", glass: "MOP95", bottle: "MOP1,760", promoBottle: null, style_en: "Luxurious tropical fruit & creamy profile.", style_zh: "極致奢華，充分展示熟成熱帶水果與奶油風格。", tags_en: ["Peach", "Toffee", "Mango", "Crème Brûlée"], tags_zh: ["水蜜桃", "太妃糖", "芒果", "焦糖布蕾"], notes_en: { nose: "Ripe peach, toffee, raisins.", palate: "Explosive tropical fruits (mango, passion fruit) and rich cream.", finish: "Crème brûlée-like sweet lingering finish." }, notes_zh: { nose: "成熟水蜜桃、太妃糖與葡萄乾。", palate: "爆發性的熱帶水果風味（如芒果、百香果）與濃郁奶油香氣。", finish: "焦糖布蕾般的持久甜美尾韻。" } },
+           { code: "SMGLENGR801602QT-06", region: "Scotch", isPromo: false, img: "images/SMGLENGR801602QT-06.jpg", name_en: "Glen Grant Private Cask (Macau 24 Limited Edition)", name_zh: "格蘭冠2006年原桶單一麥芽威士忌80160-澳門2024特別版", glass: "MOP90", bottle: "MOP1,650", promoBottle: null, style_en: "Single Cask Strength, customized Macau exclusive edition.", style_zh: "單桶原酒（Single Cask Strength），專為澳門地區定制的限定版。", tags_en: ["Dried Fruits", "Dark Sugar", "Nuts", "Dark Chocolate"], tags_zh: ["乾果", "黑糖", "堅果", "黑巧克力"], notes_en: { nose: "Rich dried fruit, floral honey, dark sugar, old oak.", palate: "Heavy texture, nuts, candied citrus, dark chocolate, spices.", finish: "Strong and long, full of wood tannins and dried fruit sweetness." }, notes_zh: { nose: "濃郁乾果、花蜜、濃縮黑糖與老橡木香。", palate: "油脂厚重，帶有堅果、糖漬柑橘、黑巧克力與辛香料。", finish: "強烈且持久，充滿木質單寧與果乾甜感。" } },
+           { code: "SWNIKFBHL", region: "Japanese", isPromo: false, img: "images/SWNIKFBHL.jpg", name_en: "Nikka From the Barrel Whisky", name_zh: "日果Nikka From the Barrel威士忌", glass: "MOP15", bottle: "MOP300", promoBottle: null, style_en: "Cask Strength 51.4% blended whisky, intense & rich.", style_zh: "調和威士忌原酒（51.4%），高度融合麥芽與穀物威士忌強勁性格。", tags_en: ["Vanilla", "Oak", "Clove", "Caramel Apple"], tags_zh: ["香草", "橡木", "丁香辛香", "焦糖蘋果"], notes_en: { nose: "Rich oak, vanilla, dark chocolate, orange peel, clove spice.", palate: "Heavy and intense, pepper, caramelised apple, peach, winter honey.", finish: "Long lasting with slight marine, plum and vanilla oak notes." }, notes_zh: { nose: "濃郁橡木香、香草、黑巧克力、橙皮與丁香辛香。", palate: "厚重濃郁，帶有胡椒辛香、焦糖蘋果、水蜜桃與冬蜜。", finish: "持久且微帶海洋風味、梅子與香草橡木感。" } },
+           { code: "SMTAKPMQT", region: "Japanese", isPromo: false, img: "images/SMTAKPMQT.jpg", name_en: "Taketsuru Pure Malt Whisky", name_zh: "竹鶴純麥威士忌", glass: "MOP25", bottle: "MOP480", promoBottle: null, style_en: "Blended Malt combining Yoichi power & Miyagikyo elegance.", style_zh: "純麥威士忌（Blended Malt），兼具余市強勁與宮城峽柔美。", tags_en: ["Citrus", "Pear", "Peat Smoke", "Dark Chocolate"], tags_zh: ["柑橘", "西洋梨", "泥煤煙燻", "黑巧克力"], notes_en: { nose: "Fresh citrus (orange, grapefruit), pear, subtle peat.", palate: "Smooth, cereal, cardamom spice, candied fruit.", finish: "Bittersweet dark chocolate with gentle peat smoke." }, notes_zh: { nose: "鮮明柑橘（柳橙、葡萄柚）、洋梨與微弱草本/泥煤香。", palate: "圓潤細致，帶有穀物、小荳蔻辛香與糖漬水果。", finish: "苦甜黑巧克力、橡木泥煤。" } },
+           { code: "SMYOISMQT", region: "Japanese", isPromo: false, img: "images/SMYOISMQT.jpg", name_en: "Yoichi Single Malt Whisky", name_zh: "余市單一麥芽威士忌", glass: "MOP30", bottle: "MOP520", promoBottle: null, style_en: "Direct coal-fired distillation, bold, coastal & peated.", style_zh: "傳統直火煤炭蒸餾，展現強烈海風、泥煤與煙燻性格。", tags_en: ["Peat Smoke", "Sea Salt", "Nut", "Melon"], tags_zh: ["泥煤煙燻", "微咸海風", "堅果", "哈密瓜"], notes_en: { nose: "Mellow peat smoke, sea salt, citrus jam, black liquorice.", palate: "Firm and strong, peat smoke, melon, kiwi, chocolate nuts.", finish: "Silky and long, herbal notes and coastal peat lingering." }, notes_zh: { nose: "醇厚煙燻泥煤、微咸海風、糖蜜柑橘、黑甘草。", palate: "結實強勁，帶有泥煤煙燻、堅果、黑巧克力與熱帶水果。", finish: "絲滑且極長，帶有草本與泥煤餘韻。" } },
+           { code: "SMYOI10QT", region: "Japanese", isPromo: false, img: "images/SMYOI10QT.jpeg", name_en: "Yoichi 10 Year Old Single Malt Whisky", name_zh: "余市10年單一麥芽威士忌", glass: "MOP45", bottle: "MOP810", promoBottle: null, style_en: "Aged Yoichi expression, peat meets refined oak.", style_zh: "經典余市風格高年份版，泥煤與木質熟成香氣完美結合。", tags_en: ["Honey", "Lemon Peel", "Soft Peat", "Bittersweet"], tags_zh: ["奶油感", "檸檬皮", "收斂泥煤", "苦甜平衡"], notes_en: { nose: "Soft creaminess, rose petals, lemon peel, clear oak.", palate: "Sweet and rounded, restrained peat, winter spices, nuts.", finish: "Long lasting with a beautiful bittersweet balance." }, notes_zh: { nose: "柔和奶油感、黃玫瑰花瓣、檸檬皮與清香橡木。", palate: "甜美圓潤，帶有收斂的泥煤、冬季辛香料與堅果味。", finish: "悠長且呈現美妙的苦甜平衡。" } },
+           { code: "SMMIYSMQT", region: "Japanese", isPromo: false, img: "images/SMMIYSMQT.jpg", name_en: "Miyagikyo Single Malt Whisky", name_zh: "宮城峽單一麥芽威士忌", glass: "MOP25", bottle: "MOP480", promoBottle: null, style_en: "Steam heated distillation, delicate, floral & fruity.", style_zh: "蒸氣加熱蒸餾，呈現極其華麗、果香花香導向的輕柔風格。", tags_en: ["Floral", "Peach", "Pear", "Honey Malt"], tags_zh: ["優雅花香", "水蜜桃", "熟梨", "蜂蜜麥芽"], notes_en: { nose: "Elegant floral aromas, malty notes, tropical fruit.", palate: "Lively with rounded herbal spices, peach, ripe pear, honey malt.", finish: "Refreshing and long with delicate tannins." }, notes_zh: { nose: "優雅花香、麥芽香氣與熱帶水果。", palate: "活潑且具圓潤草本辛香，帶有水蜜桃、熟梨與蜂蜜麥芽。", finish: "清爽悠長，伴隨細緻單寧。" } },
+           { code: "SWHIBABW100QT", region: "Japanese", isPromo: false, img: "images/SWHIBABW100QT.jpg", name_en: "Hibiki Anniversary Blend Whisky (100th Anniversary)", name_zh: "響週年紀念調和威士忌(100週年)", glass: "-", bottle: "MOP5,830", promoBottle: null, style_en: "100th Anniversary Edition featuring high Mizunara ratio.", style_zh: "百年紀念限定版，以高比例水楢桶原酒調配，代表最高調和藝術。", tags_en: ["Mizunara Oak", "Orchid", "Pineapple", "White Chocolate"], tags_zh: ["水楢木", "蘭花", "菠蘿", "白巧克力"], notes_en: { nose: "Extremely elegant Mizunara oak, orchid, ripe pineapple.", palate: "Honey-like sweetness, peach, white chocolate, candied orange.", finish: "Elegantly long with Mizunara incense and faint spices." }, notes_zh: { nose: "透著極優雅的水楢木沈香、蘭花、熟成菠蘿與鳳梨。", palate: "蜂蜜般甜美、水蜜桃、白巧克力與糖漬橙皮。", finish: "優雅且無比綿長，帶有水楢木特殊的香氣與微微辛香。" } },
+           { code: "SWHIBIJHQT", region: "Japanese", isPromo: false, img: "images/SWHIBIJHQT.jpg", name_en: "Hibiki Japanese Harmony Whisky", name_zh: "響日本和諧威士忌", glass: "MOP40", bottle: "MOP780", promoBottle: null, style_en: "Classic Japanese Blended Whisky, harmonious & refined.", style_zh: "經典日本調和威士忌，極度的和諧、透亮與精緻。", tags_en: ["Rose", "Lychee", "Candied Orange", "Mizunara"], tags_zh: ["玫瑰", "荔枝", "糖漬橙皮", "水楢木"], notes_en: { nose: "Rose, lychee, rosemary, mature woodiness, sandalwood.", palate: "Honey sweetness, candied orange peel, white chocolate.", finish: "Subtle long finish with hints of Mizunara oak." }, notes_zh: { nose: "玫瑰、荔枝、迷迭香、熟成木香、檀香。", palate: "蜂蜜甜味、糖漬橙皮、白巧克力。", finish: "微弱日本水楢桶木質香。" } },
+           { code: "SWHAKDRQT", region: "Japanese", isPromo: false, img: "images/SWHAKDRQT.jpg", name_en: "The Hakushu Distiller's Reserve Single Malt Whisky", name_zh: "白州單一麥芽威士忌", glass: "MOP40", bottle: "MOP780", promoBottle: null, style_en: "Forest distillery whisky, fresh, green & subtly smoked.", style_zh: "「森林系威士忌」，以綠意盎然的清新感與微煙燻著稱。", tags_en: ["Peppermint", "Green Apple", "Yuzu", "Light Smoke"], tags_zh: ["薄荷", "青蘋果", "柚子", "微煙燻"], notes_en: { nose: "Peppermint, melon, cucumber, green foliage.", palate: "Yuzu, grapefruit, lemon thyme, crisp green fruits.", finish: "Clean with subtle gentle smoke." }, notes_zh: { nose: "薄荷、哈密瓜、小黃瓜。", palate: "柚子、葡萄柚、檸檬百里香。", finish: "隱約清煙燻感。" } },
+           { code: "SMKAVSOSCSQT", region: "Taiwanese", isPromo: false, img: "images/SMKAVSOSCSQT.jpg", name_en: "Kavalan Solist Oloroso Sherry Single Cask Strength Single Malt Whisky", name_zh: "噶瑪蘭經典獨奏Oloroso雪莉桶原酒單一麥芽威士忌", glass: "MOP65", bottle: "MOP1,190", promoBottle: null, style_en: "Subtropical maturation, intense & rich Sherry cask strength.", style_zh: "單桶原酒，亞熱帶熟成帶來極其濃郁爆發的雪莉桶風味。", tags_en: ["Dried Fruit", "Marzipan", "Coffee", "Cherry"], tags_zh: ["乾果", "杏仁糖", "黑咖啡", "黑櫻桃"], notes_en: { nose: "Dried fruit, nuttiness, spices, marzipan.", palate: "Rich oiliness, candied fruits, dark chocolate, fine coffee.", finish: "Long lasting with black cherry, raisins and leather." }, notes_zh: { nose: "乾果、堅果、辛香料、杏仁糖蛋白糕。", palate: "豐厚油脂感，帶有蜜餞、黑巧克力與黑咖啡的豐富層次。", finish: "長久綿延，充斥黑櫻桃、葡萄乾與皮革香。" } },
+           { code: "SMKAVSVBSCSQT", region: "Taiwanese", isPromo: false, img: "images/SMKAVSVBSCSQT.jpg", name_en: "Kavalan Solist Vinho Barrique Cask Strength Single Malt Whisky", name_zh: "噶瑪蘭經典獨奏VINHO酒桶威士忌原酒單一麥芽威士忌", glass: "MOP70", bottle: "MOP1,290", promoBottle: null, style_en: "STR wine cask treated, World's Best Single Malt winner.", style_zh: "採用重烘烤葡萄酒桶（STR），獲得多項世界威士忌冠軍。", tags_en: ["Toasted Nuts", "Vanilla", "Blackberry", "Toasted Oak"], tags_zh: ["烤堅果", "香草", "黑莓", "焦香橡木"], notes_en: { nose: "Toasted nuts, vanilla, banana, citrus, rich blackberry.", palate: "Heavy body, dark chocolate, smoked cherry, cinnamon, toasted oak.", finish: "Warm and long with fruity tannins." }, notes_zh: { nose: "烤堅果、香草、香蕉、柑橘與豐富黑莓香。", palate: "酒體厚重，帶有黑巧克力、煙燻櫻桃、肉桂與焦香橡木。", finish: "長久溫暖，充滿水果單寧與木質甜香。" } },
+           { code: "SMKAV15YOQT", region: "Taiwanese", isPromo: false, img: "images/SMKAV15YOQT.png", name_en: "Kavalan 15YO Single Malt Whisky (2025 Edition)", name_zh: "噶瑪蘭15年單一麥芽威士忌(2025版)", glass: "MOP70", bottle: "MOP1,300", promoBottle: null, style_en: "High age subtropical single malt, ultimate rounded complexity.", style_zh: "高年份亞熱帶熟成作品，展現高年份威士忌極致圓潤成熟度。", tags_en: ["Caramel Apple", "Cinnamon Roll", "Longan", "Dark Chocolate"], tags_zh: ["焦糖蘋果", "肉桂捲", "龍眼", "黑巧克力"], notes_en: { nose: "Caramel apple mousse, chocolate, cinnamon roll, popcorn.", palate: "Bergamot, dried cranberry, longan, dark chocolate gelato.", finish: "Extremely long with tropical dried fruits and coffee." }, notes_zh: { nose: "焦糖蘋果慕斯、巧克力、肉桂捲、奶油爆米花。", palate: "佛手柑、蔓越莓乾、龍眼、黑巧克力冰淇淋。", finish: "極其長久，伴隨豐富的熱帶乾果與咖啡餘韻。" } },
+
+           // 21-36: Special Offers / 活動優惠推介區 (All MOP10 glass + Original Bottle + Promo Bottle)
+           { code: "SWBAL12QT-BT", region: "Scotch", isPromo: true, img: "images/SWBAL12QT-BT.jpg", name_en: "Ballantine's 12 Year Old Whisky (Qt.) (Booktin Edition)", name_zh: "百齡罈金璽12年威士忌 (大裝) (Booktin特別版)", glass: "MOP10", bottle: "MOP190", promoBottle: "MOP100", style_en: "12-year-old blended Scotch whisky balancing honey, floral notes and creamy oak.", style_zh: "精選陳釀12年以上的麥芽與穀物威士忌調和而成，交織蜂蜜、花香與柔和橡木氣息。", tags_en: ["Honey", "Floral", "Creamy Oak", "Vanilla"], tags_zh: ["蜂蜜", "花香", "柔和橡木", "香草"], notes_en: { nose: "Sweet honey and creamy oak aromas with subtle floral and vanilla notes.", palate: "Complex and balanced with rich honey, floral hints and smooth creamy oak.", finish: "Refreshing, sweet and lingering." }, notes_zh: { nose: "甜美蜂蜜與柔和橡木香氣，伴隨細緻花香與香草氣息。", palate: "層次平衡豐富，展現濃郁蜂蜜、淡雅花韻與圓潤橡木風味。", finish: "清新甘甜，餘韻悠長。" } },
+           { code: "SWBAL17SCAEQT", region: "Scotch", isPromo: true, img: "images/SWBAL17SCAEQT.jpg", name_en: "Ballantine's 17 Year Old Whisky (Scapa Edition)", name_zh: "百齡罈17年威士忌(史加伯酒廠典藏系列)", glass: "MOP10", bottle: "MOP440", promoBottle: "MOP250", style_en: "Distillery Edition highlighting Orkney's Scapa single malt for creamy, tropical fruit richness.", style_zh: "酒廠典藏系列特別版，突顯奧克尼群島 Scapa 單一麥芽的柔滑果香與香草蜂蜜風格。", tags_en: ["Vanilla", "Honey", "Tropical Fruit", "Gentle Smoke"], tags_zh: ["香草", "蜂蜜", "熱帶水果", "淡淡煙燻"], notes_en: { nose: "Rich vanilla, sweet honey, ripe orchard and tropical fruit with a whisper of coastal breeze.", palate: "Velvety and full-bodied, combining creamy toffee, spiced apple, honey and subtle peat smoke.", finish: "Long, warm and harmoniously balanced with gentle spice." }, notes_zh: { nose: "濃郁香草、甜美蜂蜜與熟成果園及熱帶水果香氣，伴隨微弱海風氣息。", palate: "絲滑飽滿，融合奶油太妃糖、香料蘋果、蜂蜜與細膩泥煤煙燻。", finish: "悠長溫暖，和諧平衡並帶有柔和辛香尾韻。" } },
+           { code: "SWBTOTS10YOQT", region: "Scotch", isPromo: true, img: "images/SWBTOTS10YOQT.png", name_en: "Benriach The Original Ten 10YO Speyside Single Malt Whisky", name_zh: "班瑞克10年單一麥芽威士忌", glass: "MOP10", bottle: "MOP350", promoBottle: "MOP290", style_en: "Three cask matured (Bourbon, Sherry & Virgin Oak), fruity & honeyed.", style_zh: "波本桶、雪莉桶與全新橡木桶三桶熟成，經典果香與蜂蜜風味。", tags_en: ["Orchard Fruit", "Honey", "Ripe Pear", "Vanilla"], tags_zh: ["果園水果", "蜂蜜", "熟梨", "香草奶油"], notes_en: { nose: "Rich orchard fruit, sumptuous honey, and toasted oak spice.", palate: "Ripe pear, nectarine, and malt sweetness with toasted oak.", finish: "Smooth with lingering notes of almond, spiced vanilla, and trace smoke." }, notes_zh: { nose: "豐沛果園水果、濃郁蜂蜜與烘烤橡木辛香。", palate: "成熟蜜梨、油桃與麥芽甜香，層次豐富。", finish: "帶有杏仁、香料香草與極微弱煙燻感的柔軟尾韻。" } },
+           { code: "SWBTSTSQT", region: "Scotch", isPromo: true, img: "images/SWBTSTSQT.png", name_en: "Benriach The Smoky Ten Speyside 10YO Single Malt Scotch Whisky", name_zh: "班瑞克10年泥煤單一麥芽威士忌", glass: "MOP10", bottle: "MOP350", promoBottle: "MOP320", style_en: "Bourbon, Jamaican Rum & Virgin Oak matured, peated & sweet.", style_zh: "使用泥煤麥芽，於波本桶、牙買加朗姆酒桶及全新橡木桶熟成，煙燻甜美。", tags_en: ["Aromatic Smoke", "Smoked Applewood", "Maple Syrup", "Spiced Pear"], tags_zh: ["芳香煙燻", "煙燻蘋果木", "楓糖漿", "香料洋梨"], notes_en: { nose: "Ripe orchard fruit syrup, smoked honey glaze, and oak spice.", palate: "Smoked applewood, honey maple, spiced pear, and barbecue smoke.", finish: "Lingering fruitiness, toasted oak, and sweet aromatic smoke." }, notes_zh: { nose: "熟成果園水果糖漿、煙燻蜂蜜糖霜與橡木辛香。", palate: "煙燻蘋果木、蜂蜜楓糖、香料洋梨與豐富的煙燻風味。", finish: "果香綿延，伴隨烘烤橡木與甜美芳香煙燻尾韻。" } },
+           { code: "SWBTTS12YOQT", region: "Scotch", isPromo: true, img: "images/SWBTTS12YOQT.png", name_en: "Benriach The Twelve 12YO Speyside Single Malt Whisky", name_zh: "班瑞克12年單一麥芽威士忌", glass: "MOP10", bottle: "MOP405", promoBottle: "MOP360", style_en: "Three cask matured in Sherry, Bourbon & Port casks for rich honeyed fruit and cocoa.", style_zh: "於雪莉桶、波本桶與波特酒桶三桶熟成，展現濃郁蜂蜜果香、烘焙摩卡與香料層次。", tags_en: ["Baked Fruit", "Maple Honey", "Cocoa", "Spiced Mocha"], tags_zh: ["烘焙果香", "楓糖蜂蜜", "可可", "香料摩卡"], notes_en: { nose: "Rich maple honey, cocoa, and baked orchard fruit.", palate: "Maraschino cherry, baked orange, and hazelnut with spiced mocha.", finish: "Lingering sultana and spiced mocha sweetness." }, notes_zh: { nose: "濃郁楓糖蜂蜜、可可與烘焙果園水果香氣。", palate: "黑櫻桃、烤香橙與榛果風味，交織香料摩卡層次。", finish: "葡萄乾與香料摩卡的甘甜餘韻綿延不散。" } },
+           { code: "SWBTST12YOQT", region: "Scotch", isPromo: true, img: "images/SWBTST12YOQT.png", name_en: "Benriach The Smoky Twelve 12YO Speyside Single Malt Whisky", name_zh: "班瑞克12年泥煤單一麥芽威士忌", glass: "MOP10", bottle: "MOP405", promoBottle: "MOP360", style_en: "Bourbon, Sherry & Marsala Wine cask matured peated Speyside.", style_zh: "波本桶、雪莉桶與瑪莎拉葡萄酒桶熟成，深邃煙燻、果香與可可豐富風味。", tags_en: ["Smoked Vanilla", "Dark Chocolate", "Charred Orange", "Toasted Almond"], tags_zh: ["煙燻香草", "黑巧克力", "烤香橙", "烤杏仁"], notes_en: { nose: "Smoked vanilla, charred orange peel, and toasted almond.", palate: "Dark chocolate, fruit peel, brown sugar, and rich smoked oak.", finish: "Luxurious finish with lingering cocoa, spiced orange, and subtle smoke." }, notes_zh: { nose: "煙燻香草、炙烤橙皮與烤杏仁香氣。", palate: "濃郁黑巧克力、水果皮、黑糖與煙燻橡木質感。", finish: "奢華悠長，帶有可可、香料香橙與持續溫暖的煙燻韻味。" } },
+           { code: "SWCHIJJQT", region: "Scotch", isPromo: true, img: "images/SWCHIJJQT.jpg", name_en: "Chivas Regal J&J Scotch Whisky", name_zh: "芝華士J&J威士忌", glass: "MOP10", bottle: "MOP265", promoBottle: "MOP150", style_en: "Smooth, harmonious blended Scotch whisky built around Speyside's Strathisla malt.", style_zh: "以斯佩賽 Strathisla 單一麥芽為核心調和，展現果園水果、石楠與蜂蜜的柔順平衡風格。", tags_en: ["Orchard Fruit", "Heather Honey", "Vanilla", "Hazelnut"], tags_zh: ["果園水果", "石楠蜂蜜", "香草", "榛果"], notes_en: { nose: "Aromatic infusion of wild herbs, heather, honey and orchard fruits.", palate: "Round and creamy with rich honey, ripe apples, vanilla, hazelnut and butterscotch.", finish: "Rich, smooth and lingering." }, notes_zh: { nose: "野生草本、石楠花、蜂蜜與果園水果的芬芳氣息。", palate: "圓潤柔滑，帶有濃郁蜂蜜、熟蘋果、香草、榛果與奶油太妃糖風味。", finish: "醇厚滑順，餘韻悠長。" } },
+           { code: "SMCRAYSMSWQT", region: "Scotch", isPromo: true, img: "images/SMCRAYSMSWQT.png", name_en: "Crabbie's Yardhead Single Malt Scotch Whisky", name_zh: "克拉比雅德蘇格蘭單一麥芽威士忌", glass: "MOP10", bottle: "MOP125", promoBottle: "MOP130", style_en: "Highland single malt matured exclusively in ex-bourbon casks, crisp & approachable.", style_zh: "於蘇格蘭高地蒸餾並完全以波本桶熟成，帶有餅乾、香草、柑橘與焦糖的親切個性。", tags_en: ["Biscuit", "Vanilla", "Sweet Apple", "Caramel"], tags_zh: ["餅乾", "香草", "甜蘋果", "焦糖"], notes_en: { nose: "Fresh notes of biscuit, vanilla, citrus and sweet green apple.", palate: "Light and vibrant with sweet caramel, poached pear, vanilla pod and gentle spice.", finish: "Clean, crisp and smooth with lingering sweet malt." }, notes_zh: { nose: "清新餅乾、香草、柑橘與甜青蘋果香氣。", palate: "輕盈活潑，帶有焦糖甜香、燉梨、香草莢與柔和辛香料。", finish: "乾淨俐落且順口，伴隨持久的甜美麥芽餘韻。" } },
+           { code: "SWGLEN12YOQT", region: "Scotch", isPromo: true, img: "images/SWGLEN12YOQT.jpg", name_en: "Glenglassaugh 12YO Highland Single Malt Scotch Whisky", name_zh: "格蘭格拉索12年高地單一麥芽威士忌", glass: "MOP10", bottle: "MOP360", promoBottle: "MOP330", style_en: "Coastal Highland single malt matured in Bourbon, Sherry & Red Wine casks.", style_zh: "於波本桶、雪莉桶與紅酒桶熟成，融合海岸清新海風與豐潤熱帶及果園果香。", tags_en: ["Sweet Apricot", "Fig", "Toasted Vanilla", "Sea Breeze"], tags_zh: ["甜杏桃", "無花果", "烘烤香草", "清新海風"], notes_en: { nose: "Sweet coastal waves of ripe apricot and fig merge with toasted vanilla and tropical fruit.", palate: "Candied pistachio, date and sweet fig, intertwined with morello cherry and whipped cream.", finish: "Rich, warming and coastal with lingering fruit sweetness." }, notes_zh: { nose: "成熟杏桃與無花果的甜美海岸氣息，融合烘烤香草與熱帶果香。", palate: "糖漬開心果、椰棗與甜無花果，交織酸櫻桃與鮮奶油細膩口感。", finish: "醇厚溫暖並帶有海岸氣息，果甜餘韻綿延。" } },
+           { code: "SWGLENPHQT", region: "Scotch", isPromo: true, img: "images/SWGLENPHQT.png", name_en: "Glenglassaugh Portsoy Highland Single Malt Whisky", name_zh: "格蘭格拉索波特索高地單一麥芽威士忌", glass: "MOP10", bottle: "MOP435", promoBottle: "MOP390", style_en: "Richly peated coastal single malt matured in Sherry, Bourbon & Port casks.", style_zh: "重泥煤海岸風格單一麥芽威士忌，於雪莉桶、波本桶與波特酒桶熟成，煙燻與果韻交織。", tags_en: ["Maritime Peat", "Dark Soy", "Blackberry", "Sea Salt"], tags_zh: ["海岸泥煤", "深色果醬", "黑莓", "海鹽"], notes_en: { nose: "Rich maritime waves infused with tropical fruit, sherried dark soy, liquorice and kelp.", palate: "Full-bodied with dark chocolate, fermented soy, charred mango and treacle, tempered with sea salt.", finish: "Long, lingering coastal peat smoke and sweet spice." }, notes_zh: { nose: "濃郁海浪氣息融入熱帶水果、雪莉醇香、甘草與海藻芬芳。", palate: "酒體飽滿，呈現黑巧克力、炙烤芒果與黑糖蜜風味，並以海鹽平衡。", finish: "悠長綿延的海岸泥煤煙燻與甜美辛香尾韻。" } },
+           { code: "SMGLENAL8QT", region: "Scotch", isPromo: true, img: "images/SMGLENAL8QT.jpg", name_en: "Glenallachie 8 year old Single Malt Whisky", name_zh: "艾樂奇8年單一麥芽威士忌", glass: "MOP10", bottle: "MOP500", promoBottle: "MOP320", style_en: "Matured in Pedro Ximénez, Oloroso Sherry, Virgin Oak & Red Wine casks.", style_zh: "於 PX 與 Oloroso 雪莉桶、全新橡木桶及紅酒桶熟成，展現濃郁蜂蜜、太妃糖與香料果乾風味。", tags_en: ["Heather Honey", "Butterscotch", "Cinnamon", "Dried Sultanas"], tags_zh: ["石楠蜂蜜", "奶油太妃糖", "肉桂", "葡萄乾"], notes_en: { nose: "Waves of heather honey, butterscotch and cinnamon, followed by ginger, toasted almonds and mocha.", palate: "Lashings of treacle, dried sultanas and butterscotch, fused with cinnamon, peppermint and honeycomb.", finish: "Rich, warming and lingering with sweet spice." }, notes_zh: { nose: "層層石楠蜂蜜、奶油太妃糖與肉桂香氣，隨後綻放生薑、烤杏仁與摩卡氣息。", palate: "豐富黑糖蜜、葡萄乾與奶油太妃糖，融合肉桂、薄荷與蜂巢甜香。", finish: "濃郁溫暖且悠長，伴隨甜美辛香料尾韻。" } },
+           { code: "SMGLENAL13QT", region: "Scotch", isPromo: true, img: "images/SMGLENAL13QT.jpg", name_en: "Glenallachie 13 YO Year of the Horse Limited Edition Whisky", name_zh: "艾樂奇13年馬年限定版威士忌", glass: "MOP10", bottle: "MOP660", promoBottle: "MOP580", style_en: "Limited zodiac release expertly matured by Billy Walker in Sherry & Virgin Oak casks.", style_zh: "由 Billy Walker 團隊精心選桶熟成的生肖限定版，融合深色果乾、烘焙香料與濃郁雪莉層次。", tags_en: ["Dark Sherry", "Roasted Chestnut", "Spiced Fig", "Dark Chocolate"], tags_zh: ["深邃雪莉", "烤栗子", "香料無花果", "黑巧克力"], notes_en: { nose: "Rich heather honey, spiced fig, roasted chestnuts and dark orchard fruits.", palate: "Full-bodied layers of dark chocolate, treacle, candied orange peel and warm baking spices.", finish: "Long, opulent finish with lingering cocoa and toasted oak." }, notes_zh: { nose: "濃郁石楠蜂蜜、香料無花果、烤栗子與深色果園水果香氣。", palate: "酒體飽滿，呈現黑巧克力、黑糖蜜、糖漬橙皮與溫暖烘焙香料層次。", finish: "悠長華麗，伴隨持久可可與烘烤橡木餘韻。" } },
+           { code: "SWBUSHMIORIGQT", region: "Irish", isPromo: true, img: "images/SWBUSHMIORIGQT.png", name_en: "Bushmills Original Irish Whiskey", name_zh: "布什米爾愛爾蘭威士忌", glass: "MOP10", bottle: "MOP135", promoBottle: "MOP125", style_en: "Triple distilled Irish blend combining single malt with lighter grain whiskey.", style_zh: "愛爾蘭三次蒸餾經典調和威士忌，結合單一麥芽與輕盈穀物威士忌，柔順溫潤。", tags_en: ["Fresh Fruit", "Vanilla", "Honey", "Toasted Wood"], tags_zh: ["清新果香", "香草", "蜂蜜", "烘烤木香"], notes_en: { nose: "Light fruity and spicy aromas with notes of fresh orchard fruit and vanilla.", palate: "Smooth, warming and approachable with gentle honey, vanilla sweetness and toasted oak.", finish: "Crisp, clean and subtly sweet." }, notes_zh: { nose: "輕盈果香與柔和辛香，帶有新鮮果園水果與香草氣息。", palate: "順口溫潤且易於親近，展現淡雅蜂蜜、香草甜味與烘烤橡木風味。", finish: "清爽乾淨，帶有一絲甘甜尾韻。" } },
+           { code: "SMTHEPSMIWQT", region: "Irish", isPromo: true, img: "images/SMTHEPSMIWQT.jpg", name_en: "The Pogues Single Malt Irish Whiskey", name_zh: "桶客樂團愛爾蘭單一麥芽威士忌", glass: "MOP10", bottle: "MOP220", promoBottle: "MOP140", style_en: "Triple distilled Irish single malt aged in bourbon oak casks, vibrant & malty.", style_zh: "三次蒸餾愛爾蘭單一麥芽威士忌，於波本橡木桶熟成，兼具麥芽甜香與烤堅果層次。", tags_en: ["Toasted Malt", "Roasted Nuts", "Dark Chocolate", "Sweet Spice"], tags_zh: ["烘烤麥芽", "烤堅果", "黑巧克力", "甜美辛香"], notes_en: { nose: "Malty aromas with cracked nuts, dark chocolate and subtle floral hints.", palate: "Rich toasted barley, roasted almonds, sweet caramel and warm spice.", finish: "Smooth, balanced and lingering with sweet malt." }, notes_zh: { nose: "濃郁麥芽香氣，伴隨碎堅果、黑巧克力與細緻花香。", palate: "醇厚烘烤大麥、烤杏仁、甜焦糖與溫暖辛香料風味。", finish: "滑順平衡，甜美麥芽餘韻綿延。" } },
+           { code: "SWTHEPIWQT", region: "Irish", isPromo: true, img: "images/SWTHEPIWQT.jpg", name_en: "The Pogues Irish Whiskey", name_zh: "桶客樂團愛爾蘭威士忌", glass: "MOP10", bottle: "MOP200", promoBottle: "MOP140", style_en: "Spirited Irish blend of single malt and grain whiskeys matured in bourbon casks.", style_zh: "融合愛爾蘭單一麥芽與穀物威士忌的經典調和款，展現麥芽、堅果、香料與深色水果氣息。", tags_en: ["Malt", "Toasted Nuts", "Dark Fruit", "Vanilla Spice"], tags_zh: ["麥芽", "烤堅果", "深色水果", "香草辛香"], notes_en: { nose: "Aromas of malt, cracked nuts, sweet spice and dark dried fruits.", palate: "Smooth and lively with toasted cereal, vanilla, caramel and gentle peppery spice.", finish: "Clean, warming and approachable." }, notes_zh: { nose: "麥芽、碎堅果、甜美辛香料與深色果乾香氣。", palate: "順口而富活力，帶有烘烤穀物、香草、焦糖與柔和胡椒辛香。", finish: "乾淨溫潤，平易近人。" } },
+           { code: "SWSTARWATFDQT", region: "Australian", isPromo: true, img: "images/SWSTARWATFDQT.jpg", name_en: "Starward Two Fold Double Grain Whisky", name_zh: "星世Two Fold雙穀物威士忌", glass: "MOP10", bottle: "MOP350", promoBottle: "MOP240", style_en: "Wheat & malt double grain aged in Australian red wine casks.", style_zh: "小麥與麥芽雙穀物，全數於澳洲在地紅酒桶熟成，極具果香。", tags_en: ["Red Berries", "Vanilla", "Banana Bread", "Red Wine"], tags_zh: ["紅莓果", "香草", "香蕉麵包", "紅酒單寧"], notes_en: { nose: "Bright tropical fruits, mixed red berries, vanilla, cereal.", palate: "Balanced red fruit and vanilla with a nice cereal backbone.", finish: "Delicate and long with mild wine tannins." }, notes_zh: { nose: "鮮豔紅莓、香草、香蕉麵包與烘烤橡木。", palate: "紅果實與香草平衡，帶有烤穀物骨架。", finish: "乾爽平衡，帶有柔和紅酒單寧感與辛香。" } }
         ];
 
         const regions = {
-            en: { All: "All Regions", Scotch: "Scotch", Japanese: "Japanese", Taiwanese: "Taiwanese", Australian: "Australian", French: "French" },
-            zh: { All: "全部產區", Scotch: "蘇格蘭", Japanese: "日本", Taiwanese: "台灣", Australian: "澳洲", French: "法國" }
+            en: { All: "All Regions", Scotch: "Scotch", Japanese: "Japanese", Taiwanese: "Taiwanese", Irish: "Irish", Australian: "Australian" },
+            zh: { All: "全部產區", Scotch: "蘇格蘭", Japanese: "日本", Taiwanese: "台灣", Irish: "愛爾蘭", Australian: "澳洲" }
         };
 
         let currentLang = "en";
         let currentRegion = "All";
+        let currentPromoRegion = "All";
 
         window.onload = () => {
             renderTabs();
+            renderPromoTabs();
             renderGrid();
+            renderPromoGrid();
             renderBrands();
         };
 
         function switchView(viewName) {
             const productsView = document.getElementById("productsView");
+            const promoView = document.getElementById("promoView");
             const brandsView = document.getElementById("brandsView");
+
             const btnProducts = document.getElementById("btnViewProducts");
+            const btnPromo = document.getElementById("btnViewPromo");
             const btnBrands = document.getElementById("btnViewBrands");
+
+            productsView.style.display = "none";
+            promoView.style.display = "none";
+            brandsView.style.display = "none";
+
+            btnProducts.classList.remove("active");
+            btnPromo.classList.remove("active");
+            btnBrands.classList.remove("active");
 
             if (viewName === 'products') {
                 productsView.style.display = "block";
-                brandsView.style.display = "none";
                 btnProducts.classList.add("active");
-                btnBrands.classList.remove("active");
+            } else if (viewName === 'promo') {
+                promoView.style.display = "block";
+                btnPromo.classList.add("active");
             } else {
-                productsView.style.display = "none";
                 brandsView.style.display = "block";
-                btnProducts.classList.remove("active");
                 btnBrands.classList.add("active");
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -723,14 +1074,24 @@
             
             // Search placeholders
             document.getElementById("searchInput").placeholder = currentLang === "en" ? "Search whisky name, code, flavor tags..." : "搜尋威士忌名稱、編號、風味標籤...";
+            document.getElementById("promoSearchInput").placeholder = currentLang === "en" ? "Search special offer whiskies..." : "搜尋活動優惠推介威士忌...";
 
             // Top View Nav Titles based on language
-            document.getElementById("btnViewProducts").innerText = currentLang === "en" ? "Products List" : "產品列表";
+            document.getElementById("btnViewProducts").innerText = currentLang === "en" ? "Tasting Selection" : "精選品鑑區";
+            document.getElementById("btnViewPromo").innerText = currentLang === "en" ? "Special Offers" : "活動優惠推介區";
             document.getElementById("btnViewBrands").innerText = currentLang === "en" ? "Brand Introductions" : "品牌介紹";
+
+            document.getElementById("promoTitle").innerText = currentLang === "en" ? "Special Offers" : "活動優惠推介區";
             document.getElementById("brandsTitle").innerText = currentLang === "en" ? "Brand Introductions" : "品牌介紹";
 
+            document.getElementById("promoBannerNote").innerHTML = currentLang === "en"
+                ? `<span>★</span><span>Event Exclusive Bottle Offers — Enjoy special by-the-bottle prices alongside MOP10 tasting pours!</span>`
+                : `<span>★</span><span>活動限定整支優惠 — 精選佳釀單杯僅需 MOP10，現場購買整支更享超值活動優惠價！</span>`;
+
             renderTabs();
+            renderPromoTabs();
             renderGrid();
+            renderPromoGrid();
             renderBrands();
         }
 
@@ -766,6 +1127,78 @@
             });
         }
 
+        function renderPromoTabs() {
+            const promoTabsContainer = document.getElementById("promoCategoryTabs");
+            promoTabsContainer.innerHTML = "";
+
+            const promoRegions = ["All", "Scotch", "Irish", "Australian"];
+            promoRegions.forEach(key => {
+                const btn = document.createElement("button");
+                btn.className = `tab-btn ${currentPromoRegion === key ? 'active' : ''}`;
+                btn.innerText = regions[currentLang][key];
+                btn.onclick = () => {
+                    currentPromoRegion = key;
+                    renderPromoTabs();
+                    renderPromoGrid();
+                };
+                promoTabsContainer.appendChild(btn);
+            });
+        }
+
+        function buildCardHTML(item) {
+            const tagsHTML = (currentLang === "en" ? item.tags_en : item.tags_zh)
+                .map(tag => `<span class="tag">${tag}</span>`).join("");
+
+            const promoBadgeHTML = item.isPromo
+                ? `<div class="promo-ribbon">${currentLang === "en" ? "SPECIAL OFFER" : "活動優惠推介"}</div>`
+                : "";
+
+            const priceHTML = item.isPromo
+                ? `
+                    <div class="promo-pricing-group">
+                        <div class="glass-tasting-strip">
+                            <span class="price-label">${currentLang === "en" ? "Tasting Glass (15ml)" : "單杯品鑑 (15ml)"}</span>
+                            <span class="price-value">${item.glass}</span>
+                        </div>
+                        <div class="bottle-offer-box">
+                            <div class="bottle-offer-header">${currentLang === "en" ? "FULL BOTTLE PROMO" : "整支購買優惠"}</div>
+                            <div class="price-item">
+                                <span class="price-label">${currentLang === "en" ? "Original Price" : "一支原價"}</span>
+                                <span class="price-value original-strike">${item.bottle}</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label" style="color:#92400e;font-weight:700;">${currentLang === "en" ? "Promo Price" : "活動優惠價"}</span>
+                                <span class="price-value promo-highlight">${item.promoBottle}</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+                : `
+                    <div class="price-badge-container">
+                        <div class="price-item">
+                            <span class="price-label">${currentLang === "en" ? "Glass (15ml)" : "單杯 (15ml)"}</span>
+                            <span class="price-value">${item.glass}</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">${currentLang === "en" ? "Bottle Value" : "整支價值"}</span>
+                            <span class="price-value">${item.bottle}</span>
+                        </div>
+                    </div>
+                `;
+
+            return `
+                <div>
+                    ${promoBadgeHTML}
+                    <div class="card-header">
+                        <h3 class="card-title">${currentLang === "en" ? item.name_en : item.name_zh}</h3>
+                        <p class="card-subtitle">${currentLang === "en" ? item.name_zh : item.name_en}</p>
+                    </div>
+                    ${priceHTML}
+                </div>
+                <div class="tags">${tagsHTML}</div>
+            `;
+        }
+
         function renderGrid() {
             const grid = document.getElementById("whiskyGrid");
             const searchInput = document.getElementById("searchInput");
@@ -776,6 +1209,7 @@
             grid.innerHTML = "";
 
             const filtered = whiskies.filter(item => {
+                if (item.isPromo) return false;
                 const matchRegion = currentRegion === "All" || item.region === currentRegion;
                 const nameEn = item.name_en.toLowerCase();
                 const nameZh = item.name_zh.toLowerCase();
@@ -787,31 +1221,38 @@
 
             filtered.forEach(item => {
                 const card = document.createElement("div");
-                card.className = "card";
+                card.className = `card ${item.isPromo ? 'promo-card' : ''}`;
                 card.onclick = () => openModal(item);
+                card.innerHTML = buildCardHTML(item);
+                grid.appendChild(card);
+            });
+        }
 
-                const tagsHTML = (currentLang === "en" ? item.tags_en : item.tags_zh)
-                    .map(tag => `<span class="tag">${tag}</span>`).join("");
+        function renderPromoGrid() {
+            const grid = document.getElementById("promoGrid");
+            const searchInput = document.getElementById("promoSearchInput");
+            const searchKeyword = searchInput.value.toLowerCase();
 
-                card.innerHTML = `
-                    <div>
-                        <div class="card-header">
-                            <h3 class="card-title">${currentLang === "en" ? item.name_en : item.name_zh}</h3>
-                            <p class="card-subtitle">${currentLang === "en" ? item.name_zh : item.name_en}</p>
-                        </div>
-                        <div class="price-badge-container">
-                            <div class="price-item">
-                                <span class="price-label">${currentLang === "en" ? "Glass (15ml)" : "單杯 (15ml)"}</span>
-                                <span class="price-value">${item.glass}</span>
-                            </div>
-                            <div class="price-item">
-                                <span class="price-label">${currentLang === "en" ? "Bottle Value" : "整支價值"}</span>
-                                <span class="price-value">${item.bottle}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tags">${tagsHTML}</div>
-                `;
+            document.getElementById("clearPromoSearch").style.display = searchKeyword ? "flex" : "none";
+
+            grid.innerHTML = "";
+
+            const filtered = whiskies.filter(item => {
+                if (!item.isPromo) return false;
+                const matchRegion = currentPromoRegion === "All" || item.region === currentPromoRegion;
+                const nameEn = item.name_en.toLowerCase();
+                const nameZh = item.name_zh.toLowerCase();
+                const code = item.code.toLowerCase();
+                const tags = (currentLang === "en" ? item.tags_en : item.tags_zh).join(" ").toLowerCase();
+
+                return matchRegion && (nameEn.includes(searchKeyword) || nameZh.includes(searchKeyword) || code.includes(searchKeyword) || tags.includes(searchKeyword));
+            });
+
+            filtered.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "card promo-card";
+                card.onclick = () => openModal(item);
+                card.innerHTML = buildCardHTML(item);
                 grid.appendChild(card);
             });
         }
@@ -859,6 +1300,10 @@
             renderGrid();
         }
 
+        function handlePromoSearchInput() {
+            renderPromoGrid();
+        }
+
         function clearInput() {
             document.getElementById("searchInput").value = "";
             currentRegion = "All";
@@ -867,15 +1312,34 @@
             renderBrands();
         }
 
-        function filterByBrand(brandKeyword) {
-            switchView('products');
-            
-            currentRegion = "All";
-            renderTabs();
+        function clearPromoInput() {
+            document.getElementById("promoSearchInput").value = "";
+            currentPromoRegion = "All";
+            renderPromoTabs();
+            renderPromoGrid();
+        }
 
-            const searchInput = document.getElementById("searchInput");
-            searchInput.value = brandKeyword;
-            renderGrid();
+        function filterByBrand(brandKeyword) {
+            const kw = brandKeyword.toLowerCase();
+            const hasRegularMatch = whiskies.some(item => !item.isPromo && (
+                item.name_en.toLowerCase().includes(kw) ||
+                item.name_zh.toLowerCase().includes(kw) ||
+                item.code.toLowerCase().includes(kw)
+            ));
+
+            if (hasRegularMatch) {
+                switchView('products');
+                currentRegion = "All";
+                renderTabs();
+                document.getElementById("searchInput").value = brandKeyword;
+                renderGrid();
+            } else {
+                switchView('promo');
+                currentPromoRegion = "All";
+                renderPromoTabs();
+                document.getElementById("promoSearchInput").value = brandKeyword;
+                renderPromoGrid();
+            }
         }
 
         function openModal(item) {
@@ -884,20 +1348,48 @@
             modalImg.onerror = function() {
                 this.src = defaultBottleSVG;
             };
+
+            const modalPromoBadge = document.getElementById("modalPromoBadge");
+            modalPromoBadge.innerHTML = item.isPromo
+                ? `<div class="promo-ribbon" style="margin-bottom:8px;">${currentLang === "en" ? "SPECIAL OFFER" : "活動優惠推介"}</div>`
+                : "";
             
             document.getElementById("modalTitle").innerText = currentLang === "en" ? item.name_en : item.name_zh;
             document.getElementById("modalSubtitle").innerText = currentLang === "en" ? item.name_zh : item.name_en;
 
-            document.getElementById("modalPrices").innerHTML = `
-                <div class="price-item">
-                    <span class="price-label">${currentLang === "en" ? "Glass Tasting (15ml)" : "單杯提供容量 (15ml)"}</span>
-                    <span class="price-value">${item.glass}</span>
-                </div>
-                <div class="price-item">
-                    <span class="price-label">${currentLang === "en" ? "Bottle Value Amount" : "整支價值金額"}</span>
-                    <span class="price-value">${item.bottle}</span>
-                </div>
-            `;
+            const modalPricesEl = document.getElementById("modalPrices");
+            if (item.isPromo) {
+                modalPricesEl.className = "promo-pricing-group";
+                modalPricesEl.innerHTML = `
+                    <div class="glass-tasting-strip">
+                        <span class="price-label">${currentLang === "en" ? "Tasting Glass (15ml)" : "單杯品鑑 (15ml)"}</span>
+                        <span class="price-value">${item.glass}</span>
+                    </div>
+                    <div class="bottle-offer-box">
+                        <div class="bottle-offer-header">${currentLang === "en" ? "FULL BOTTLE PROMO" : "整支購買優惠"}</div>
+                        <div class="price-item">
+                            <span class="price-label">${currentLang === "en" ? "Original Price" : "一支原價"}</span>
+                            <span class="price-value original-strike">${item.bottle}</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label" style="color:#92400e;font-weight:700;">${currentLang === "en" ? "Promo Price" : "活動優惠價"}</span>
+                            <span class="price-value promo-highlight">${item.promoBottle}</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                modalPricesEl.className = "price-badge-container";
+                modalPricesEl.innerHTML = `
+                    <div class="price-item">
+                        <span class="price-label">${currentLang === "en" ? "Glass Tasting (15ml)" : "單杯提供容量 (15ml)"}</span>
+                        <span class="price-value">${item.glass}</span>
+                    </div>
+                    <div class="price-item">
+                        <span class="price-label">${currentLang === "en" ? "Bottle Value Amount" : "整支價值金額"}</span>
+                        <span class="price-value">${item.bottle}</span>
+                    </div>
+                `;
+            }
 
             const notes = currentLang === "en" ? item.notes_en : item.notes_zh;
             const style = currentLang === "en" ? item.style_en : item.style_zh;
